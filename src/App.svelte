@@ -1,7 +1,11 @@
 <script>
+	import SideBar from "./components/sidebar.svelte"
+	import MainWindow from "./components/main_window.svelte"
 </script>
 
 <main>
+	<SideBar />
+	<MainWindow />
 </main>
 
 <style type="text/scss">
