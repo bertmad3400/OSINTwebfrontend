@@ -1,13 +1,13 @@
 <script>
+	import { articles } from "../../shared/stores.js"
+
 	import { onMount } from "svelte";
-	import { feeds } from "../../shared/stores.js"
 
 	onMount(async () => {
 		fetch("http://localhost:8000/articles/overview/newest")
 		.then(response => response.json())
 		.then(data => {
-			feeds.set(data);
-			console.log($feeds);
+			articles.set(data);
 		}).catch(error => {
 			console.log(error);
 			return {};
@@ -15,7 +15,7 @@
 	});
 </script>
 
-{#each $feeds as article}
+{#each $articles as article}
 	<article>
 		<img src='{ article.image_url }'>
 		<div class="article-content">

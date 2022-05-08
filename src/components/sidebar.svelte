@@ -1,5 +1,6 @@
 <script>
-	import Icon from "../shared/icons.svelte"
+	import Icon from "../shared/icons.svelte";
+	import { feeds } from "../shared/stores.js";
 </script>
 
 <aside id="navbar">
@@ -16,7 +17,7 @@
 			<h3> FEEDS </h3><button><Icon name="arrow" className="open"/></button>
 		</div>
 		<ul>
-			{#each ["Crypto", "Log4J", "Spring4Shell"] as feed_name }
+			{#each Object.keys($feeds) as feed_name }
 				<li> <Icon name="feed"/> <span> {feed_name} </span> </li>
 			{/each}
 

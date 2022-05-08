@@ -1,6 +1,6 @@
 <script>
 	import ArticleList from "./article_lists/large_article_list.svelte"
-		import Icon from "../shared/icons.svelte"
+	import Icon from "../shared/icons.svelte"
 </script>
 
 <section id="article-list">
