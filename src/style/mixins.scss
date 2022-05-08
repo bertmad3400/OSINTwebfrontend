@@ -1,0 +1,36 @@
+@mixin truncate($lines: 2) {
+	display: -webkit-box;
+	-webkit-line-clamp: $lines;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+@mixin font($opacity: 0.8, $weight: 700, $size: 0.8125rem) {
+	font-weight: $weight;
+	font-size: $size;
+	font-family: sans;
+	color: rgb(0, 0, 0, $opacity);
+}
+
+@mixin button($size: 2rem) {
+	padding: calc($size / 5);
+	height: $size;
+	width: $size;
+
+	cursor: pointer;
+	transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+
+	border: none;
+	background-color: transparent;
+
+	flex-shrink: 0;
+
+	&:hover {
+		background-color: rgba(0,0,0,.05);
+	}
+
+	svg {
+		height: calc($size * 0.6);
+		width: calc($size * 0.6);
+	}
+}
