@@ -1,6 +1,11 @@
 <script>
 	import SideBar from "./components/sidebar.svelte"
 	import MainWindow from "./components/main_window.svelte"
+
+	import { appConfig } from "./shared/config.js"
+	import { feeds, articles } from "./shared/stores.js"
+
+	$feeds = appConfig.defaultFeeds
 </script>
 
 <main>
