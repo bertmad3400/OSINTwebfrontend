@@ -5,8 +5,10 @@ import { get } from "svelte/store";
 
 export async function refreshArticles(currentFeeds) {
 
-	for (let [feedName, feedSpecs] of Object.entries(currentFeeds)) {
-		refreshFeed(feedName, feedSpecs)
+	for (const feedType of Object.keys(currentFeeds)) {
+		for (let [feedName, feedDetails] of Object.entries(currentFeeds[feedType])) {
+			refreshFeed(feedName, feedDetails["searchQuery"])
+		}
 	}
 
 	console.log(get(articles))

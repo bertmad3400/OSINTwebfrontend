@@ -5,7 +5,7 @@
 	import { appConfig } from "./shared/config.js"
 	import { feeds, articles } from "./shared/stores.js"
 
-	$feeds = appConfig.defaultFeeds
+	$feeds = appConfig.feeds
 </script>
 
 <main>
