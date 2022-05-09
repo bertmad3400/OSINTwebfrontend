@@ -7,5 +7,8 @@ export const articles = writable({})
 export const feedUpdates = writable({})
 
 export const state = writable({
-				"selectedMenu" : "News"
+				"selectedMenu" : {
+					"name" : "News",
+					"type" : "feed"
+				}
 			})

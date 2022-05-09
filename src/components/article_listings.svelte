@@ -2,7 +2,7 @@
 	import ArticleList from "./article_lists/large_article_list.svelte"
 	import Icon from "../shared/icons.svelte"
 
-	import { feeds, articles } from "../shared/stores.js"
+	import { feeds, articles, state } from "../shared/stores.js"
 	import { refreshArticles } from "../shared/articles.js"
 	import { onMount } from "svelte";
 
@@ -18,8 +18,9 @@
 		<Icon name="three-dots"/>
 	</header>
 	<hr>
-	{#if $articles && "Bitcoin" in $articles}
-		<ArticleList articleList={$articles.Bitcoin.articles}/>
+
+	{#if $articles && $state.selectedMenu.type == "feed" && $state.selectedMenu.name in $articles}
+		<ArticleList articleList={$articles[$state.selectedMenu.name].articles}/>
 	{/if}
 
 </section>

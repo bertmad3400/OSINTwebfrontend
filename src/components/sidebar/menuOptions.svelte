@@ -1,5 +1,6 @@
 <script>
 	export let menuOptions
+	export let menuType
 
 	import Icon from "../../shared/icons.svelte";
 	import { state } from "../../shared/stores.js"
@@ -7,10 +8,10 @@
 	console.log(menuOptions)
 </script>
 
-<ul class:selected="{$state.selectedMenu in menuOptions}">
+<ul class:selected="{$state.selectedMenu.name in menuOptions}">
 	{#each Object.keys(menuOptions) as optionName }
-		<li class:selected="{$state.selectedMenu == optionName}"
-			on:click="{() => $state.selectedMenu = optionName}">
+		<li class:selected="{$state.selectedMenu.name == optionName}"
+			on:click="{() => { $state.selectedMenu.name = optionName; $state.selectedMenu.type = menuType; console.log($state)}}">
 			<Icon name="{ 'icon' in menuOptions[optionName] ? menuOptions[optionName]['icon'] : 'feed' }"/>
 			<span> {optionName} </span>
 		</li>

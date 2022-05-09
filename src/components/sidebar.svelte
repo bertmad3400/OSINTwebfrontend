@@ -12,11 +12,11 @@
 	<button class="long-button"> <Icon name="magnifying-glass"/> <span> Explore Content </span> </button>
 
 	<nav>
-		<MenuOptions menuOptions={mainFeeds} />
+		<MenuOptions menuOptions={mainFeeds} menuType="feed" />
 		<div class="seperator">
 			<h3> FEEDS </h3><button><Icon name="arrow" className="open"/></button>
 		</div>
-		<MenuOptions menuOptions={userFeeds}>
+		<MenuOptions menuOptions={userFeeds} menuType="feed">
 			<li> <Icon name="plus"/> <span style="opacity: 0.8">Add feed</span></li>
 		</MenuOptions>
 		<div class="seperator">
