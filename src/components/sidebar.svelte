@@ -1,6 +1,10 @@
 <script>
 	import Icon from "../shared/icons.svelte";
-	import { feeds } from "../shared/stores.js";
+	import MenuOptions from "./sidebar/menuOptions.svelte"
+	import { feeds, state } from "../shared/stores.js";
+
+	let mainFeeds = $feeds.mainFeeds
+	let userFeeds = $feeds.userFeeds
 </script>
 
 <aside id="navbar">
@@ -8,22 +12,13 @@
 	<button class="long-button"> <Icon name="magnifying-glass"/> <span> Explore Content </span> </button>
 
 	<nav>
-		<ul id="selected">
-			{#each Object.keys($feeds.mainFeeds) as feed_name }
-				<li on:click="{() => console.log(1)}"> <Icon name="{ 'icon' in $feeds.mainFeeds[feed_name] ? $feeds.mainFeeds[feed_name]['icon'] : 'feed' }"/> <span> {feed_name} </span> </li>
-			{/each}
-		</ul>
-
+		<MenuOptions menuOptions={mainFeeds} />
 		<div class="seperator">
 			<h3> FEEDS </h3><button><Icon name="arrow" className="open"/></button>
 		</div>
-		<ul>
-			{#each Object.keys($feeds.userFeeds) as feed_name }
-				<li> <Icon name="{ 'icon' in $feeds.userFeeds[feed_name] ? $feeds.userFeeds[feed_name]['icon'] : 'feed' }"/> <span> {feed_name} </span> </li>
-			{/each}
-
+		<MenuOptions menuOptions={userFeeds}>
 			<li> <Icon name="plus"/> <span style="opacity: 0.8">Add feed</span></li>
-		</ul>
+		</MenuOptions>
 		<div class="seperator">
 			<h3> User </h3> <button><Icon name="arrow" className="open"/></button>
 		</div>
@@ -100,7 +95,7 @@
 				}
 			}
 
-			&#selected {
+			&.selected {
 				li {
 					border-left: 5px solid rgb(90, 90, 90, 0.8);
 					padding-left: calc(2rem - 5px);
@@ -113,7 +108,7 @@
 						opacity: 0.8;
 					}
 
-					&#selected {
+					&.selected {
 						span {
 							color: #2bb24c !important;
 						}
