@@ -9,16 +9,17 @@
 
 	<nav>
 		<ul id="selected">
-			<li> <Icon name="calendar" /> <span> Today </span> </li>
-			<li id="selected"> <Icon name="logo"/> <span> All News </span> </li>
+			{#each Object.keys($feeds.mainFeeds) as feed_name }
+				<li on:click="{() => console.log(1)}"> <Icon name="{ 'icon' in $feeds.mainFeeds[feed_name] ? $feeds.mainFeeds[feed_name]['icon'] : 'feed' }"/> <span> {feed_name} </span> </li>
+			{/each}
 		</ul>
 
 		<div class="seperator">
 			<h3> FEEDS </h3><button><Icon name="arrow" className="open"/></button>
 		</div>
 		<ul>
-			{#each Object.keys($feeds) as feed_name }
-				<li> <Icon name="feed"/> <span> {feed_name} </span> </li>
+			{#each Object.keys($feeds.userFeeds) as feed_name }
+				<li> <Icon name="{ 'icon' in $feeds.userFeeds[feed_name] ? $feeds.userFeeds[feed_name]['icon'] : 'feed' }"/> <span> {feed_name} </span> </li>
 			{/each}
 
 			<li> <Icon name="plus"/> <span style="opacity: 0.8">Add feed</span></li>
