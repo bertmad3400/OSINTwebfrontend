@@ -1,6 +1,15 @@
 <script>
 	import ArticleList from "./article_lists/large_article_list.svelte"
 	import Icon from "../shared/icons.svelte"
+
+	import { feeds, articles } from "../shared/stores.js"
+	import { refreshArticles } from "../shared/articles.js"
+	import { onMount } from "svelte";
+
+	feeds.subscribe(currentFeeds => {
+		refreshArticles(currentFeeds)
+	});
+
 </script>
 
 <section id="article-list">
@@ -9,7 +18,10 @@
 		<Icon name="three-dots"/>
 	</header>
 	<hr>
-	<ArticleList />
+	{#if $articles && "Bitcoin" in $articles}
+		<ArticleList articleList={$articles.Bitcoin.articles}/>
+	{/if}
+
 </section>
 
 <style type="text/scss">
