@@ -1,21 +1,8 @@
 <script>
-	import { articles } from "../../shared/stores.js"
-
-	import { onMount } from "svelte";
-
-	onMount(async () => {
-		fetch("http://localhost:8000/articles/overview/newest")
-		.then(response => response.json())
-		.then(data => {
-			articles.set(data);
-		}).catch(error => {
-			console.log(error);
-			return {};
-		});
-	});
+	export let articleList
 </script>
 
-{#each $articles as article}
+{#each articleList as article}
 	<article>
 		<img src='{ article.image_url }'>
 		<div class="article-content">
