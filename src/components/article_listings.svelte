@@ -39,7 +39,7 @@
 	{#if showFeed && $currentArticle}
 		{#key $currentArticle}
 		<section transition:fade>
-			<ArticleList articleList={$currentArticle} representation={$state.selectedMenu.representation} />
+			<ArticleList articleList={$currentArticle} representation={$state.representation} />
 		</section>
 		{/key}
 	{/if}

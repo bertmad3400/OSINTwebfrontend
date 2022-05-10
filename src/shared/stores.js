@@ -10,7 +10,7 @@ export const state = writable({
 				"selectedMenu" : {
 					"name" : "News",
 					"type" : "feed",
-					"representation" : "Large"
 				},
+				"representation" : "Large",
 				"localSearch" : ""
 			})
