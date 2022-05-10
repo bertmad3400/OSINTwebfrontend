@@ -1,5 +1,5 @@
 <script>
-	import ArticleList from "./article_lists/large_article_list.svelte"
+	import ArticleList from "./article_lists/list.svelte"
 	import Icon from "../shared/icons.svelte"
 
 	import { fade } from 'svelte/transition';
@@ -24,7 +24,7 @@
 	{#if $articles && $state.selectedMenu.type == "feed" && $state.selectedMenu.name in $articles}
 		{#key $state.selectedMenu.name}
 		<section transition:fade>
-			<ArticleList articleList={$articles[$state.selectedMenu.name].articles} />
+			<ArticleList articleList={$articles[$state.selectedMenu.name].articles} representation={$state.selectedMenu.representation} />
 		</section>
 		{/key}
 	{/if}

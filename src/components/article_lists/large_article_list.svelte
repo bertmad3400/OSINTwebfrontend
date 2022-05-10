@@ -3,7 +3,7 @@
 </script>
 
 {#each articleList as article}
-	<article>
+	<article >
 		<img src='{ article.image_url }'>
 		<div class="article-content">
 			<div class="article-details">

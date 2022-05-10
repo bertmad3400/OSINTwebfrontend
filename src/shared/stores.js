@@ -9,6 +9,7 @@ export const feedUpdates = writable({})
 export const state = writable({
 				"selectedMenu" : {
 					"name" : "News",
-					"type" : "feed"
-				}
+					"type" : "feed",
+					"representation" : "Large"
+				},
 			})
