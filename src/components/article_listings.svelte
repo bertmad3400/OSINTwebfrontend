@@ -3,14 +3,29 @@
 	import Icon from "../shared/icons.svelte"
 
 	import { fade } from 'svelte/transition';
+	import { derived } from 'svelte/store';
 
 	import { feeds, articles, state } from "../shared/stores.js"
 	import { refreshArticles } from "../shared/articles.js"
-	import { onMount } from "svelte";
+	import { onDestroy } from "svelte";
 
-	feeds.subscribe(currentFeeds => {
+	$: showFeed = Boolean($articles) && $state.selectedMenu.type == "feed" && $state.selectedMenu.name in $articles
+
+	const refreshArticleUnsubscribe = feeds.subscribe(currentFeeds => {
 		refreshArticles(currentFeeds)
 	});
+
+	const currentArticle = derived([state, articles], ([$state, $articles]) => {
+		console.log("Re-calculating articleList")
+		if (showFeed && $state.localSearch) {
+			return $articles[$state.selectedMenu.name].articles.filter(article => Object.values(article).some(articleFields => articleFields.includes($state.localSearch)))
+		} else if (showFeed) {
+			return $articles[$state.selectedMenu.name].articles
+		}
+	})
+
+	onDestroy(refreshArticleUnsubscribe)
+
 
 </script>
 
@@ -21,10 +36,10 @@
 	</header>
 	<hr>
 
-	{#if $articles && $state.selectedMenu.type == "feed" && $state.selectedMenu.name in $articles}
-		{#key $state.selectedMenu.name}
+	{#if showFeed && $currentArticle}
+		{#key $currentArticle}
 		<section transition:fade>
-			<ArticleList articleList={$articles[$state.selectedMenu.name].articles} representation={$state.selectedMenu.representation} />
+			<ArticleList articleList={$currentArticle} representation={$state.selectedMenu.representation} />
 		</section>
 		{/key}
 	{/if}
