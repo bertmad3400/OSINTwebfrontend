@@ -12,4 +12,5 @@ export const state = writable({
 					"type" : "feed",
 					"representation" : "Large"
 				},
+				"localSearch" : ""
 			})

@@ -1,10 +1,11 @@
 <script>
 	import Icon from "../shared/icons.svelte"
+	import { state } from "../shared/stores.js"
 </script>
 
-<form role="search" id="search-box">
+<form on:submit|preventDefault role="search" id="search-box">
 	<label for="search-field"><Icon name="magnifying-glass"/></label>
-	<input id="search-field" type="text" placeholder="Search...">
+	<input bind:value={$state.localSearch} id="search-field" type="text" placeholder="Search...">
 </form>
 
 <style type="text/scss">
