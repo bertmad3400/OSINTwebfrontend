@@ -4,8 +4,6 @@
 
 	import Icon from "../../shared/icons.svelte";
 	import { state } from "../../shared/stores.js"
-
-	console.log(menuOptions)
 </script>
 
 <ul class:selected="{$state.selectedMenu.name in menuOptions}">

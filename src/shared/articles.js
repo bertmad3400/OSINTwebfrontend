@@ -10,9 +10,6 @@ export async function refreshArticles(currentFeeds) {
 			refreshFeed(feedName, feedDetails["searchQuery"])
 		}
 	}
-
-	console.log(get(articles))
-
 }
 
 async function refreshFeed(feedName, feedSpecs) {
@@ -43,10 +40,8 @@ async function fetchArticles(feedName, feedSpecs = null){
 	fetch(queryUrl)
 	.then(response => response.json())
 	.then(data => {
-		console.log(queryUrl, data)
 		articles.update((currentArticles) => { currentArticles[feedName] = {"feedSpecs" : feedSpecs, "articles" : data}; return currentArticles});
 	}).catch(error => {
-		console.log(error);
 		return {};
 	});
 }
