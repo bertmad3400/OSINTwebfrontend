@@ -2,6 +2,8 @@
 	import ArticleList from "./article_lists/large_article_list.svelte"
 	import Icon from "../shared/icons.svelte"
 
+	import { fade } from 'svelte/transition';
+
 	import { feeds, articles, state } from "../shared/stores.js"
 	import { refreshArticles } from "../shared/articles.js"
 	import { onMount } from "svelte";
@@ -14,13 +16,17 @@
 
 <section id="article-list">
 	<header>
-		<h2>All News</h2>
+		<h2>{$state.selectedMenu.name}</h2>
 		<Icon name="three-dots"/>
 	</header>
 	<hr>
 
 	{#if $articles && $state.selectedMenu.type == "feed" && $state.selectedMenu.name in $articles}
-		<ArticleList articleList={$articles[$state.selectedMenu.name].articles}/>
+		{#key $state.selectedMenu.name}
+		<section transition:fade>
+			<ArticleList articleList={$articles[$state.selectedMenu.name].articles} />
+		</section>
+		{/key}
 	{/if}
 
 </section>
