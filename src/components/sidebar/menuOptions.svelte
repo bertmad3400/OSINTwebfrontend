@@ -11,7 +11,7 @@
 <ul class:selected="{$state.selectedMenu.name in menuOptions}">
 	{#each Object.keys(menuOptions) as optionName }
 		<li class:selected="{$state.selectedMenu.name == optionName}"
-			on:click="{() => { $state.selectedMenu.name = optionName; $state.selectedMenu.type = menuType; console.log($state)}}">
+			on:click="{() => { $state.selectedMenu = {...$state.selectedMenu, "name" : optionName, "type" : menuType}}}">
 			<Icon name="{ 'icon' in menuOptions[optionName] ? menuOptions[optionName]['icon'] : 'feed' }"/>
 			<span> {optionName} </span>
 		</li>
