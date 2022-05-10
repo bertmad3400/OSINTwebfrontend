@@ -13,6 +13,7 @@
 	height: 4rem;
 	border-bottom: 1px solid #efefef;
 
+	flex-shrink: 0;
 	display: flex;
 	align-items: center;
 
