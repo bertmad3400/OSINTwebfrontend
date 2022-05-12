@@ -3,6 +3,11 @@ import { appConfig } from "./config.js";
 import { articles, feedUpdates } from "./stores.js";
 import { get } from "svelte/store";
 
+export async function getArticleContent(articleID) {
+	let queryUrl = `${appConfig.rootUrl}/articles/content?IDs=${articleID}`
+	return fetch(queryUrl)
+}
+
 export async function refreshArticles(currentFeeds) {
 
 	for (const feedType of Object.keys(currentFeeds)) {
