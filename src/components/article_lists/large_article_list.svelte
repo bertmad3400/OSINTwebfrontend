@@ -1,9 +1,14 @@
 <script>
 	export let articleList
+	import { modalState } from "../../shared/stores.js"
+
+	import { createEventDispatcher } from 'svelte';
+	const dispatch = createEventDispatcher();
+
 </script>
 
 {#each articleList as article}
-	<article >
+	<article on:click={() =>  dispatch("modal", {"articleID" : article.id})}>
 		<img src='{ article.image_url }'>
 		<div class="article-content">
 			<div class="article-details">

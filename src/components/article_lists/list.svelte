@@ -7,13 +7,24 @@
 	import LargeArticles from './large_article_list.svelte'
 	import TitleArticles from './title_article_list.svelte'
 
+	import { modalState } from "../../shared/stores.js"
+	import { getArticleContent } from "../../shared/articles.js"
+
 	const feedRepresentations = {
 		"Large": LargeArticles,
 		"Title-view": TitleArticles
 	};
+
+	async function createArticleModal(event) {
+		const articleQuery = await getArticleContent(event.detail.articleID)
+		if (articleQuery.ok) {
+			let articleContent = (await articleQuery.json())[0]
+			$modalState = {"modalType" : "article", "modalContent" : articleContent}
+		}
+	}
 </script>
 
-<svelte:component this={feedRepresentations[representation]} articleList={articleList}/>
+<svelte:component this={feedRepresentations[representation]} articleList={articleList} on:modal={createArticleModal}/>
 
 <style type="text/scss">
 article {

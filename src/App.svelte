@@ -1,14 +1,22 @@
 <script>
 	import SideBar from "./components/sidebar.svelte"
 	import MainWindow from "./components/main_window.svelte"
+	import ArticleModal from "./components/modals/article.svelte"
+
 
 	import { appConfig } from "./shared/config.js"
-	import { feeds, articles } from "./shared/stores.js"
+	import { feeds, articles, modalState } from "./shared/stores.js"
 
 	$feeds = appConfig.feeds
+
 </script>
 
+<svelte:window on:keydown={(e) => { if (e.key == "Escape") {$modalState = {"modalType" : null, "modalContent" : null};} ; }}/>
+
 <main>
+	{#if $modalState.modalType == "article" && $modalState.modalContent}
+		<ArticleModal articleContent={$modalState.modalContent} />
+	{/if}
 	<SideBar />
 	<MainWindow />
 </main>
