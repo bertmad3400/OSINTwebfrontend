@@ -14,3 +14,8 @@ export const state = writable({
 				"representation" : "Large",
 				"localSearch" : ""
 			})
+
+export const modalState = writable({
+				"modalType" : null,
+				"modalContent" : null
+			})
