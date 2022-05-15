@@ -8,8 +8,7 @@
 
 <ul class:selected="{$state.selectedMenu.name in menuOptions}">
 	{#each Object.keys(menuOptions) as optionName }
-		<li class:selected="{$state.selectedMenu.name == optionName}"
-			on:click="{() => { $state = {...$state, "selectedMenu" : {"name" : optionName, "type" : menuType}, "localSearch" : ""}}}">
+		<li class:selected="{$state.selectedMenu.name == optionName}" on:click="{() => { $state = {...$state, "selectedMenu" : {"name" : optionName, "type" : menuType}, "localSearch" : ""}}}">
 			<Icon name="{ 'icon' in menuOptions[optionName] ? menuOptions[optionName]['icon'] : 'feed' }"/>
 			<span> {optionName} </span>
 		</li>
@@ -24,7 +23,7 @@ ul {
 	list-style-type: none;
 
 
-	li {
+	:global(li) {
 		display: flex;
 		align-items: center;
 
@@ -38,7 +37,7 @@ ul {
 			background-color: rgba(0,0,0,.05);
 		}
 
-		span {
+		:global(span) {
 			margin-left: 0.7rem;
 			@include font(0.4);
 		}
@@ -78,33 +77,4 @@ ul {
 
 }
 
-.seperator {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	padding: 2rem;
-	padding-bottom: 0.5rem;
-
-	h3 {
-		display: inline-block;
-		color: #9e9e9e;
-		font-size: .6875rem;
-		font-weight: normal;
-		margin: 0;
-		text-transform: uppercase;
-	}
-
-	button {
-		@include button();
-
-		:global(svg) {
-			opacity: 0.45;
-		}
-
-		:global(svg.open) {
-			transform: rotate(90deg);
-		}
-		
-	}
-}
 </style>

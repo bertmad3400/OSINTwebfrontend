@@ -1,7 +1,8 @@
 <script>
 	import Icon from "../shared/icons.svelte";
-	import MenuOptions from "./sidebar/menuOptions.svelte"
+	import Menu from "./sidebar/menu.svelte"
 	import { feeds, state } from "../shared/stores.js";
+	import { appConfig } from "../shared/config.js"
 
 	let mainFeeds = $feeds.mainFeeds
 	let userFeeds = $feeds.userFeeds
@@ -12,21 +13,11 @@
 	<button class="long-button"> <Icon name="magnifying-glass"/> <span> Explore Content </span> </button>
 
 	<nav>
-		<MenuOptions menuOptions={mainFeeds} menuType="feed" />
-		<div class="seperator">
-			<h3> FEEDS </h3><button><Icon name="arrow" className="open"/></button>
-		</div>
-		<MenuOptions menuOptions={userFeeds} menuType="feed">
+		<Menu menuOptions={mainFeeds} menuType="feed" />
+		<Menu title="feeds" menuOptions={userFeeds} menuType="feed">
 			<li> <Icon name="plus"/> <span style="opacity: 0.8">Add feed</span></li>
-		</MenuOptions>
-		<div class="seperator">
-			<h3> User </h3> <button><Icon name="arrow" className="open"/></button>
-		</div>
-		<ul>
-			<li> <Icon name="read-later"/> <span> Read later </span> </li>
-			<li> <Icon name="gear"/> <span> Configure profile </span>
-			<li>  <Icon name="logout"/> <span> Logout </span> </li>
-		</ul>
+		</Menu>
+		<Menu title="User" menuOptions={appConfig.userOptions} menuType="userOptions" />
 
 	</nav>
 
@@ -61,97 +52,6 @@
 	nav {
 		color: rgb(51, 51, 51);
 		font-family: sans-serif;
-
-
-		ul {
-			margin: 0;
-			padding: 0;
-			list-style-type: none;
-
-
-			li {
-				display: flex;
-				align-items: center;
-
-				cursor: pointer;
-
-				padding: 0.4rem;
-				padding-left: 2rem;
-				padding-right: 0rem;
-
-				&:hover {
-					background-color: rgba(0,0,0,.05);
-				}
-
-				span {
-					margin-left: 0.7rem;
-					@include font(0.4);
-				}
-
-				:global(svg) {
-					opacity: 0.4;
-					width: 1.3rem;
-					height: 1.3rem;
-				}
-			}
-
-			&.selected {
-				li {
-					border-left: 5px solid rgb(90, 90, 90, 0.8);
-					padding-left: calc(2rem - 5px);
-
-					span {
-						@include font(0.8)
-					}
-
-					:global(svg) {
-						opacity: 0.8;
-					}
-
-					&.selected {
-						span {
-							color: #2bb24c !important;
-						}
-						:global(svg) {
-							color: #2bb24c !important;
-						}
-						border-color: #2bb24c !important;
-					}
-
-				}
-			}
-
-		}
-
-		.seperator {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			padding: 2rem;
-			padding-bottom: 0.5rem;
-
-			h3 {
-				display: inline-block;
-				color: #9e9e9e;
-				font-size: .6875rem;
-				font-weight: normal;
-				margin: 0;
-				text-transform: uppercase;
-			}
-
-			button {
-				@include button();
-
-				:global(svg) {
-					opacity: 0.45;
-				}
-
-				:global(svg.open) {
-					transform: rotate(90deg);
-				}
-				
-			}
-		}
 	}
 }
 
