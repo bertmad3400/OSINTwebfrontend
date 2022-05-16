@@ -1,0 +1,22 @@
+<script>
+</script>
+
+<div class="dropdown">
+	<slot></slot>
+</div>
+
+<style type="text/scss">
+
+
+.dropdown {
+	display: none;
+	position: absolute;
+
+	border-radius: .25rem;
+	box-shadow: 0 2px 8px rgba(0,0,0,.2),0 0 2px rgba(0,0,0,.38);
+	background-color: #fff;
+
+	padding: 1.3rem;
+	right: 0px;
+}
+</style>

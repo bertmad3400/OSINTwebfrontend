@@ -1,6 +1,7 @@
 <script>
 	import ArticleList from "./article_lists/list.svelte"
 	import Icon from "../shared/icons.svelte"
+	import RenderConfig from "./article_lists/configs/rendering.svelte"
 
 	import { fade } from 'svelte/transition';
 	import { derived } from 'svelte/store';
@@ -32,7 +33,10 @@
 <section id="article-list">
 	<header>
 		<h2>{$state.selectedMenu.name}</h2>
-		<Icon name="three-dots"/>
+		<button class="dropdown-options">
+			<Icon name="three-dots"/>
+			<RenderConfig />
+		</button>
 	</header>
 	<hr>
 
@@ -70,20 +74,33 @@ section#article-list {
 			line-height: 1.7rem;
 		}
 
-		:global(svg) {
-			width: 1.4rem;
-			height: 1.4rem;
-			color: rgb(70, 70, 70);
+		button.dropdown-options {
+			border: none;
+			background-color: transparent;
 
-			transition: background-color .2s ease-in-out;
+			position: relative;
+			padding: 0.3rem;
 
-			cursor: pointer;
+			transition: background-color .15s ease-in-out;
 
 			&:hover {
 				background-color: rgba(0,0,0,.03);
 			}
-		}
 
+			&:focus-within :global(div) {
+				display: block;
+			}
+
+			:global(svg) {
+				width: 1.4rem;
+				height: 1.4rem;
+				color: rgb(70, 70, 70);
+
+
+				cursor: pointer;
+
+			}
+		}
 	}
 }
 </style>
