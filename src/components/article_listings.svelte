@@ -18,7 +18,7 @@
 	const currentArticle = derived([state, articles], ([$state, $articles]) => {
 		console.log("Re-calculating articleList")
 		if (showFeed && $state.localSearch) {
-			return $articles[$state.selectedMenu.name].articles.filter(article => Object.values(article).some(articleFields => articleFields.includes($state.localSearch)))
+			return $articles[$state.selectedMenu.name].articles.filter(article => Object.values(article).some(articleField => articleField.toLowerCase().includes($state.localSearch.toLowerCase())))
 		} else if (showFeed) {
 			return $articles[$state.selectedMenu.name].articles
 		}
