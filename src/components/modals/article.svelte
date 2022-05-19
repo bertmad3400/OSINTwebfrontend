@@ -1,4 +1,6 @@
 <script>
+	import { appConfig } from "../../shared/config.js"
+
 	import SvelteMarkdown from 'svelte-markdown'
 
 	import Modal from "./modal.svelte"
@@ -14,12 +16,15 @@
 	<header>
 		<nav>
 			<ul>
-				<li> <Icon name="read-later"/> </li>
-				<li> <Icon name="favorite"/> </li>
+				{#each ["read-later", "favorite"] as iconName}
+					<li> <Icon name={iconName}/> </li>
+				{/each}
 			</ul>
 			<ul>
-				<li> <Icon name="linkedin"/> </li>
-				<li> <Icon name="copy"/> </li>
+				{#each ["linkedin", "copy"] as iconName}
+					<li> <Icon name={iconName}/> </li>
+				{/each}
+				<li><a href={`${appConfig.rootUrl}/articles/MD/single?ID=${articleContent.id}`}><Icon name="download"/></a></li>
 			</ul>
 		</nav>
 	</header>
@@ -124,6 +129,10 @@ header {
 					opacity: 0.4;
 					height: 100%;
 					width: 100%;
+				}
+
+				a {
+					color: rgb(70, 70, 70);
 				}
 			}
 		}
