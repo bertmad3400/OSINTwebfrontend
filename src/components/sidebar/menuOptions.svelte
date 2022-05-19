@@ -19,7 +19,7 @@
 <style type="text/scss">
 ul {
 	margin: 0;
-	padding: 0;
+	padding: 0 0 2rem 0;
 	list-style-type: none;
 
 

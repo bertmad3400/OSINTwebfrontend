@@ -1,7 +1,7 @@
 <script>
     export let name;
     export let focusable = false;
-	export let className;
+	export let className = "";
     let icons = {
         "calendar" : {
           box: 16,
