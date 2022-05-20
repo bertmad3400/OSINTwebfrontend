@@ -7,6 +7,7 @@
 	import { derived } from 'svelte/store';
 
 	import { feeds, articles, state } from "../shared/stores.js"
+	import { appConfig } from "../shared/config.js"
 	import { refreshArticles } from "../lib/articles/main.js"
 	import { onDestroy } from "svelte";
 
@@ -24,8 +25,14 @@
 			return $articles[$state.selectedMenu.name].articles.filter(article => Object.values(article).some(articleField => articleField.toLowerCase().includes($state.localSearch.toLowerCase())))
 		} else if (showFeed) {
 			return $articles[$state.selectedMenu.name].articles
+		} else {
+			return []
 		}
 	})
+
+	const downloadArticlesLink = derived(currentArticle, $currentArticle =>
+			`${appConfig.rootUrl}/articles/MD/multiple?${$currentArticle.map(article => "IDs=" + article.id).join("&")}`
+	)
 
 	onDestroy(refreshArticleUnsubscribe)
 
@@ -36,10 +43,13 @@
 <section id="article-list" transition:fade>
 	<header>
 		<h2>{$state.selectedMenu.name}</h2>
-		<button class="dropdown-options">
-			<Icon name="three-dots"/>
-			<RenderConfig />
-		</button>
+		<section class="icons">
+			<a href="{$downloadArticlesLink}"><Icon name="download"/></a>
+			<button class="dropdown-options">
+				<Icon name="three-dots"/>
+				<RenderConfig />
+			</button>
+		</section>
 	</header>
 	<hr>
 
@@ -77,30 +87,36 @@ section#article-list {
 			line-height: 1.7rem;
 		}
 
-		button.dropdown-options {
-			border: none;
-			background-color: transparent;
+		section.icons {
 
-			position: relative;
-			padding: 0.3rem;
-
-			transition: background-color .15s ease-in-out;
-
-			&:hover {
-				background-color: rgba(0,0,0,.03);
-			}
-
-			&:focus-within :global(div) {
-				display: block;
-			}
-
-			:global(svg) {
-				width: 1.4rem;
-				height: 1.4rem;
-				color: rgb(70, 70, 70);
-
-
+			* {
 				cursor: pointer;
+				padding: 0.3rem;
+
+				background-color: transparent;
+				transition: background-color .15s ease-in-out;
+
+				display: inline-block;
+
+				&:hover {
+					background-color: rgba(0,0,0,.03);
+				}
+
+				:global(svg) {
+					width: 1.4rem;
+					height: 1.4rem;
+					color: rgb(70, 70, 70);
+				}
+			}
+
+			button.dropdown-options {
+				border: none;
+
+				position: relative;
+
+				&:focus-within :global(div) {
+					display: block;
+				}
 
 			}
 		}
