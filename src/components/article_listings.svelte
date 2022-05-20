@@ -18,6 +18,8 @@
 
 	const currentArticle = derived([state, articles], ([$state, $articles]) => {
 		console.log("Re-calculating articleList")
+		let showFeed = Boolean($articles) && $state.selectedMenu.type == "feed" && $state.selectedMenu.name in $articles
+
 		if (showFeed && $state.localSearch) {
 			return $articles[$state.selectedMenu.name].articles.filter(article => Object.values(article).some(articleField => articleField.toLowerCase().includes($state.localSearch.toLowerCase())))
 		} else if (showFeed) {
@@ -30,7 +32,8 @@
 
 </script>
 
-<section id="article-list">
+{#if $state.selectedMenu.type == "feed"}
+<section id="article-list" transition:fade>
 	<header>
 		<h2>{$state.selectedMenu.name}</h2>
 		<button class="dropdown-options">
@@ -40,15 +43,15 @@
 	</header>
 	<hr>
 
-	{#if showFeed && $currentArticle}
-		{#key $currentArticle}
-		<section transition:fade>
-			<ArticleList articleList={$currentArticle} representation={$state.representation} />
-		</section>
-		{/key}
-	{/if}
-
+		{#if $currentArticle}
+			{#key $currentArticle}
+			<section transition:fade>
+				<ArticleList articleList={$currentArticle} representation={$state.representation} />
+			</section>
+			{/key}
+		{/if}
 </section>
+{/if}
 
 <style type="text/scss">
 section#article-list {
