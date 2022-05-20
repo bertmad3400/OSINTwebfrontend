@@ -42,7 +42,7 @@
 
 <style type="text/scss">
 $header-height: 3rem;
-$article-margins: 20vw;
+$article-margins: max(calc((80vw - 90ch)/2), 5vw);
 
 div.article-content {
 	text-align: justify;
