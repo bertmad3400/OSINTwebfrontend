@@ -8,7 +8,7 @@
 	import TitleArticles from './title_article_list.svelte'
 
 	import { modalState } from "../../shared/stores.js"
-	import { getArticleContent } from "../../shared/articles.js"
+	import { getArticleContent } from "../../lib/articles/main.js"
 
 	const feedRepresentations = {
 		"Large": LargeArticles,

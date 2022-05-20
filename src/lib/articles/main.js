@@ -1,6 +1,6 @@
-import { appConfig } from "./config.js";
+import { appConfig } from "../../shared/config.js";
 
-import { articles, feedUpdates } from "./stores.js";
+import { articles, feedUpdates } from "../../shared/stores.js";
 import { get } from "svelte/store";
 
 export async function getArticleContent(articleID) {

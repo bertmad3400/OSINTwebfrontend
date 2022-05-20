@@ -7,7 +7,7 @@
 	import { derived } from 'svelte/store';
 
 	import { feeds, articles, state } from "../shared/stores.js"
-	import { refreshArticles } from "../shared/articles.js"
+	import { refreshArticles } from "../lib/articles/main.js"
 	import { onDestroy } from "svelte";
 
 	$: showFeed = Boolean($articles) && $state.selectedMenu.type == "feed" && $state.selectedMenu.name in $articles
