@@ -1,9 +1,17 @@
 <script>
 	import Icon from "../shared/icons.svelte"
-	import { state } from "../shared/stores.js"
+	import { state, feeds } from "../shared/stores.js"
+
+	function search() {
+		console.log($state.localSearch)
+		if ($state.localSearch) {
+			$feeds["newFeed"] = {"Custom search" : {"searchQuery" : {"searchTerm" : $state.localSearch, "limit" : 100}} }
+			$state = {...$state, "selectedMenu" : {"name" : "Custom search", "type" : "feed"}, "localSearch" : ""}
+		}
+	}
 </script>
 
-<form on:submit|preventDefault role="search" id="search-box">
+<form on:submit|preventDefault={search} role="search" id="search-box">
 	<label for="search-field"><Icon name="magnifying-glass"/></label>
 	<input bind:value={$state.localSearch} id="search-field" type="text" placeholder="Search...">
 </form>
