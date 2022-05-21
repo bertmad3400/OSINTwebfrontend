@@ -1,28 +1,22 @@
 <script>
 	import Icon from "../../shared/icons.svelte";
-	export let articleList
-
-	import { modalState } from "../../shared/stores.js"
+	export let article
 
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
 </script>
 
-
-{#each articleList as article}
-	<article on:click={() =>  dispatch("modal", {"articleID" : article.id})}>
-		<button class="read-later">
-			<Icon name="read-later" />
-		</button>
-		<p class="source">{ article.source }</p>
-		<div class="article-content">
-			<h3>{ article.title }</h3>
-			<p class="description">{ article.description }</p>
-		</div>
-		<time>Yesterday</time>
-	</article>
-	<hr>
-{/each}
+<article on:click={() =>  dispatch("modal", {"articleID" : article.id})}>
+	<button class="read-later">
+		<Icon name="read-later" />
+	</button>
+	<p class="source">{ article.source }</p>
+	<div class="article-content">
+		<h3>{ article.title }</h3>
+		<p class="description">{ article.description }</p>
+	</div>
+	<time>Yesterday</time>
+</article>
 
 <style type="text/scss">
 article {

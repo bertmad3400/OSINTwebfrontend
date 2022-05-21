@@ -24,25 +24,11 @@
 	}
 </script>
 
-<svelte:component this={feedRepresentations[representation]} articleList={articleList} on:modal={createArticleModal}/>
+
+{#each articleList as article (article.id)}
+	<svelte:component this={feedRepresentations[representation]} article={article} on:modal={createArticleModal}/>
+	<hr>
+{/each}
 
 <style type="text/scss">
-article {
-	display: flex;
-	align-items: center;
-	gap: 1rem;
-
-	cursor: pointer;
-
-	padding: 0.2rem;
-	font-family: sans-serif;
-
-	&:hover {
-		background-color: rgba(0,0,0,.05);
-	}
-
-	&:last-child {
-		margin-bottom: 8rem;
-	}
-}
 </style>
