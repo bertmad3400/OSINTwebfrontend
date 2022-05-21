@@ -1,5 +1,6 @@
 <script>
 	export let article
+	export let time
 
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
@@ -10,7 +11,7 @@
 	<div class="article-content">
 		<div class="article-details">
 			<p class="source">{ article.source }</p>
-			<time> Yesterday </time>
+			<time>{ time }</time>
 		</div>
 		<h3>{ article.title }</h3>
 		<p class="description">{ article.description }</p>

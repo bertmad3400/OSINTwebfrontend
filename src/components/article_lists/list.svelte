@@ -10,6 +10,8 @@
 	import { modalState } from "../../shared/stores.js"
 	import { getArticleContent } from "../../lib/articles/main.js"
 
+	import { getTimespan } from "../../lib/date.js"
+
 	const feedRepresentations = {
 		"Large": LargeArticles,
 		"Title-view": TitleArticles
@@ -26,7 +28,7 @@
 
 
 {#each articleList as article (article.id)}
-	<svelte:component this={feedRepresentations[representation]} article={article} on:modal={createArticleModal}/>
+	<svelte:component this={feedRepresentations[representation]} article={article} time={ getTimespan(article.publish_date) } on:modal={createArticleModal}/>
 	<hr>
 {/each}
 

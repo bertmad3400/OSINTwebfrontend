@@ -1,6 +1,8 @@
 <script>
 	import Icon from "../../shared/icons.svelte";
+
 	export let article
+	export let time
 
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
@@ -15,7 +17,7 @@
 		<h3>{ article.title }</h3>
 		<p class="description">{ article.description }</p>
 	</div>
-	<time>Yesterday</time>
+	<time>{ time }</time>
 </article>
 
 <style type="text/scss">
