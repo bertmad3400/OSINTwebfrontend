@@ -18,11 +18,8 @@
 	};
 
 	async function createArticleModal(event) {
-		const articleQuery = await getArticleContent(event.detail.articleID)
-		if (articleQuery.ok) {
-			let articleContent = (await articleQuery.json())[0]
-			$modalState = {"modalType" : "article", "modalContent" : articleContent}
-		}
+		let articleContent = (await getArticleContent(event.detail.articleID))[0]
+		$modalState = {"modalType" : "article", "modalContent" : articleContent}
 	}
 </script>
 

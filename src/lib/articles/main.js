@@ -3,9 +3,18 @@ import { appConfig } from "../../shared/config.js";
 import { articles, feedUpdates } from "../../shared/stores.js";
 import { get } from "svelte/store";
 
+async function queryAPI(queryURL, defaultResponse = null) {
+	let queryResult = await fetch(`${appConfig.rootUrl}${queryURL}`)
+
+	if (queryResult.ok) {
+		return await queryResult.json()
+	} else {
+		return defaultResponse
+	}
+}
+
 export async function getArticleContent(articleID) {
-	let queryUrl = `${appConfig.rootUrl}/articles/content?IDs=${articleID}`
-	return fetch(queryUrl)
+	return queryAPI(`/articles/content?IDs=${articleID}`, [{}])
 }
 
 export async function refreshArticles(currentFeeds) {
@@ -33,20 +42,14 @@ async function refreshFeed(feedName, feedSpecs) {
 }
 
 async function fetchArticles(feedName, feedSpecs = null){
-	let queryUrl;
+	let fetchedArticles;
 
 	if (feedSpecs) {
 		let queryString = Object.keys(feedSpecs).map(key => key + '=' + feedSpecs[key]).join('&');
-		queryUrl = `${appConfig.rootUrl}/articles/overview/search?${queryString}`;
+		fetchedArticles = await queryAPI(`/articles/overview/search?${queryString}`)
 	} else {
-		queryUrl = `${appConfig.rootUrl}/articles/overview/newest`;
+		fetchedArticles = await queryAPI(`/articles/overview/newest`)
 	}
 
-	fetch(queryUrl)
-	.then(response => response.json())
-	.then(data => {
-		articles.update((currentArticles) => { currentArticles[feedName] = {"feedSpecs" : feedSpecs, "articles" : data}; return currentArticles});
-	}).catch(error => {
-		return {};
-	});
+	articles.update((currentArticles) => { currentArticles[feedName] = {"feedSpecs" : feedSpecs, "articles" : fetchedArticles}; return currentArticles});
 }
