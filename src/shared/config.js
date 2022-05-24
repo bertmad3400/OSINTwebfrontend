@@ -1,6 +1,7 @@
 export const appConfig = {
 	"rootUrl" : "http://localhost:8000",
 	"refreshRate" : 5, // Minimum time in minutes between refreshing of article lists
+	"defaultLimit" : 100,
 	"userOptions" : {
 		"Read Later" : { "icon" : "read-later" },
 		"Configure Profile" : { "icon" : "gear" },
