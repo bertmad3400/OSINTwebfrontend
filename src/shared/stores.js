@@ -1,4 +1,5 @@
 import { writable } from 'svelte/store';
+import { appConfig } from "./config.js"
 
 export const feeds = writable({});
 
@@ -19,3 +20,14 @@ export const modalState = writable({
 				"modalType" : null,
 				"modalContent" : null
 			})
+
+export const currentSearch = writable({
+			"sourceCategory" : [],
+			"sortBy" : "publish_date",
+			"sortOrder" : "desc",
+			"firstDate" : null,
+			"lastDate" : null,
+			"searchTerm" : null,
+			"limit" : appConfig.defaultLimit,
+			"highlight" : false
+	})

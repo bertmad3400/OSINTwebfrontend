@@ -3,21 +3,9 @@
 	import Modal from "../modal.svelte"
 	import Params from "./general.svelte"
 
-	import { writable } from 'svelte/store'
-	
 	import { appConfig } from "../../../shared/config.js"
 	import { search } from "../../../lib/search.js"
-
-	const searchSpecs = writable({
-		"sourceCategory" : [],
-		"sortBy" : "publish_date",
-		"sortOrder" : "desc",
-		"firstDate" : null,
-		"lastDate" : null,
-		"searchTerm" : null,
-		"limit" : appConfig.defaultLimit,
-		"highlight" : false
-	})
+	import { currentSearch as searchSpecs } from "../../../shared/stores.js"
 
 	const inputFields = {
 		"timespan" : [
