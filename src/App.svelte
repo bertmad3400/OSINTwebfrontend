@@ -6,13 +6,29 @@
 
 
 	import { appConfig } from "./shared/config.js"
-	import { feeds, articles, modalState } from "./shared/stores.js"
+	import { feeds, articles, modalState, currentSearch } from "./shared/stores.js"
+	import { search } from "./lib/search.js"
 
 	$feeds = appConfig.feeds
 
+	function handleKeypress(keyName) {
+		switch (keyName) {
+			case "Escape":
+				$modalState = {"modalType" : null, "modalContent" : null}
+				break
+
+			case "Enter":
+				if ($modalState.modalType == "search") {
+					search($currentSearch)
+				}
+
+				break
+		}
+	}
+
 </script>
 
-<svelte:window on:keydown={(e) => { if (e.key == "Escape") {$modalState = {"modalType" : null, "modalContent" : null};} ; }}/>
+<svelte:window on:keydown={(e) => handleKeypress(e.key)}/>
 
 <main>
 	{#if $modalState.modalType == "article" && $modalState.modalContent}
