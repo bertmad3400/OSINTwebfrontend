@@ -5,7 +5,7 @@ export function search(searchQuery) {
 	if (searchQuery) {
 
 		// Remove values that are null or empty, as those can be problematic when calling the API
-		Object.keys(searchQuery).forEach((k) => (!searchQuery[k]) && delete searchQuery[k]);
+		Object.keys(searchQuery).forEach((k) => (!searchQuery[k] || searchQuery[k].length === 0) && delete searchQuery[k]);
 
 		feeds.update(currentFeeds => {
 			currentFeeds["newFeed"] = {"Custom search" : { "searchQuery" : { "limit" : appConfig.defaultLimit, ...searchQuery } } }
