@@ -1,13 +1,10 @@
 <script>
 	import { modalState } from "../../shared/stores.js"
-
-	import { fly } from 'svelte/transition';
+	import { fly, fade } from 'svelte/transition';
 
 </script>
 
-<div class="pop-up"
-	on:click={() => $modalState = {"modalType" : null, "modalContent" : null}}
-	>
+<div class="pop-up" on:click={() => $modalState = {"modalType" : null, "modalContent" : null}} transition:fade="{{ duration: 200 }}" >
 	<div class="pop-up-content" on:click|stopPropagation in:fly={{ y: 50 }} out:fly={{ y: 50 }}>
 		<slot></slot>
 	</div>

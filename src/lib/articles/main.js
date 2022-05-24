@@ -13,6 +13,10 @@ async function queryAPI(queryURL, defaultResponse = null) {
 	}
 }
 
+export async function getArticleCategories() {
+	return queryAPI("/articles/categories", {})
+}
+
 export async function getArticleContent(articleID) {
 	return queryAPI(`/articles/content?IDs=${articleID}`, [{}])
 }

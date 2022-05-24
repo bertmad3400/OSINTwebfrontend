@@ -2,6 +2,7 @@
 	import SideBar from "./components/sidebar.svelte"
 	import MainWindow from "./components/main_window.svelte"
 	import ArticleModal from "./components/modals/article.svelte"
+	import SearchModal from "./components/modals/search/main.svelte"
 
 
 	import { appConfig } from "./shared/config.js"
@@ -16,6 +17,8 @@
 <main>
 	{#if $modalState.modalType == "article" && $modalState.modalContent}
 		<ArticleModal articleContent={$modalState.modalContent} />
+	{:else if $modalState.modalType == "search"}
+		<SearchModal />
 	{/if}
 	<SideBar />
 	<MainWindow />

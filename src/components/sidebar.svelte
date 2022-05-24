@@ -1,7 +1,7 @@
 <script>
 	import Icon from "../shared/icons.svelte";
 	import Menu from "./sidebar/menu.svelte"
-	import { feeds, state } from "../shared/stores.js";
+	import { feeds, state, modalState } from "../shared/stores.js";
 	import { appConfig } from "../shared/config.js"
 
 	let mainFeeds = $feeds.mainFeeds
@@ -10,7 +10,8 @@
 
 <aside id="navbar">
 	<div id="logo-space"><img alt="OSINTer logo" src="https://logos-download.com/wp-content/uploads/2019/07/Feedly_Logo-700x231.png"/></div>
-	<button class="long-button"> <Icon name="magnifying-glass"/> <span> Explore Content </span> </button>
+
+	<button class="long-button" on:click={() => $modalState.modalType = "search"}> <Icon name="magnifying-glass"/> <span> Explore Content </span> </button>
 
 	<nav>
 		<Menu menuOptions={mainFeeds} menuType="feed" />
