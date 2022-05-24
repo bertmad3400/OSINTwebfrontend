@@ -4,11 +4,8 @@ import { appConfig } from "../shared/config.js"
 export function search(searchQuery) {
 	if (searchQuery) {
 
-		console.log(searchQuery)
-
+		// Remove values that are null or empty, as those can be problematic when calling the API
 		Object.keys(searchQuery).forEach((k) => (!searchQuery[k]) && delete searchQuery[k]);
-
-		console.log(searchQuery)
 
 		feeds.update(currentFeeds => {
 			currentFeeds["newFeed"] = {"Custom search" : { "searchQuery" : { "limit" : appConfig.defaultLimit, ...searchQuery } } }
