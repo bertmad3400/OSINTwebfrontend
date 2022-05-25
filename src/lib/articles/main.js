@@ -49,7 +49,7 @@ async function fetchArticles(feedName, feedSpecs = null){
 	let fetchedArticles;
 
 	if (feedSpecs) {
-		let queryString = Object.keys(feedSpecs).map(key => key + '=' + feedSpecs[key]).join('&');
+		let queryString = Object.keys(feedSpecs).filter(key => feedSpecs[key]).map(key => key + '=' + feedSpecs[key] ).join('&');
 		fetchedArticles = await queryAPI(`/articles/overview/search?${queryString}`)
 	} else {
 		fetchedArticles = await queryAPI(`/articles/overview/newest`)
