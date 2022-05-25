@@ -3,9 +3,6 @@
 	import Menu from "./sidebar/menu.svelte"
 	import { feeds, state, modalState, loginState } from "../shared/stores.js";
 	import { appConfig } from "../shared/config.js"
-
-	let mainFeeds = $feeds.mainFeeds
-	let userFeeds = $feeds.userFeeds
 </script>
 
 <aside id="navbar">
@@ -14,8 +11,8 @@
 	<button class="long-button" on:click={() => { $modalState.modalType = "search"; document.activeElement.blur(); } }> <Icon name="magnifying-glass"/> <span> Explore Content </span> </button>
 
 	<nav>
-		<Menu menuOptions={mainFeeds} menuType="feed" />
-		<Menu title="feeds" menuOptions={userFeeds} menuType="feed">
+		<Menu menuOptions={ $feeds.mainFeeds } menuType="feed" />
+		<Menu title="feeds" menuOptions={$feeds.userFeeds} menuType="feed">
 			<li> <Icon name="plus"/> <span style="opacity: 0.8">Add feed</span></li>
 		</Menu>
 
