@@ -3,9 +3,14 @@ export const appConfig = {
 	"refreshRate" : 5, // Minimum time in minutes between refreshing of article lists
 	"defaultLimit" : 100,
 	"userOptions" : {
-		"Read Later" : { "icon" : "read-later" },
-		"Configure Profile" : { "icon" : "gear" },
-		"Logout" : { "icon" : "logout" }
+		"loggedOut" : {
+			"Login" : { "icon" : "logout" }
+		},
+		"loggedIn" : {
+			"Read Later" : { "icon" : "read-later" },
+			"Configure Profile" : { "icon" : "gear" },
+			"Logout" : { "icon" : "logout" }
+		}
 	},
 	"feeds" : {
 		"mainFeeds" : {

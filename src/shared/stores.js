@@ -21,6 +21,11 @@ export const modalState = writable({
 				"modalContent" : null
 			})
 
+export const loginState = writable({
+				"loggedIn" : false,
+				"userObject" : {}
+			})
+
 export const currentSearch = writable({
 			"sourceCategory" : [],
 			"sortBy" : "publish_date",

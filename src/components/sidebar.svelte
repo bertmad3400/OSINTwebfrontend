@@ -1,7 +1,7 @@
 <script>
 	import Icon from "../shared/icons.svelte";
 	import Menu from "./sidebar/menu.svelte"
-	import { feeds, state, modalState } from "../shared/stores.js";
+	import { feeds, state, modalState, loginState } from "../shared/stores.js";
 	import { appConfig } from "../shared/config.js"
 
 	let mainFeeds = $feeds.mainFeeds
@@ -18,7 +18,12 @@
 		<Menu title="feeds" menuOptions={userFeeds} menuType="feed">
 			<li> <Icon name="plus"/> <span style="opacity: 0.8">Add feed</span></li>
 		</Menu>
-		<Menu title="User" menuOptions={appConfig.userOptions} menuType="userOptions" />
+
+		{#if $loginState.loggedIn }
+			<Menu title="User" menuOptions={appConfig.userOptions.loggedIn} menuType="userOptions" />
+		{:else}
+			<Menu title="User" menuOptions={appConfig.userOptions.loggedOut} menuType="userOptions" />
+		{/if}
 
 	</nav>
 
