@@ -17,7 +17,7 @@
 		refreshArticles(currentFeeds)
 	});
 
-	const currentArticle = derived([state, articles], ([$state, $articles]) => {
+	const currentArticle = derived([state, articles], async ([$state, $articles]) => {
 		console.log("Re-calculating articleList")
 		let showFeed = Boolean($articles) && $state.selectedMenu.type == "feed" && $state.selectedMenu.name in $articles
 
@@ -30,9 +30,9 @@
 		}
 	})
 
-	const downloadArticlesLink = derived(currentArticle, $currentArticle =>
-			`${appConfig.rootUrl}/articles/MD/multiple?${$currentArticle.map(article => "IDs=" + article.id).join("&")}`
-	)
+	const downloadArticlesLink = derived(currentArticle, ($currentArticle) => {
+		return $currentArticle.then((articleList) => { return `${appConfig.rootUrl}/articles/MD/multiple?${articleList.map(article => "IDs=" + article.id).join("&")}`})
+	})
 
 	onDestroy(refreshArticleUnsubscribe)
 
@@ -44,7 +44,9 @@
 	<header>
 		<h2>{$state.selectedMenu.name}</h2>
 		<section class="icons">
-			<a href="{$downloadArticlesLink}"><Icon name="download"/></a>
+			{#await $downloadArticlesLink then link}
+				<a href="{ link }"><Icon name="download"/></a>
+			{/await}
 			<button class="dropdown-options">
 				<Icon name="three-dots"/>
 				<RenderConfig />
@@ -53,13 +55,13 @@
 	</header>
 	<hr>
 
-		{#if $currentArticle}
-			{#key $currentArticle}
+		{#await $currentArticle}
+			<p> Loading articles...</p>
+		{:then articleList}
 			<section transition:fade>
-				<ArticleList articleList={$currentArticle} representation={$state.representation} />
+				<ArticleList articleList={articleList} representation={$state.representation} />
 			</section>
-			{/key}
-		{/if}
+		{/await}
 </section>
 {/if}
 
