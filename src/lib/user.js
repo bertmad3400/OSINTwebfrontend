@@ -1,5 +1,7 @@
-import { loginState, feeds } from "../shared/stores.js"
+import { loginState, feeds, collectionList, collectionArticles } from "../shared/stores.js"
 import { appConfig } from "../shared/config.js";
+
+import { updateArticleListing } from "./articles/main.js"
 
 async function queryProtected(queryURL, defaultResponse = false, body = null) {
 	let headers
@@ -52,5 +54,16 @@ export async function getUserFeeds() {
 
 	if (currentFeeds) {
 		await insertFeeds(currentFeeds)
+	}
+}
+
+export async function getUserCollections(collectionName = null) {
+	let currentCollections = await queryProtected("/users/collections/list")
+	delete currentCollections["Read Later"]
+	
+	collectionList.set(currentCollections)
+
+	if (collectionName) {
+		await updateArticleListing(collectionArticles, collectionName, currentCollections[collectionName])
 	}
 }

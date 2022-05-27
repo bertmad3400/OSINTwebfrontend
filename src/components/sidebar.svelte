@@ -1,7 +1,7 @@
 <script>
 	import Icon from "../shared/icons.svelte";
 	import Menu from "./sidebar/menu.svelte"
-	import { feeds, state, modalState, loginState } from "../shared/stores.js";
+	import { feeds, state, modalState, loginState, collectionList } from "../shared/stores.js";
 	import { appConfig } from "../shared/config.js"
 </script>
 
@@ -17,6 +17,11 @@
 		</Menu>
 
 		{#if $loginState.loggedIn }
+			{#if $collectionList }
+				<Menu title="Collections" menuOptions={$collectionList} menuType="collection">
+					<li> <Icon name="plus"/> <span style="opacity: 0.8">Add collection</span></li>
+				</Menu>
+			{/if}
 			<Menu title="User" menuOptions={appConfig.userOptions.loggedIn} />
 		{:else}
 			<Menu title="User" menuOptions={appConfig.userOptions.loggedOut} />

@@ -9,6 +9,7 @@
 	import { feeds, articles, state } from "../shared/stores.js"
 	import { appConfig } from "../shared/config.js"
 	import { refreshArticles } from "../lib/articles/main.js"
+	import { getUserCollections } from "../lib/user.js"
 	import { onDestroy } from "svelte";
 
 	$: showFeed = Boolean($articles) && $state.selectedMenu.type == "feed" && $state.selectedMenu.name in $articles
@@ -20,7 +21,11 @@
 	const currentArticle = derived([state, articles], async ([$state, $articles]) => {
 		console.log("Re-calculating articleList")
 
-		if ($state.selectedMenu.type == "feed" || $state.selectedMenu.type == "search"){
+		if ($state.selectedMenu.type == "collection") {
+			await getUserCollections($state.selectedMenu.name)
+		}
+
+		if ($state.selectedMenu.type == "feed" || $state.selectedMenu.type == "collection" || $state.selectedMenu.type == "search"){
 			let showFeed = Boolean($articles) && $state.selectedMenu.name in $articles
 
 			console.log($articles, $state.selectedMenu)

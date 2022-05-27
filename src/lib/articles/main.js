@@ -1,6 +1,6 @@
 import { appConfig } from "../../shared/config.js";
 
-import { articles, feedUpdates } from "../../shared/stores.js";
+import { articles, collectionList, collectionArticles } from "../../shared/stores.js";
 import { get } from "svelte/store";
 
 async function queryAPI(queryURL, defaultResponse = null) {
@@ -47,6 +47,13 @@ async function fetchArticles(articleContainer, sourceName, sourceSpecs = null){
 	if (typeof sourceSpecs === "object" && !Array.isArray(sourceSpecs) && sourceSpecs !== null) {
 		let queryString = Object.keys(sourceSpecs).filter(key => sourceSpecs[key]).map(key => key + '=' + sourceSpecs[key] ).join('&');
 		fetchedArticles = await queryAPI(`/articles/overview/search?${queryString}`)
+	} else if (Array.isArray(sourceSpecs)) {
+		if (sourceSpecs.length > 0) {
+			let queryString = sourceSpecs.join("&IDs=")
+			fetchedArticles = await queryAPI(`/articles/overview/search?IDs=${queryString}`)
+		} else {
+			fetchedArticles = []
+		}
 	} else {
 		fetchedArticles = await queryAPI(`/articles/overview/newest`)
 	}

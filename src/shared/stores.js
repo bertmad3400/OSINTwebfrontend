@@ -34,3 +34,6 @@ export const currentSearch = writable({
 			"limit" : appConfig.defaultLimit,
 			"highlight" : false
 	})
+
+export const collectionList = writable(null)
+export const collectionArticles = writable({})
