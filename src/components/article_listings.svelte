@@ -19,14 +19,19 @@
 
 	const currentArticle = derived([state, articles], async ([$state, $articles]) => {
 		console.log("Re-calculating articleList")
-		let showFeed = Boolean($articles) && $state.selectedMenu.type == "feed" && $state.selectedMenu.name in $articles
 
-		if (showFeed && $state.localSearch) {
-			return $articles[$state.selectedMenu.name].articles.filter(article => Object.values(article).some(articleField => articleField.toLowerCase().includes($state.localSearch.toLowerCase())))
-		} else if (showFeed) {
-			return $articles[$state.selectedMenu.name].articles
-		} else {
-			return []
+		if ($state.selectedMenu.type == "feed" || $state.selectedMenu.type == "search"){
+			let showFeed = Boolean($articles) && $state.selectedMenu.name in $articles
+
+			console.log($articles, $state.selectedMenu)
+
+			if (showFeed && $state.localSearch) {
+				return $articles[$state.selectedMenu.name].articles.filter(article => Object.values(article).some(articleField => articleField.toLowerCase().includes($state.localSearch.toLowerCase())))
+			} else if (showFeed) {
+				return $articles[$state.selectedMenu.name].articles
+			} else {
+				return []
+			}
 		}
 	})
 
@@ -39,10 +44,9 @@
 
 </script>
 
-{#if $state.selectedMenu.type == "feed"}
 <section id="article-list" transition:fade>
 	<header>
-		<h2>{$state.selectedMenu.name}</h2>
+		<h2>{$state.selectedMenu.name} - {$state.selectedMenu.type.charAt(0).toUpperCase() + $state.selectedMenu.type.slice(1)}</h2>
 		<section class="icons">
 			{#await $downloadArticlesLink then link}
 				<a href="{ link }"><Icon name="download"/></a>
@@ -63,7 +67,6 @@
 			</section>
 		{/await}
 </section>
-{/if}
 
 <style type="text/scss">
 section#article-list {

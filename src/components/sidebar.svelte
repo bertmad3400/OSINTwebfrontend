@@ -11,15 +11,15 @@
 	<button class="long-button" on:click={() => { $modalState.modalType = "search"; document.activeElement.blur(); } }> <Icon name="magnifying-glass"/> <span> Explore Content </span> </button>
 
 	<nav>
-		<Menu menuOptions={ $feeds.mainFeeds } menuType="feed" />
-		<Menu title="feeds" menuOptions={$feeds.userFeeds} menuType="feed">
+		<Menu menuOptions={ $feeds.mainFeeds } />
+		<Menu title="feeds" menuOptions={$feeds.userFeeds} >
 			<li> <Icon name="plus"/> <span style="opacity: 0.8">Add feed</span></li>
 		</Menu>
 
 		{#if $loginState.loggedIn }
-			<Menu title="User" menuOptions={appConfig.userOptions.loggedIn} menuType="userOptions" />
+			<Menu title="User" menuOptions={appConfig.userOptions.loggedIn} />
 		{:else}
-			<Menu title="User" menuOptions={appConfig.userOptions.loggedOut} menuType="userOptions" />
+			<Menu title="User" menuOptions={appConfig.userOptions.loggedOut} />
 		{/if}
 
 	</nav>

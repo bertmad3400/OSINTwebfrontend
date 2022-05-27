@@ -1,12 +1,16 @@
 <script>
 	import SearchField from "./search_fields.svelte"
 	import ArticleListing from "./article_listings.svelte"
+
+	import { state } from "../shared/stores.js"
 </script>
 
 <section id="main-content">
 
+{#if $state.selectedMenu.type == "feed" || $state.selectedMenu.type == "collection"}
 	<SearchField />
 	<ArticleListing />
+{/if}
 
 </section>
 

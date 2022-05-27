@@ -8,7 +8,7 @@
 
 <ul class:selected="{$state.selectedMenu.name in menuOptions}">
 	{#each Object.keys(menuOptions) as optionName }
-		<li class:selected="{$state.selectedMenu.name == optionName}" on:click="{() => { $state = {...$state, "selectedMenu" : {"name" : optionName, "type" : menuType}, "localSearch" : ""}}}">
+		<li class:selected="{$state.selectedMenu.name == optionName}" on:click="{() => { $state = {...$state, "selectedMenu" : {"name" : optionName, "type" : menuType ? menuType : menuOptions[optionName].type}, "localSearch" : ""}}}">
 			<Icon name="{ 'icon' in menuOptions[optionName] ? menuOptions[optionName]['icon'] : 'feed' }"/>
 			<span> {optionName} </span>
 		</li>

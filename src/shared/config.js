@@ -7,15 +7,15 @@ export const appConfig = {
 			"Login" : { "icon" : "logout" }
 		},
 		"loggedIn" : {
-			"Read Later" : { "icon" : "read-later" },
-			"Configure Profile" : { "icon" : "gear" },
-			"Logout" : { "icon" : "logout" }
+			"Read Later" : { "icon" : "read-later", "type" : "collection" },
+			"Configure Profile" : { "icon" : "gear", "type" : "userOptions" },
+			"Logout" : { "icon" : "logout", "type" : "action" }
 		}
 	},
 	"feeds" : {
 		"mainFeeds" : {
-			"News" : { "searchQuery" : null, "icon" : "logo" },
-			"Today" : { "searchQuery" : null, "icon" : "calendar" }
+			"News" : { "searchQuery" : { "limit" : 3}, "type" : "feed", "icon" : "logo" },
+			"Today" : { "searchQuery" : null, "type" : "feed", "icon" : "calendar" }
 		},
 		"userFeeds" : {
 			"Log4J" : {
@@ -25,14 +25,16 @@ export const appConfig = {
 					"sortOrder" : "desc",
 					"searchTerm" : "log4j",
 					"highlight" : true
-				}
+				},
+				"type" : "feed"
 			},
 			"Bitcoin" : {
 				"searchQuery" : {
 					"limit" : 50,
 					"searchTerm" : "bitcoin",
 					"highlight" : false
-				}
+				},
+				"type" : "feed"
 			},
 			"Ransomware" : {
 				"searchQuery" : {
@@ -41,7 +43,8 @@ export const appConfig = {
 					"sortOrder" : "desc",
 					"searchTerm" : "ransomware",
 					"highlight" : true
-				}
+				},
+				"type" : "feed"
 			}
 		}
 	}

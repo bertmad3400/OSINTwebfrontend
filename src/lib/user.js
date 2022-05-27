@@ -39,7 +39,7 @@ async function queryProtected(queryURL, defaultResponse = false, body = null) {
 
 async function insertFeeds(feedSpecs) {
 
-	let newFeeds = Object.fromEntries(feedSpecs.map(feed => { return [feed.feed_name, {"searchQuery" : feed}] }) )
+	let newFeeds = Object.fromEntries(feedSpecs.map(feed => { return [feed.feed_name, {"searchQuery" : feed, "type" : "feed"}] }) )
 
 	feeds.update(userFeeds => {
 		userFeeds.userFeeds = newFeeds
