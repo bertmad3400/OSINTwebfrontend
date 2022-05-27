@@ -22,38 +22,34 @@ export async function getArticleContent(articleID) {
 }
 
 export async function refreshArticles(currentFeeds) {
-
 	for (const feedType of Object.keys(currentFeeds)) {
 		for (let [feedName, feedDetails] of Object.entries(currentFeeds[feedType])) {
-			refreshFeed(feedName, feedDetails["searchQuery"])
+			updateArticleListing(articles, feedName, feedDetails["searchQuery"])
 		}
 	}
 }
 
-async function refreshFeed(feedName, feedSpecs) {
-	let articleLists = get(articles);
-	let currentFeedUpdates = get(feedUpdates);
+export async function updateArticleListing(articleList, sourceName, sourceSpecs) {
+	let currentArticleList = get(articleList)
 
-	if (feedName in currentFeedUpdates) {
-		if ((Date.now() - currentFeedUpdates[feedName]["time"]) / 60000 > appConfig.refreshRate || feedSpecs != articleLists[feedName]["feedSpecs"]) {
-			fetchArticles(feedName, feedSpecs);
+	if (sourceName in currentArticleList) {
+		if ((Date.now() - currentArticleList[sourceName].time) / 60000 > appConfig.refreshRate || sourceSpecs != currentArticleList[sourceName]["sourceSpec"]) {
+			fetchArticles(articleList, sourceName, sourceSpecs)
 		}
 	} else {
-		feedUpdates.update((currentFeeds) => { currentFeeds[feedName] = Date.now(); return currentFeeds} )
-		fetchArticles(feedName, feedSpecs);
+			fetchArticles(articleList, sourceName, sourceSpecs)
 	}
-
 }
 
-async function fetchArticles(feedName, feedSpecs = null){
+async function fetchArticles(articleContainer, sourceName, sourceSpecs = null){
 	let fetchedArticles;
 
-	if (feedSpecs) {
-		let queryString = Object.keys(feedSpecs).filter(key => feedSpecs[key]).map(key => key + '=' + feedSpecs[key] ).join('&');
+	if (typeof sourceSpecs === "object" && !Array.isArray(sourceSpecs) && sourceSpecs !== null) {
+		let queryString = Object.keys(sourceSpecs).filter(key => sourceSpecs[key]).map(key => key + '=' + sourceSpecs[key] ).join('&');
 		fetchedArticles = await queryAPI(`/articles/overview/search?${queryString}`)
 	} else {
 		fetchedArticles = await queryAPI(`/articles/overview/newest`)
 	}
 
-	articles.update((currentArticles) => { currentArticles[feedName] = {"feedSpecs" : feedSpecs, "articles" : fetchedArticles}; return currentArticles});
+	articleContainer.update((currentArticles) => { currentArticles[sourceName] = {"sourceSpecs" : sourceSpecs, "articles" : fetchedArticles, "time" : Date.now()}; return currentArticles});
 }
