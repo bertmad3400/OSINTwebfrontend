@@ -35,5 +35,6 @@ export const currentSearch = writable({
 			"highlight" : false
 	})
 
+export const readLater = writable(null)
 export const collectionList = writable(null)
 export const collectionArticles = writable({})

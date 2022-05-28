@@ -56,14 +56,3 @@ export async function getUserFeeds() {
 		await insertFeeds(currentFeeds)
 	}
 }
-
-export async function getUserCollections(collectionName = null) {
-	let currentCollections = await queryProtected("/users/collections/list")
-	delete currentCollections["Read Later"]
-	
-	collectionList.set(currentCollections)
-
-	if (collectionName) {
-		await updateArticleListing(collectionArticles, collectionName, currentCollections[collectionName])
-	}
-}
