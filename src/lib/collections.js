@@ -20,3 +20,19 @@ export async function getUserCollections(collectionName = null) {
 		await updateArticleListing(collectionArticles, collectionName, currentCollections[collectionName])
 	}
 }
+
+export async function modifyCollection(collectionName, mod_action, IDs) {
+	let queryUrl
+
+	if (Array.isArray(IDs)) {
+		queryUrl = "?IDs=" + IDs.join("&IDs=")
+	} else if (IDs) {
+		queryUrl = `?IDs=${IDs}`
+	} else {
+		return
+	}
+
+	let newCollectionState = await queryProtected(`/users/collections/modify/${collectionName}/${mod_action}${queryUrl}`, false, false)	
+
+	await updateCollectionStores(newCollectionState)
+}
