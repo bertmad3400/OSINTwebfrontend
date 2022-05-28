@@ -13,9 +13,12 @@
 
 	import { getTimespan } from "../../lib/date.js"
 
+	$: currentReadLater = $loginState.loggedIn && $readLater && $readLater.includes(article.id)
+
+
 </script>
 
-<svelte:component this={feedRepresentations[$state.representation]} article={article} time={ getTimespan(article.publish_date) } on:modal/>
+<svelte:component this={feedRepresentations[$state.representation]} article={article} time={ getTimespan(article.publish_date) } readLater={currentReadLater} on:modal/>
 
 <style type="text/scss">
 </style>
