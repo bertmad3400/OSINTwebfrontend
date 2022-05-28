@@ -1,17 +1,19 @@
 import { loginState, feeds, collectionList, collectionArticles } from "../shared/stores.js"
 import { appConfig } from "../shared/config.js";
 
+import { get } from "svelte/store"
+
 import { updateArticleListing } from "./articles/main.js"
 
-async function queryProtected(queryURL, defaultResponse = false, body = null) {
+export async function queryProtected(queryURL, defaultResponse = false, body = null) {
 	let headers
 
-	if (body) {
+	if (body != null) {
 		headers = {
 			credentials : "include",
 			method : "POST",
 			headers: {'Content-Type': 'application/json'},
-			body : JSON.stringify(body)
+			body : body ? JSON.stringify(body) : null
 		}
 	} else {
 		headers = {
