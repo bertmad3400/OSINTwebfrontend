@@ -9,7 +9,7 @@
 	import { feeds, articles, state } from "../shared/stores.js"
 	import { appConfig } from "../shared/config.js"
 	import { refreshArticles } from "../lib/articles/main.js"
-	import { getUserCollections } from "../lib/user.js"
+	import { getUserCollections } from "../lib/collections.js"
 	import { onDestroy } from "svelte";
 
 	$: showFeed = Boolean($articles) && $state.selectedMenu.type == "feed" && $state.selectedMenu.name in $articles
@@ -68,7 +68,7 @@
 			<p> Loading articles...</p>
 		{:then articleList}
 			<section transition:fade>
-				<ArticleList articleList={articleList} representation={$state.representation} />
+				<ArticleList articleList={articleList} />
 			</section>
 		{/await}
 </section>

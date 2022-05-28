@@ -1,5 +1,4 @@
 <script>
-	import Icon from "../../shared/icons.svelte";
 
 	export let article
 	export let time
@@ -9,9 +8,6 @@
 </script>
 
 <article on:click={() =>  dispatch("modal", {"articleID" : article.id})}>
-	<button class="read-later">
-		<Icon name="read-later" />
-	</button>
 	<p class="source">{ article.source }</p>
 	<div class="article-content">
 		<h3>{ article.title }</h3>
@@ -40,10 +36,6 @@ article {
 		white-space: nowrap;
 		overflow: hidden;
 		color: rgb(125, 125, 125);
-	}
-
-	button.read-later {
-		@include button()
 	}
 
 	p.source {
