@@ -9,7 +9,7 @@
 
 	async function toggle () {
 		if ($loginState.loggedIn) {
-			modifyCollection("Read Later", readLater ? "subtract" : "extend", ID)
+			await modifyCollection("Read Later", readLater ? "subtract" : "extend", ID)
 		}
 	}
 </script>
