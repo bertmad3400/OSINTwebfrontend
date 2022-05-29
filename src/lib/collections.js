@@ -1,13 +1,11 @@
-import { readLater, collectionList, collectionArticles } from "../shared/stores.js"
+import { collectionList, collectionArticles } from "../shared/stores.js"
+import { updateArticleListing } from "./articles/main.js"
 
 import { queryProtected } from "./user.js"
 
 async function updateCollectionStores(data) {
 	if (data) {
-		readLater.set(data["Read Later"])
-		delete data["Read Later"]
-
-		collectionList.set(data)
+		await collectionList.set(data)
 	}
 }
 

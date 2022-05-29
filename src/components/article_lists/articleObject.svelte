@@ -9,13 +9,11 @@
 		"Title-view": TitleArticles
 	};
 
-	import { state, loginState, readLater } from "../../shared/stores.js"
+	import { state, loginState, collectionList } from "../../shared/stores.js"
 
 	import { getTimespan } from "../../lib/date.js"
 
-	$: currentReadLater = $loginState.loggedIn && $readLater && $readLater.includes(article.id)
-
-
+	$: currentReadLater = $loginState.loggedIn && $collectionList && "Read Later" in $collectionList && Array.isArray($collectionList["Read Later"]) && $collectionList["Read Later"].includes(article.id)
 </script>
 
 <svelte:component this={feedRepresentations[$state.representation]} article={article} time={ getTimespan(article.publish_date) } readLater={currentReadLater} on:modal/>

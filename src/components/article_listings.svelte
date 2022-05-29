@@ -6,7 +6,7 @@
 	import { fade } from 'svelte/transition';
 	import { derived } from 'svelte/store';
 
-	import { feeds, articles, state } from "../shared/stores.js"
+	import { feeds, articles, state, collectionArticles } from "../shared/stores.js"
 	import { appConfig } from "../shared/config.js"
 	import { refreshArticles } from "../lib/articles/main.js"
 	import { getUserCollections } from "../lib/collections.js"
