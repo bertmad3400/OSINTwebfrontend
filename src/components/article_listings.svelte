@@ -21,19 +21,22 @@
 	const currentArticle = derived([state, articles], async ([$state, $articles]) => {
 		console.log("Re-calculating articleList")
 
+		let articleSource
+
 		if ($state.selectedMenu.type == "collection") {
 			await getUserCollections($state.selectedMenu.name)
+			articleSource = $collectionArticles
+		} else {
+			articleSource = $articles
 		}
 
 		if ($state.selectedMenu.type == "feed" || $state.selectedMenu.type == "collection" || $state.selectedMenu.type == "search"){
-			let showFeed = Boolean($articles) && $state.selectedMenu.name in $articles
-
-			console.log($articles, $state.selectedMenu)
+			let showFeed = Boolean(articleSource) && $state.selectedMenu.name in articleSource
 
 			if (showFeed && $state.localSearch) {
-				return $articles[$state.selectedMenu.name].articles.filter(article => Object.values(article).some(articleField => articleField.toLowerCase().includes($state.localSearch.toLowerCase())))
+				return articleSource[$state.selectedMenu.name].articles.filter(article => Object.values(article).some(articleField => articleField.toLowerCase().includes($state.localSearch.toLowerCase())))
 			} else if (showFeed) {
-				return $articles[$state.selectedMenu.name].articles
+				return articleSource[$state.selectedMenu.name].articles
 			} else {
 				return []
 			}
