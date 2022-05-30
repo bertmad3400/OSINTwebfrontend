@@ -7,7 +7,7 @@
 
 <section id="main-content">
 
-{#if $state.selectedMenu.type == "feed" || $state.selectedMenu.type == "collection"}
+{#if ["feed", "search", "collection"].includes($state.selectedMenu.type)}
 	<SearchField />
 	<ArticleListing />
 {/if}

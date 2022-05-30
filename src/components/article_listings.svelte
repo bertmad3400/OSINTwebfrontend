@@ -30,7 +30,7 @@
 			articleSource = $articles
 		}
 
-		if ($state.selectedMenu.type == "feed" || $state.selectedMenu.type == "collection" || $state.selectedMenu.type == "search"){
+		if (["feed", "collection", "search"].includes($state.selectedMenu.type)){
 			let showFeed = Boolean(articleSource) && $state.selectedMenu.name in articleSource
 
 			if (showFeed && $state.localSearch) {

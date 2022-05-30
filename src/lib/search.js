@@ -14,7 +14,7 @@ export function search(searchQuery) {
 		})
 
 		state.update(currentState => {
-			currentState.selectedMenu = {"name" : "Custom search", "type" : "feed"}
+			currentState.selectedMenu = {"name" : "Custom search", "type" : "search"}
 			currentState.localSearch = ""
 			return currentState
 		})
