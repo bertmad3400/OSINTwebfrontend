@@ -5,7 +5,9 @@
 
 	import { appConfig } from "../../../shared/config.js"
 	import { search } from "../../../lib/search.js"
-	import { currentSearch as searchSpecs } from "../../../shared/stores.js"
+	import { state, feeds, currentSearch as searchSpecs } from "../../../shared/stores.js"
+
+	import { onMount } from "svelte"
 
 	const inputFields = {
 		"timespan" : [
@@ -35,6 +37,20 @@
 			}
 		]
 	}
+
+	onMount(async () => {
+		if (["feed", "search"].includes($state.selectedMenu.type)) {
+			for (const feedCategory in $feeds) {
+				if($state.selectedMenu.name in $feeds[feedCategory]) {
+					console.log($searchSpecs, $feeds[feedCategory][$state.selectedMenu.name].searchQuery)
+					searchSpecs.set({...appConfig.defaultSearch, ...$feeds[feedCategory][$state.selectedMenu.name].searchQuery})
+					return
+				}
+			}
+		}
+
+		searchSpecs.set(appConfig.defaultSearch)
+	})
 
 </script>
 
