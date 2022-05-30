@@ -5,6 +5,7 @@
 
 	import Modal from "./modal.svelte"
 	import Icon from "../../shared/icons.svelte"
+	import ReadLaterButton from "../article_lists/listComponents/readLater.svelte"
 
 	export let articleContent
 	
@@ -16,13 +17,12 @@
 	<header>
 		<nav>
 			<ul>
-				{#each ["read-later", "favorite"] as iconName}
-					<li> <Icon name={iconName}/> </li>
-				{/each}
+				<li> <ReadLaterButton ID={articleContent.id} /> </li>
+				<li> <button> <Icon name="favorite"/> </button> </li>
 			</ul>
 			<ul>
 				{#each ["linkedin", "copy"] as iconName}
-					<li> <Icon name={iconName}/> </li>
+					<li> <button> <Icon name={iconName}/> </button> </li>
 				{/each}
 				<li><a href={`${appConfig.rootUrl}/articles/MD/single?ID=${articleContent.id}`}><Icon name="download"/></a></li>
 			</ul>
@@ -114,24 +114,24 @@ header {
 			li {
 				height: $header-height;
 				width: $header-height;
-				padding: calc($header-height * 0.2);
-				box-sizing: border-box;
 
 				display: inline-block;
 
 				cursor: pointer;
 
-				&:hover {
-					background-color: rgba(0,0,0,.05);
-				}
+				:global(button), :global(a){
+					@include button($header-height);
+					box-sizing: border-box;
 
-				:global(svg) {
-					opacity: 0.4;
-					height: 100%;
-					width: 100%;
+					:global(svg) {
+						opacity: 0.5;
+						height: 100%;
+						width: 100%;
+					}
 				}
 
 				a {
+					display: inline-block;
 					color: rgb(70, 70, 70);
 				}
 			}
