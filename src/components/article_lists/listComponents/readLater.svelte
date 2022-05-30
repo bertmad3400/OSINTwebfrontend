@@ -1,9 +1,10 @@
 <script>
-	export let readLater
+	import { modifyCollection } from "../../../lib/collections.js"
+	import { collectionList, loginState } from "../../../shared/stores.js"
+
 	export let ID
 
-	import { modifyCollection } from "../../../lib/collections.js"
-	import { loginState } from "../../../shared/stores.js"
+	$: readLater = $loginState.loggedIn && $collectionList && "Read Later" in $collectionList && Array.isArray($collectionList["Read Later"]) && $collectionList["Read Later"].includes(ID)
 
 	import Icon from "../../../shared/icons.svelte";
 

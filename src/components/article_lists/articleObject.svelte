@@ -12,11 +12,9 @@
 	import { state, loginState, collectionList } from "../../shared/stores.js"
 
 	import { getTimespan } from "../../lib/date.js"
-
-	$: currentReadLater = $loginState.loggedIn && $collectionList && "Read Later" in $collectionList && Array.isArray($collectionList["Read Later"]) && $collectionList["Read Later"].includes(article.id)
 </script>
 
-<svelte:component this={feedRepresentations[$state.representation]} article={article} time={ getTimespan(article.publish_date) } readLater={currentReadLater} on:modal/>
+<svelte:component this={feedRepresentations[$state.representation]} article={article} time={ getTimespan(article.publish_date) } on:modal/>
 
 <style type="text/scss">
 </style>

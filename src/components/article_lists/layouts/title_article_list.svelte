@@ -5,14 +5,12 @@
 	export let article
 	export let time
 
-	export let readLater = false
-
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
 </script>
 
 <article on:click={() =>  dispatch("modal", {"articleID" : article.id})}>
-	<ReadLaterButton readLater={readLater} ID={article.id}/>
+	<ReadLaterButton ID={article.id}/>
 	<p class="source">{ article.source }</p>
 	<div class="article-content">
 		<h3>{ article.title }</h3>
