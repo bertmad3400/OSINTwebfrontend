@@ -4,13 +4,13 @@
 	import { feeds, state, modalState, loginState, collectionList } from "../shared/stores.js";
 	import { appConfig } from "../shared/config.js"
 
-	import { showSearch } from "../lib/modals.js"
+	import { showSearchModal } from "../lib/state.js"
 </script>
 
 <aside id="navbar">
 	<div id="logo-space"><img alt="OSINTer logo" src="https://logos-download.com/wp-content/uploads/2019/07/Feedly_Logo-700x231.png"/></div>
 
-	<button class="long-button" on:click={showSearch}> <Icon name="magnifying-glass"/> <span> Explore Content </span> </button>
+	<button class="long-button" on:click={showSearchModal}> <Icon name="magnifying-glass"/> <span> Explore Content </span> </button>
 
 	<nav>
 		<Menu menuOptions={ $feeds.mainFeeds } />
