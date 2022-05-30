@@ -43,13 +43,13 @@
 			for (const feedCategory in $feeds) {
 				if($state.selectedMenu.name in $feeds[feedCategory]) {
 					console.log($searchSpecs, $feeds[feedCategory][$state.selectedMenu.name].searchQuery)
-					searchSpecs.set({...appConfig.defaultSearch, ...$feeds[feedCategory][$state.selectedMenu.name].searchQuery})
+					searchSpecs.set({...appConfig.defaultOptions.search, ...$feeds[feedCategory][$state.selectedMenu.name].searchQuery})
 					return
 				}
 			}
 		}
 
-		searchSpecs.set(appConfig.defaultSearch)
+		searchSpecs.set(appConfig.defaultOptions.search)
 	})
 
 </script>

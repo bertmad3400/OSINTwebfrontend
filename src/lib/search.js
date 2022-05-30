@@ -8,7 +8,7 @@ export function search(searchQuery) {
 		Object.keys(searchQuery).forEach((k) => (!searchQuery[k] || searchQuery[k].length === 0) && delete searchQuery[k]);
 
 		feeds.update(currentFeeds => {
-			currentFeeds["newFeed"] = {"Custom search" : { "searchQuery" : { "limit" : appConfig.defaultSearch.limit, ...searchQuery } } }
+			currentFeeds["newFeed"] = {"Custom search" : { "searchQuery" : { "limit" : appConfig.defaultOptions.search.limit, ...searchQuery } } }
 
 			return currentFeeds
 		})

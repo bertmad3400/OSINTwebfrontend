@@ -1,15 +1,33 @@
 export const appConfig = {
 	"rootUrl" : "http://localhost:8000",
 	"refreshRate" : 5, // Minimum time in minutes between refreshing of article lists
-	"defaultSearch" : {
-		"sourceCategory" : [],
-		"sortBy" : "publish_date",
-		"sortOrder" : "desc",
-		"firstDate" : null,
-		"lastDate" : null,
-		"searchTerm" : null,
-		"limit" : 100,
-		"highlight" : false
+	"defaultOptions" : {
+		"search" : {
+			"sourceCategory" : [],
+			"sortBy" : "publish_date",
+			"sortOrder" : "desc",
+			"firstDate" : null,
+			"lastDate" : null,
+			"searchTerm" : null,
+			"limit" : 100,
+			"highlight" : false
+		},
+		"state" : {
+				"selectedMenu" : {
+					"name" : "News",
+					"type" : "feed",
+				},
+				"representation" : "Large",
+				"localSearch" : ""
+		},
+		"modalState" : {
+				"modalType" : null,
+				"modalContent" : null
+		},
+		"loginState" : {
+				"loggedIn" : false,
+				"userObject" : {}
+		}
 	},
 	"userOptions" : {
 		"loggedOut" : {

@@ -1,30 +1,17 @@
 import { writable } from 'svelte/store';
 import { appConfig } from "./config.js"
 
-export const feeds = writable({});
+export const feeds = writable(structuredClone(appConfig.feeds));
 
 export const articles = writable({})
 
-export const state = writable({
-				"selectedMenu" : {
-					"name" : "News",
-					"type" : "feed",
-				},
-				"representation" : "Large",
-				"localSearch" : ""
-			})
+export const state = writable(structuredClone(appConfig.defaultOptions.state))
 
-export const modalState = writable({
-				"modalType" : null,
-				"modalContent" : null
-			})
+export const modalState = writable(structuredClone(appConfig.defaultOptions.modalState))
 
-export const loginState = writable({
-				"loggedIn" : false,
-				"userObject" : {}
-			})
+export const loginState = writable(structuredClone(appConfig.defaultOptions.loginState))
 
-export const currentSearch = writable(appConfig.defaultSearch)
+export const currentSearch = writable(structuredClone(appConfig.defaultOptions.search))
 
 export const collectionList = writable(null)
 export const collectionArticles = writable({})
