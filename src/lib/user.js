@@ -1,5 +1,6 @@
 import { loginState, feeds, collectionList, collectionArticles } from "../shared/stores.js"
 import { appConfig } from "../shared/config.js";
+import { resetState } from "./state.js"
 
 import { get } from "svelte/store"
 
@@ -32,11 +33,7 @@ export async function queryProtected(queryURL, defaultResponse = false, body = n
 		return await queryResult.json()
 
 	} else if (queryResult.status == 401) {
-		loginState.set({
-			"loggedIn" : false,
-			"userObject" : {}
-		})
-
+		resetState()
 		return defaultResponse
 	}
 }
