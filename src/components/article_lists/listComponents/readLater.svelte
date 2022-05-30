@@ -25,7 +25,8 @@
 
 <style type="text/scss">
 button {
-	@include button();
+	border: none;
+	background-color: transparent;
 
 	padding: 0;
 	display: flex;
