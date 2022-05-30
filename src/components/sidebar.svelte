@@ -24,9 +24,13 @@
 					<li> <Icon name="plus"/> <span style="opacity: 0.8">Add collection</span></li>
 				</Menu>
 			{/if}
-			<Menu title="User" menuOptions={appConfig.userOptions.loggedIn} />
+			<Menu title="User" menuOptions={appConfig.userOptions.loggedIn}>
+				<li class="click-able"><Icon name="logout"/><span>Logout</span></li>
+			</Menu>
 		{:else}
-			<Menu title="User" menuOptions={appConfig.userOptions.loggedOut} />
+			<Menu title="User">
+				<li class="click-able"><Icon name="logout"/><span>Login</span></li>
+			</Menu>
 		{/if}
 
 	</nav>

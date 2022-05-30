@@ -30,13 +30,9 @@ export const appConfig = {
 		}
 	},
 	"userOptions" : {
-		"loggedOut" : {
-			"Login" : { "icon" : "logout" }
-		},
 		"loggedIn" : {
 			"Read Later" : { "icon" : "read-later", "type" : "collection" },
-			"Configure Profile" : { "icon" : "gear", "type" : "userOptions" },
-			"Logout" : { "icon" : "logout", "type" : "action" }
+			"Configure Profile" : { "icon" : "gear", "type" : "userOptions" }
 		}
 	},
 	"feeds" : {

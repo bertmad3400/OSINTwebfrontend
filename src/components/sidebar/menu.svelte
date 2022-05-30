@@ -1,6 +1,6 @@
 <script>
 	export let title = ""
-	export let menuOptions
+	export let menuOptions = {}
 	export let menuType = ""
 
 	let open = true
