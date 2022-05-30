@@ -45,7 +45,7 @@ async function fetchArticles(articleContainer, sourceName, sourceSpecs = null){
 	let fetchedArticles;
 
 	if (typeof sourceSpecs === "object" && !Array.isArray(sourceSpecs) && sourceSpecs !== null) {
-		let queryString = Object.keys(sourceSpecs).filter(key => sourceSpecs[key]).map(key => key + '=' + sourceSpecs[key] ).join('&');
+		let queryString = Object.keys(sourceSpecs).filter(key => sourceSpecs[key]).map(key => `${key}=` + ( Array.isArray(sourceSpecs[key]) ? sourceSpecs[key].join(`&${key}=`) : sourceSpecs[key] ) ).join('&');
 		fetchedArticles = await queryAPI(`/articles/overview/search?${queryString}`)
 	} else if (Array.isArray(sourceSpecs)) {
 		if (sourceSpecs.length > 0) {
