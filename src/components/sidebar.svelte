@@ -5,6 +5,7 @@
 	import { appConfig } from "../shared/config.js"
 
 	import { showSearchModal } from "../lib/state.js"
+	import { logout } from "../lib/auth.js"
 </script>
 
 <aside id="navbar">
@@ -25,7 +26,7 @@
 				</Menu>
 			{/if}
 			<Menu title="User" menuOptions={appConfig.userOptions.loggedIn}>
-				<li class="click-able"><Icon name="logout"/><span>Logout</span></li>
+				<li	on:click={logout} class="click-able"><Icon name="logout"/><span>Logout</span></li>
 			</Menu>
 		{:else}
 			<Menu title="User">
@@ -38,6 +39,20 @@
 </aside>
 
 <style type="text/scss">
+li {
+	opacity: 0.7;
+
+	&.click-able:hover {
+		opacity: 1;
+		border-left: 5px solid #2bb24c;
+		padding-left: calc(2rem - 5px);
+
+		:global(*) {
+			color: #2bb24c !important;
+		}
+	}
+}
+
 #logo-space {
 	height: 4rem;
 	padding-left: 1rem;

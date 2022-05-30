@@ -1,5 +1,7 @@
 import { loginState } from "../shared/stores.js"
-import { appConfig } from "../shared/config.js";
+import { appConfig } from "../shared/config.js"
+import { queryProtected } from "./user.js"
+import { resetState } from "./state.js"
 
 export async function login(username, password) {
 	let headers = {
@@ -26,4 +28,9 @@ export async function login(username, password) {
 	} else {
 		return (await queryResult.json())["detail"]
 	}
+}
+
+export async function logout() {
+	await queryProtected("/auth/logout", false, false)
+	resetState()
 }
