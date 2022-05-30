@@ -48,6 +48,9 @@
 		:global(svg) {
 			opacity: 0.45;
 			transition: transform 0.4s;
+
+			height: 1.2rem;
+			width: 1.2rem;
 		}
 
 		:global(svg.open) {

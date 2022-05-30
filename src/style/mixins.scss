@@ -13,9 +13,10 @@
 }
 
 @mixin button($size: 2rem) {
-	padding: calc($size / 5);
 	height: $size;
 	width: $size;
+
+	padding: calc($size / 5);
 
 	cursor: pointer;
 	transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
@@ -27,10 +28,5 @@
 
 	&:hover {
 		background-color: rgba(0,0,0,.05);
-	}
-
-	svg {
-		height: calc($size * 0.6);
-		width: calc($size * 0.6);
 	}
 }
