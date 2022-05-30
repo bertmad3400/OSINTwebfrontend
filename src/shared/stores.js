@@ -24,16 +24,7 @@ export const loginState = writable({
 				"userObject" : {}
 			})
 
-export const currentSearch = writable({
-			"sourceCategory" : [],
-			"sortBy" : "publish_date",
-			"sortOrder" : "desc",
-			"firstDate" : null,
-			"lastDate" : null,
-			"searchTerm" : null,
-			"limit" : appConfig.defaultLimit,
-			"highlight" : false
-	})
+export const currentSearch = writable(appConfig.defaultSearch)
 
 export const collectionList = writable(null)
 export const collectionArticles = writable({})

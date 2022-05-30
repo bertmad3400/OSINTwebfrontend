@@ -1,7 +1,16 @@
 export const appConfig = {
 	"rootUrl" : "http://localhost:8000",
 	"refreshRate" : 5, // Minimum time in minutes between refreshing of article lists
-	"defaultLimit" : 100,
+	"defaultSearch" : {
+		"sourceCategory" : [],
+		"sortBy" : "publish_date",
+		"sortOrder" : "desc",
+		"firstDate" : null,
+		"lastDate" : null,
+		"searchTerm" : null,
+		"limit" : 100,
+		"highlight" : false
+	},
 	"userOptions" : {
 		"loggedOut" : {
 			"Login" : { "icon" : "logout" }
