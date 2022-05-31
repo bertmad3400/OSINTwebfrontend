@@ -14,6 +14,7 @@
 </script>
 
 <Modal>
+	<base target="_blank">
 	<header>
 		<nav>
 			<ul>
