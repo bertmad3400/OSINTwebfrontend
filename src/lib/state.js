@@ -7,9 +7,9 @@ export function showSearchModal() {
 }
 
 export async function resetState() {
-	feeds.set(appConfig.feeds)
-	state.set(appConfig.defaultOptions.state)
-	modalState.set(appConfig.defaultOptions.modalState)
-	loginState.set(appConfig.defaultOptions.loginState)
-	currentSearch.set(appConfig.defaultOptions.search)
+	feeds.set(structuredClone(appConfig.feeds))
+	state.set(structuredClone(appConfig.defaultOptions.state))
+	modalState.set(structuredClone(appConfig.defaultOptions.modalState))
+	loginState.set(structuredClone(appConfig.defaultOptions.loginState))
+	currentSearch.set(structuredClone(appConfig.defaultOptions.search))
 }
