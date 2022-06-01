@@ -9,7 +9,14 @@
 
 	export let articleContent
 	
-	let source = articleContent.formatted_content
+	const source = articleContent.formatted_content
+
+	// https://github.com/bradvin/social-share-urls
+	const shareLinks = {
+			"linkedin" : `https://www.linkedin.com/sharing/share-offsite/?url=${articleContent.url}`,
+			"twitter" : `https://twitter.com/intent/tweet?url=${articleContent.url}&text=${articleContent.title}`,
+			"reddit" : `https://reddit.com/submit?url=${articleContent.url}&title=${articleContent.title}`
+	}
 
 </script>
 
@@ -22,9 +29,10 @@
 				<li> <button> <Icon name="favorite"/> </button> </li>
 			</ul>
 			<ul>
-				{#each ["linkedin", "copy"] as iconName}
-					<li> <button> <Icon name={iconName}/> </button> </li>
+				{#each ["linkedin", "twitter", "reddit"] as SoMe}
+					<li><a href="{shareLinks[SoMe]}" target="_blank" rel="noopener noreferrer"><Icon name="{SoMe}"/></a></li>
 				{/each}
+				<li> <button> <Icon name="copy"/> </button> </li>
 				<li><a href={`${appConfig.rootUrl}/articles/MD/single?ID=${articleContent.id}`}><Icon name="download"/></a></li>
 			</ul>
 		</nav>
