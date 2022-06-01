@@ -63,7 +63,7 @@ div.article-content {
 	padding: 3rem $article-margins 4rem $article-margins;
 
 	:global(*) {
-		width: 100%;
+		max-width: 100%;
 		margin-bottom: 1.5rem;
 
 		@include font(1, 300, 1rem);
