@@ -6,6 +6,18 @@
 
 	import { showSearchModal } from "../lib/state.js"
 	import { logout } from "../lib/auth.js"
+
+	import { onDestroy } from "svelte"
+
+	let userCollections = {}
+
+	const collectionListUnsubscribed = collectionList.subscribe(collectionList => {
+		if (collectionList && Object.keys(collectionList).length > 1) {
+			userCollections = Object.fromEntries(Object.entries(collectionList).filter(([key, value]) => key !== "Read Later"))
+		}
+	})
+
+	onDestroy(collectionListUnsubscribed)
 </script>
 
 <aside id="navbar">
