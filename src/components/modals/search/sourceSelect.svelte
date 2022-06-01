@@ -18,12 +18,13 @@
 		<form on:submit|preventDefault role="search" id="source-search">
 			<label for="source-search"><Icon name="magnifying-glass"/></label>
 			<input bind:value={sourceSearch} id="source-search" type="text" placeholder="Search sources...">
+			{#if sourceSearch}<button on:click|preventDefault={() => sourceSearch = ""}><Icon name="x"/></button>{/if}
 		</form>
 		<p class:clickable={$searchSpecs.sourceCategory.length > 0} on:click="{() => $searchSpecs.sourceCategory = []}">Remove selections ({$searchSpecs.sourceCategory.length})</p>
 		<p class:clickable={Object.keys(sourceList).length != $searchSpecs.sourceCategory.length} on:click="{() => $searchSpecs.sourceCategory = Object.keys(sourceList)}">Select all</p>
 	</header>
 
-	<form on:submit|preventDefault>
+	<form on:submit|preventDefault class="source-select">
 	{#each Object.entries(sourceList) as [profileName, sourceDetails]}
 		<input bind:group={$searchSpecs.sourceCategory} type="checkbox" id="{profileName}-checkbox" name="{profileName}" value="{profileName}">
 
@@ -91,6 +92,21 @@ header.options{
 			flex-grow: 1;
 			outline: 0;
 		}
+
+		button {
+			@include button(0);
+
+			height: 100%;
+			aspect-ratio: 1 / 1;
+
+			:global(svg) {
+				opacity: 0.5;
+			}
+
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
 	}
 
 	p {
@@ -109,7 +125,7 @@ header.options{
 }
 
 
-form {
+form.source-select {
 	overflow: auto;
 	padding-right: 1rem;
 
