@@ -13,10 +13,12 @@
 }
 
 @mixin button($size: 2rem) {
-	height: $size;
-	width: $size;
+	@if $size != 0 {
+		height: $size;
+		width: $size;
 
-	padding: calc($size / 5);
+		padding: calc($size / 5);
+	}
 
 	cursor: pointer;
 	transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
