@@ -107,8 +107,8 @@ div.article-content {
 header {
 	height: $header-height;
 
-	border-bottom: 1px solid #efefef;
-	box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+	border-bottom: 1px solid $button-grey;
+	box-shadow: $base-grey 0px 1px 5px 0px;
 	nav {
 
 		margin-left: $article-margins;

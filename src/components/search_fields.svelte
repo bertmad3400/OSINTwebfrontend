@@ -19,7 +19,7 @@
 <style type="text/scss">
 #search-box {
 	height: 4rem;
-	border-bottom: 1px solid #efefef;
+	border-bottom: 1px solid $button-grey;
 
 	flex-shrink: 0;
 	display: flex;

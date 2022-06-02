@@ -56,11 +56,11 @@ li {
 
 	&.click-able:hover {
 		opacity: 1;
-		border-left: 5px solid #2bb24c;
+		border-left: 5px solid $main-color;
 		padding-left: calc(2rem - 5px);
 
 		:global(*) {
-			color: #2bb24c !important;
+			color: $main-color !important;
 		}
 	}
 }
@@ -72,7 +72,7 @@ li {
 	display: flex;
 	align-items: center;
 
-	border-bottom: 1px solid #efefef;
+	border-bottom: 1px solid $base-grey;
 
 	img {
 		height: 50%;
@@ -86,10 +86,10 @@ li {
 	height: 100vh;
 	overflow-y: auto;
 
-	background: hsl(210, 13%, 97%);
+	background: $base-grey;
 	box-sizing: border-box;
 
-	border-right: 1px solid #efefef;
+	border-right: 1px solid $base-grey;
 	nav {
 		color: rgb(51, 51, 51);
 		font-family: sans-serif;

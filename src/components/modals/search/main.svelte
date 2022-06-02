@@ -119,9 +119,9 @@ div.optionSelectContainer {
 	display: flex;
 	flex-direction: column;
 
-	border-right: 1px solid #efefef;
+	border-right: 1px solid $button-grey;
 
-	border-bottom: 1px solid #efefef;
+	border-bottom: 1px solid $button-grey;
 
 	padding-right: 2rem;
 }

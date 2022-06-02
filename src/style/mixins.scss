@@ -1,3 +1,8 @@
+$main-color: hsl(135, 60%, 45%);
+$base-grey: hsl(0, 0%, 97%);
+$button-grey: hsl(0, 0%, 95%);
+$white: hsl(0, 0%, 100%);
+
 @mixin truncate($lines: 2) {
 	display: -webkit-box;
 	-webkit-line-clamp: $lines;
@@ -29,6 +34,6 @@
 	flex-shrink: 0;
 
 	&:hover {
-		background-color: rgba(0,0,0,.05);
+		background-color: $button-grey;
 	}
 }

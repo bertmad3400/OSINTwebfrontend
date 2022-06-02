@@ -34,7 +34,7 @@ ul {
 		padding-right: 0rem;
 
 		&:hover {
-			background-color: rgba(0,0,0,.05);
+			background-color: $button-grey;
 		}
 
 		:global(span) {
@@ -64,12 +64,12 @@ ul {
 
 			&.selected {
 				span {
-					color: #2bb24c !important;
+					color: $main-color !important;
 				}
 				:global(svg) {
-					color: #2bb24c !important;
+					color: $main-color !important;
 				}
-				border-color: #2bb24c !important;
+				border-color: $main-color !important;
 			}
 
 		}

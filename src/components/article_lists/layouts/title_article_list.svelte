@@ -40,7 +40,7 @@ article {
 	font-family: sans-serif;
 
 	&:hover {
-		background-color: rgba(0,0,0,.05);
+		background-color: $base-grey;
 	}
 
 	* {

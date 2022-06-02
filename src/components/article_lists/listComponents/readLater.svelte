@@ -34,7 +34,7 @@ button {
 	justify-content: center;
 
 	&.read-later {
-		color: hsl(135deg, 60%, 45%);
+		color: $main-color;
 	}
 }
 </style>

@@ -30,8 +30,7 @@ div.pop-up {
 		width: 80vw;
 		height: 90vh;
 
-		background-color: #ffffff;
-
+		background-color: $white;
 	}
 }
 </style>

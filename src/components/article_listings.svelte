@@ -83,7 +83,7 @@ section#article-list {
 	height: 100%;
 	overflow-y: scroll;
 
-	border-right: 1px solid #efefef;
+	border-right: 1px solid $button-grey;
 
 	header {
 

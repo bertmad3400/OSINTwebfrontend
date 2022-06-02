@@ -64,7 +64,7 @@ header.options{
 	#source-search {
 		height: 2rem;
 		min-width: 30%;
-		border: 1px solid #efefef;
+		border: 1px solid $button-grey;
 
 		flex-grow: 1;
 		display: inline-flex;
@@ -118,7 +118,7 @@ header.options{
 		cursor: not-allowed;
 
 		&.clickable {
-			color: hsl(135, 60%, 45%);
+			color: $main-color;
 			cursor: pointer;
 		}
 	}
@@ -134,7 +134,7 @@ form.source-select {
 		cursor: pointer;
 		margin-bottom: 0.3rem;
 
-		/*border: 1px solid #efefef;
+		/*border: 1px solid $button-grey;
 		border-radius: 0.5rem;*/
 
 		display: flex;
@@ -154,7 +154,7 @@ form.source-select {
 
 			flex-shrink: 0;
 			box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-			background-color: hsl(0, 0%, 100%)
+			background-color: $white;
 		}
 
 		div.sourceDetails {
@@ -190,7 +190,7 @@ form.source-select {
 			margin: 1.5rem 1rem 1.5rem 1rem;
 
 			border-radius: 50%;
-			border: 1px solid #efefef;
+			border: 1px solid $button-grey;
 
 			overflow: hidden;
 
@@ -207,7 +207,7 @@ form.source-select {
 		}
 
 		&:hover {
-			background-color: hsl(0, 0%, 95%);
+			background-color: $button-grey;
 		}
 	}
 
@@ -216,14 +216,14 @@ form.source-select {
 	}
 
 	input:checked + label {
-		background-color: hsl(135, 50%, 95%);
+		background-color: $main-color;
 		div.selectIcon {
-			border-color: hsl(135, 60%, 45%);
-			background-color: hsl(135, 60%, 45%);
+			border-color: $main-color;
+			background-color: $main-color;
 
 			:global(svg) {
 				opacity: 100%;
-				color: hsl(0, 0%, 100%);
+				color: $white;
 
 				height: 60%;
 				width: 60%;
