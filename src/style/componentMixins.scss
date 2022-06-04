@@ -1,0 +1,97 @@
+@mixin underline($color : rgb(0, 0, 0, 0.3)) {
+	&:after {
+		content: '';
+		display: block;
+		width: 100%;
+		transform: scaleX(0);
+		height: 1px;
+		background-color: $color;
+		transform-origin: bottom right;
+		transition: transform 0.25s ease-out;
+	}
+
+	&:hover:after {
+		transform: scaleX(1);
+		transform-origin: bottom left;
+	}
+}
+
+@mixin switch($size: 0.8125rem) {
+	$height: 2ex;
+	$border-thickness: 2px;
+	$margin: calc($height * (0.15 / 2) + $border-thickness);
+
+	input.switch {
+		display: none;
+
+		&:disabled + label {
+			cursor: not-allowed;
+			opacity: 0.6;
+		}
+		&:checked + label:before {
+			background: $main-color;
+			border-color: $main-color;
+		}
+
+		&:checked + label:after {
+			left: calc(($height * 2) - $margin + $border-thickness * 2);
+			transform: translateX(-100%);
+		}
+	}
+
+	label.switch {
+		@include font(1, 100, $size);
+		position: relative;
+		display: inline-block;
+
+		height: $height;
+
+		line-height: calc($height + ($border-thickness * 2));
+		text-align: center;
+
+		padding-left: calc($height * 2.5);
+
+		cursor: pointer;
+
+		&:before {
+			content: "";
+
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+
+			width: calc($height * 2);
+			height: $height;
+
+			border-radius: $height;
+			border: $border-thickness solid $button-grey;
+
+			background: $base-grey;
+
+			transition: background 0.3s;
+		}
+
+		&:after {
+			content: "";
+
+			display: block;
+			position: absolute;
+			top: $margin;
+			left: $margin;
+
+			border-radius: calc(3ex * 0.85);
+
+			background: $white;
+
+			height: calc($height * 0.85);
+			width: calc($height * 0.85);
+			transition: left 0.3s, transform 0.3s, width 0.2s;
+
+		}
+
+		&:active:after {
+			width: calc($height * 1.2);
+		}
+	}
+}

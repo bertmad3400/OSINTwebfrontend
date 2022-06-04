@@ -41,7 +41,7 @@ export default {
 		svelte({
 			preprocess: sveltePreprocess({
 				scss : {
-					prependData: `@import './src/style/mixins.scss';`
+					prependData: `@import './src/style/mixins.scss'; @import './src/style/componentMixins.scss';`
 				}
 			}),
 			compilerOptions: {
