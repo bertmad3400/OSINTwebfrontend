@@ -1,8 +1,10 @@
 <script>
 	import SideBar from "./components/sidebar.svelte"
 	import MainWindow from "./components/main_window.svelte"
+
 	import ArticleModal from "./components/modals/article.svelte"
 	import SearchModal from "./components/modals/search/main.svelte"
+	import AuthModal from "./components/modals/auth/main.svelte"
 
 
 	import { appConfig } from "./shared/config.js"
@@ -35,6 +37,8 @@
 		<ArticleModal articleContent={$modalState.modalContent} />
 	{:else if $modalState.modalType == "search"}
 		<SearchModal />
+	{:else if $modalState.modalType == "auth"}
+		<AuthModal />
 	{/if}
 	<SideBar />
 	<MainWindow />

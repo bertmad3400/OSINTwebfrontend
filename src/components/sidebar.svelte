@@ -42,7 +42,7 @@
 			</Menu>
 		{:else}
 			<Menu title="User">
-				<li class="click-able"><Icon name="logout"/><span>Login</span></li>
+				<li on:click={() => $modalState = {"modalType" : "auth", "modalContent" : {"type" : "login"}}} class="click-able"><Icon name="logout"/><span>Login</span></li>
 			</Menu>
 		{/if}
 
