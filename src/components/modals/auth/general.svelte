@@ -1,10 +1,11 @@
 <script>
 	export let title = ""
 	export let message = ""
+	export let topPadding = "10vh"
 	import Icon from "../../../shared/icons.svelte"
 </script>
 
-<div class="content-container">
+<div class="content-container" style="padding-top: {topPadding};">
 	<div class="logo-container"><Icon name="logo"/></div>
 
 	<h1>{title}</h1>
@@ -15,7 +16,8 @@
 
 <style type="text/scss">
 div.content-container {
-	padding: 10vh 6rem 0 6rem;
+	padding-left: 6rem;
+	padding-right: 6rem;
 	height: 100%;
 	box-sizing: border-box;
 

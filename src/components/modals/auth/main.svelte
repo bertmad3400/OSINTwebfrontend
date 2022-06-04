@@ -1,17 +1,20 @@
 <script>
 	import Modal from "../modal.svelte"
 	import General from "./general.svelte"
-
 	import InputField from "./inputField.svelte"
 
+	import { modalState } from "../../../shared/stores.js"
 	import { writable } from "svelte/store"
 
 	let details = writable({})
+
+	$: showSignup = $modalState && "modalContent" in $modalState && Boolean($modalState.modalContent) && "type" in $modalState.modalContent && $modalState.modalContent.type == "signup"
 </script>
 
+{#key showSignup}
 <Modal height="clamp(60vh, 80ex, 80vh)" width="min(60ch, 80vw)">
 	{#if showSignup}
-		<General title="Hi There!" message="Sign up below to start your own journey into the wonderful world of CTI">
+		<General title="Hi There!" message="Sign up below to start your own journey into the wonderful world of CTI" topPadding="7vh">
 			<form>
 				{#each ["username", "password", "repeat_password"] as detailName}
 					<InputField detailName="{detailName}" inputType="signup" userDetails="{details}"/>
@@ -21,9 +24,10 @@
 				<hr>
 			</form>
 			<button>Sign Up</button>
+			<p class="bottom">Already a user? <a href="#" on:click|preventDefault="{() => $modalState = {"modalType" : "auth", "modalContent" : {"type" : "login"}}}">Login here</a></p>
 		</General>
 	{:else}
-		<General title="Welcome Back!" message="Log in down below to continue with your journey into the wonderful world of CTI">
+		<General title="Welcome Back!" message="Log in down below to continue with your journey into the wonderful world of CTI" topPadding="10vh">
 			<form>
 				{#each ["username", "password"] as detailName}
 					<InputField detailName="{detailName}" inputType="login" userDetails="{details}"/>
@@ -37,9 +41,11 @@
 				<hr>
 			</form>
 			<button>Login</button>
+			<p class="bottom">Not a user yet? <a href="#" on:click|preventDefault="{() => $modalState = {"modalType" : "auth", "modalContent" : {"type" : "signup"}}}">Sign up here</a></p>
 		</General>
 	{/if}
 </Modal>
+{/key}
 
 <style type="text/scss">
 form {
