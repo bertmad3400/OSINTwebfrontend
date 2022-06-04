@@ -15,14 +15,14 @@
 
 <style type="text/scss">
 div.content-container {
-	padding: 0 6rem 0 6rem;
+	padding: 10vh 6rem 0 6rem;
+	height: 100%;
 	box-sizing: border-box;
 
 	overflow: auto;
 
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 	align-items: center;
 
 	div.logo-container {

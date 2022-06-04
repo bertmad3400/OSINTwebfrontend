@@ -9,8 +9,20 @@
 	let details = writable({})
 </script>
 
-<Modal height="80vh" width="60vw">
-	<div class="contentContainer">
+<Modal height="clamp(60vh, 80ex, 80vh)" width="min(60ch, 80vw)">
+	{#if showSignup}
+		<General title="Hi There!" message="Sign up below to start your own journey into the wonderful world of CTI">
+			<form>
+				{#each ["username", "password", "repeat_password"] as detailName}
+					<InputField detailName="{detailName}" inputType="signup" userDetails="{details}"/>
+				{/each}
+				<hr>
+				<InputField detailName="email" inputType="signup" userDetails="{details}" label="Email - (Optional)"/>
+				<hr>
+			</form>
+			<button>Sign Up</button>
+		</General>
+	{:else}
 		<General title="Welcome Back!" message="Log in down below to continue with your journey into the wonderful world of CTI">
 			<form>
 				{#each ["username", "password"] as detailName}
@@ -26,88 +38,81 @@
 			</form>
 			<button>Login</button>
 		</General>
-
-		<General title="Hi There!" message="Sign up below to start your own journey into the wonderful world of CTI">
-			<form>
-				{#each ["username", "password", "repeat_password"] as detailName}
-					<InputField detailName="{detailName}" inputType="signup" userDetails="{details}"/>
-				{/each}
-				<hr>
-				<InputField detailName="email" inputType="signup" userDetails="{details}" label="Email - (Optional)"/>
-				<hr>
-			</form>
-			<button>Sign Up</button>
-		</General>
-
-	</div>
+	{/if}
 </Modal>
 
 <style type="text/scss">
-div.contentContainer {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
+form {
+	width: 100%;
 
-	height: 100%;
-	width: 60vw;
+	div.details {
+		@include switch();
 
-	form {
-		width: 100%;
+		margin-top: 0.4rem;
 
-		div.details {
-			@include switch();
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 
-			margin-top: 0.4rem;
-
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-
-			a {
-				@include font(1, 300);
-				@include underline($main-color);
-
-				text-decoration: none;
-				width: fit-content;
-				display: inline-block;
-				color: $main-color;
-			}
+		a {
+			@include font(1, 300);
 		}
 	}
 
-	hr {
-		width: 100%;
-		border-right : 0;
-		border-left: 0;
-		margin: 1rem 0 1rem 0;
+}
+
+p.bottom {
+	margin: auto 0 1rem 0;
+
+	&, a {
+		font-size: 1rem;
+		@include font(1, 100, 1rem);
 	}
+}
 
-	button {
-		border: none;
-		border-radius: 0.4rem;
+a {
+	@include underline($main-color);
 
-		cursor: pointer;
+	text-decoration: none;
+	width: fit-content;
+	display: inline-block;
+	color: $main-color !important;
+}
 
-		@include font(0.6, 300, 0.9rem);
-		color: $white;
 
-		height: 2.5rem;
-		width: 100%;
-		flex-shrink: 0;
+hr {
+	width: 100%;
+	border-right : 0;
+	border-left: 0;
+	margin: 1rem 0 1rem 0;
+}
 
-		background-color: hsl(135, 40%, 45%);
+button {
+	border: none;
+	border-radius: 0.4rem;
 
-		transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+	margin-bottom: 2rem;
 
-		&:hover {
-			background-color: hsl(135, 50%, 55%);
-		}
+	cursor: pointer;
+
+	@include font(0.6, 300, 0.9rem);
+	color: $white;
+
+	height: 2.5rem;
+	width: 100%;
+	flex-shrink: 0;
+
+	background-color: hsl(135, 40%, 45%);
+
+	transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+
+	&:hover {
+		background-color: hsl(135, 50%, 55%);
 	}
+}
 
 
-	:global(div.input-container + div.input-container) {
-		margin-top: 0.6rem;
-	}
-
-
+:global(div.input-container + div.input-container) {
+	margin-top: 0.6rem;
 }
 </style>

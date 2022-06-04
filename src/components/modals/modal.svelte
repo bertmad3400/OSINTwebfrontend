@@ -29,6 +29,7 @@ div.pop-up {
 
 	div.pop-up-content {
 		background-color: $white;
+		overflow: auto;
 	}
 }
 </style>
