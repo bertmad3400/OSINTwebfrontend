@@ -4,11 +4,44 @@
 	import InputField from "./inputField.svelte"
 
 	import { modalState } from "../../../shared/stores.js"
+
+	import { onDestroy } from 'svelte';
 	import { writable } from "svelte/store"
 
-	let details = writable({})
+	const details = writable({})
 
 	$: showSignup = $modalState && "modalContent" in $modalState && Boolean($modalState.modalContent) && "type" in $modalState.modalContent && $modalState.modalContent.type == "signup"
+
+	
+	let missingDetailMsg = ""
+	let loginReady = false
+	let signupReady = false
+
+	const detailUnsubscribe = details.subscribe(detailValues => {
+
+		if ( ! (Boolean(detailValues.username) && Boolean(detailValues.password)) ) {
+			missingDetailMsg = "Please specify both password and username"
+			loginReady = false
+			signupReady = false
+			return
+		}
+		loginReady = true
+
+		if (showSignup) {
+			if ( !(detailValues.repeat_password === detailValues.password) ) {
+				missingDetailMsg = "Passwords doesn't match"
+				signupReady = false
+				return
+			}
+			signupReady = true
+		} else {
+			signupReady = false
+		}
+
+		missingDetailMsg = false
+	})
+
+	onDestroy(detailUnsubscribe)
 </script>
 
 {#key showSignup}
@@ -23,7 +56,7 @@
 				<InputField detailName="email" inputType="signup" userDetails="{details}" label="Email - (Optional)"/>
 				<hr>
 			</form>
-			<button>Sign Up</button>
+			<button title="{missingDetailMsg ? missingDetailMsg : ""}" disabled="{!signupReady}">Sign Up</button>
 			<p class="bottom">Already a user? <a href="#" on:click|preventDefault="{() => $modalState = {"modalType" : "auth", "modalContent" : {"type" : "login"}}}">Login here</a></p>
 		</General>
 	{:else}
@@ -40,7 +73,7 @@
 				</div>
 				<hr>
 			</form>
-			<button>Login</button>
+			<button title="{missingDetailMsg ? missingDetailMsg : ""}" disabled="{!loginReady}">Login</button>
 			<p class="bottom">Not a user yet? <a href="#" on:click|preventDefault="{() => $modalState = {"modalType" : "auth", "modalContent" : {"type" : "signup"}}}">Sign up here</a></p>
 		</General>
 	{/if}
@@ -99,21 +132,26 @@ button {
 
 	margin-bottom: 2rem;
 
-	cursor: pointer;
 
 	@include font(0.6, 300, 0.9rem);
-	color: $white;
 
 	height: 2.5rem;
 	width: 100%;
 	flex-shrink: 0;
 
-	background-color: hsl(135, 40%, 45%);
+	&:not(:disabled) {
+		cursor: pointer;
+		color: $white;
+		background-color: hsl(135, 40%, 45%);
 
-	transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+		transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+		&:hover {
+			background-color: hsl(135, 50%, 55%);
+		}
+	}
 
-	&:hover {
-		background-color: hsl(135, 50%, 55%);
+	&:disabled {
+		cursor: not-allowed;
 	}
 }
 
