@@ -4,6 +4,7 @@
 	import InputField from "./inputField.svelte"
 
 	import { modalState } from "../../../shared/stores.js"
+	import { login as queryLogin } from "../../../lib/auth.js"
 
 	import { onDestroy } from 'svelte';
 	import { writable } from "svelte/store"
@@ -12,10 +13,11 @@
 
 	$: showSignup = $modalState && "modalContent" in $modalState && Boolean($modalState.modalContent) && "type" in $modalState.modalContent && $modalState.modalContent.type == "signup"
 
-	
+
 	let missingDetailMsg = ""
 	let loginReady = false
 	let signupReady = false
+	let status = false
 
 	const detailUnsubscribe = details.subscribe(detailValues => {
 
@@ -41,12 +43,36 @@
 		missingDetailMsg = false
 	})
 
+	async function login() {
+		if (loginReady)	{
+			let userLogin = await queryLogin($details.username, $details.password)
+
+				if (userLogin === true) {
+					return {"title" : "Success!", "desc" : "You are now logged in!"}
+				} else {
+					try {
+						let error = await userLogin.json()
+						return {"title" : "Failure!", "desc" : error["detail"]}
+					} catch {
+						return {"title" : "Whoops!", "desc" : "An unexpected error occured, please try again"}
+					}
+				}
+		}
+	}
+
 	onDestroy(detailUnsubscribe)
 </script>
 
 {#key showSignup}
 <Modal height="clamp(60vh, 80ex, 80vh)" width="min(60ch, 80vw)">
-	{#if showSignup}
+	{#if status}
+		{#await status}
+			<p>...waiting</p>
+		{:then result}
+			<h1>{ result.title }</h1>
+			<p>{ result.desc }</p>
+		{/await}
+	{:else if showSignup}
 		<General title="Hi There!" message="Sign up below to start your own journey into the wonderful world of CTI" topPadding="7vh">
 			<form>
 				{#each ["username", "password", "repeat_password"] as detailName}
@@ -73,7 +99,7 @@
 				</div>
 				<hr>
 			</form>
-			<button title="{missingDetailMsg ? missingDetailMsg : ""}" disabled="{!loginReady}">Login</button>
+			<button title="{missingDetailMsg ? missingDetailMsg : ""}" disabled="{!loginReady}" on:click={() => status = login()}>Login</button>
 			<p class="bottom">Not a user yet? <a href="#" on:click|preventDefault="{() => $modalState = {"modalType" : "auth", "modalContent" : {"type" : "signup"}}}">Sign up here</a></p>
 		</General>
 	{/if}
