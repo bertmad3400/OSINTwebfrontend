@@ -3,8 +3,8 @@ import { appConfig } from "../shared/config.js"
 import { queryProtected } from "./user.js"
 import { resetState } from "./state.js"
 
-export async function login(username, password) {
-	let headers = {
+function getHeaders(username, password, params = {}) {
+	return {
 		credentials : "include",
 		method : "POST",
 		headers : {
@@ -12,11 +12,20 @@ export async function login(username, password) {
 		},
 		body : new URLSearchParams({
 			"username" : username,
-			"password" : password
+			"password" : password,
+			...params
 		})
 	}
+}
 
-	let queryResult = await fetch(`${appConfig.rootUrl}/auth/login`, headers)
+export async function signup(username, password) {
+	let queryResult = await fetch(`${appConfig.rootUrl}/auth/signup`, getHeaders(username, password))
+	return queryResult.ok ? true : queryResult
+}
+
+export async function login(username, password) {
+
+	let queryResult = await fetch(`${appConfig.rootUrl}/auth/login`, getHeaders(username, password))
 
 	if (queryResult.ok) {
 		loginState.set({
@@ -26,9 +35,10 @@ export async function login(username, password) {
 
 		return true
 	} else {
-		return (await queryResult.json())["detail"]
+		return queryResult
 	}
 }
+
 
 export async function logout() {
 	await queryProtected("/auth/logout", false, false)
