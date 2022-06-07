@@ -79,8 +79,11 @@
 		{#await status}
 			<p>...waiting</p>
 		{:then result}
-			<h1>{ result.title }</h1>
-			<p>{ result.desc }</p>
+			<General title="{result.title}" message="{result.desc}" topPadding="7vh">
+				{#if showSignup}
+					<p class="bottom"><a href="#" on:click|preventDefault="{() => $modalState = {"modalType" : "auth", "modalContent" : {"type" : "login"}}}">Login here</a></p>
+				{/if}
+			</General>
 		{/await}
 	{:else if showSignup}
 		<General title="Hi There!" message="Sign up below to start your own journey into the wonderful world of CTI" topPadding="7vh">
