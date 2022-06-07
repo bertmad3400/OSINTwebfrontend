@@ -77,7 +77,7 @@
 <Modal height="clamp(60vh, 80ex, 80vh)" width="min(60ch, 80vw)">
 	{#if status}
 		{#await status}
-			<p>...waiting</p>
+			<Loader width="20%" container={true}/>
 		{:then result}
 			<General title="{result.title}" message="{result.desc}" topPadding="7vh">
 				{#if showSignup}
