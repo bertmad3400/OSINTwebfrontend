@@ -84,8 +84,20 @@
 		}
 	}
 
+	async function handleKeypress(keyName) {
+		if (keyName == "Enter") {
+			if (type == "signup") {
+				signup()
+			} else if (type == "login") {
+				login()
+			}
+		}
+	}
+
 	onDestroy(detailUnsubscribe)
 </script>
+
+<svelte:window on:keydown={(e) => handleKeypress(e.key)}/>
 
 <Modal height="clamp(60vh, 80ex, 80vh)" width="min(60ch, 80vw)">
 	{#if loading}
