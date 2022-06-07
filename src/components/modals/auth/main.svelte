@@ -4,7 +4,7 @@
 	import InputField from "./inputField.svelte"
 
 	import { modalState } from "../../../shared/stores.js"
-	import { login as queryLogin } from "../../../lib/auth.js"
+	import { login as queryLogin, signup as querySignup } from "../../../lib/auth.js"
 
 	import { onDestroy } from 'svelte';
 	import { writable } from "svelte/store"
@@ -12,7 +12,6 @@
 	const details = writable({})
 
 	$: showSignup = $modalState && "modalContent" in $modalState && Boolean($modalState.modalContent) && "type" in $modalState.modalContent && $modalState.modalContent.type == "signup"
-
 
 	let missingDetailMsg = ""
 	let loginReady = false
@@ -43,20 +42,31 @@
 		missingDetailMsg = false
 	})
 
+
+	async function formatAuthResponse(response, successMsg) {
+		if (response === true) {
+			return {"title" : "Success!", "desc" : successMsg}
+		} else {
+			try {
+				let error = await userLogin.json()
+				return {"title" : "Failure!", "desc" : error["detail"]}
+			} catch {
+				return {"title" : "Whoops!", "desc" : "An unexpected error occured, please try again"}
+			}
+		}
+	}
+
 	async function login() {
 		if (loginReady)	{
-			let userLogin = await queryLogin($details.username, $details.password)
+			let authResponse = await queryLogin($details.username, $details.password)
+			return await formatAuthResponse(authResponse, "You're now logged in!")
+		}
+	}
 
-				if (userLogin === true) {
-					return {"title" : "Success!", "desc" : "You are now logged in!"}
-				} else {
-					try {
-						let error = await userLogin.json()
-						return {"title" : "Failure!", "desc" : error["detail"]}
-					} catch {
-						return {"title" : "Whoops!", "desc" : "An unexpected error occured, please try again"}
-					}
-				}
+	async function signup() {
+		if (signupReady) {
+			let authResponse = await querySignup($details.username, $details.password)
+			return await formatAuthResponse(authResponse, "You're now signed up!")
 		}
 	}
 
@@ -82,7 +92,7 @@
 				<InputField detailName="email" inputType="signup" userDetails="{details}" label="Email - (Optional)"/>
 				<hr>
 			</form>
-			<button title="{missingDetailMsg ? missingDetailMsg : ""}" disabled="{!signupReady}">Sign Up</button>
+			<button title="{missingDetailMsg ? missingDetailMsg : ""}" disabled="{!signupReady}" on:click={() => status = signup()}>Sign Up</button>
 			<p class="bottom">Already a user? <a href="#" on:click|preventDefault="{() => $modalState = {"modalType" : "auth", "modalContent" : {"type" : "login"}}}">Login here</a></p>
 		</General>
 	{:else}
