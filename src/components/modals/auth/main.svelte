@@ -2,21 +2,26 @@
 	import Modal from "../modal.svelte"
 	import General from "./general.svelte"
 	import InputField from "./inputField.svelte"
+	import Loader from "../../shared/loader.svelte"
 
-	import { modalState } from "../../../shared/stores.js"
+	import { modalState, loginState } from "../../../shared/stores.js"
+	import { appConfig } from "../../../shared/config.js"
+
 	import { login as queryLogin, signup as querySignup } from "../../../lib/auth.js"
+	import { getUserFeeds } from "../../../lib/user.js"
+	import { getUserCollections } from "../../../lib/collections.js"
 
 	import { onDestroy } from 'svelte';
 	import { writable } from "svelte/store"
 
 	const details = writable({})
 
-	$: showSignup = $modalState && "modalContent" in $modalState && Boolean($modalState.modalContent) && "type" in $modalState.modalContent && $modalState.modalContent.type == "signup"
+	$: type = ( $modalState && "modalContent" in $modalState && Boolean($modalState.modalContent) && "type" in $modalState.modalContent ) ? $modalState.modalContent.type : false
 
 	let missingDetailMsg = ""
 	let loginReady = false
 	let signupReady = false
-	let status = false
+	let loading = false
 
 	const detailUnsubscribe = details.subscribe(detailValues => {
 
@@ -28,7 +33,7 @@
 		}
 		loginReady = true
 
-		if (showSignup) {
+		if (type == "signup") {
 			if ( !(detailValues.repeat_password === detailValues.password) ) {
 				missingDetailMsg = "Passwords doesn't match"
 				signupReady = false
@@ -42,51 +47,51 @@
 		missingDetailMsg = false
 	})
 
-
-	async function formatAuthResponse(response, successMsg) {
+	async function handleResponse(response, successMsg) {
 		if (response === true) {
-			return {"title" : "Success!", "desc" : successMsg}
+			$modalState.modalContent = { "title" : "Success!", "desc" : successMsg, "type" : $modalState.modalContent.type == "signup" ? "login" : "result"}
 		} else {
 			try {
-				let error = await userLogin.json()
-				return {"title" : "Failure!", "desc" : error["detail"]}
+				let error = await response.json()
+				$modalState.modalContent = {"title" : "Failure!", "desc" : error["detail"], "type" : $modalState.modalContent.type, "status" : "failure"}
 			} catch {
-				return {"title" : "Whoops!", "desc" : "An unexpected error occured, please try again"}
+				$modalState.modalContent = {"title" : "Whoops!", "desc" : "An unexpected error occured, please try again", "type" : $modalState.modalContent.type, "status" : "failure"}
 			}
 		}
 	}
 
 	async function login() {
 		if (loginReady)	{
+			loading = true
+
 			let authResponse = await queryLogin($details.username, $details.password)
-			return await formatAuthResponse(authResponse, "You're now logged in!")
+
+			await getUserFeeds()
+			await getUserCollections()
+
+			await handleResponse(authResponse, "You're now logged in!")
+
+			loading = false
 		}
 	}
 
 	async function signup() {
 		if (signupReady) {
+			loading = true
 			let authResponse = await querySignup($details.username, $details.password)
-			return await formatAuthResponse(authResponse, "You're now signed up!")
+			await handleResponse(authResponse, "You're now signed up! Login below to continue.")
+			loading = false
 		}
 	}
 
 	onDestroy(detailUnsubscribe)
 </script>
 
-{#key showSignup}
 <Modal height="clamp(60vh, 80ex, 80vh)" width="min(60ch, 80vw)">
-	{#if status}
-		{#await status}
-			<Loader width="20%" container={true}/>
-		{:then result}
-			<General title="{result.title}" message="{result.desc}" topPadding="7vh">
-				{#if showSignup}
-					<p class="bottom"><a href="#" on:click|preventDefault="{() => $modalState = {"modalType" : "auth", "modalContent" : {"type" : "login"}}}">Login here</a></p>
-				{/if}
-			</General>
-		{/await}
-	{:else if showSignup}
-		<General title="Hi There!" message="Sign up below to start your own journey into the wonderful world of CTI" topPadding="7vh">
+	{#if loading}
+		<Loader width="20%" container={true}/>
+	{:else if type == "signup"}
+		<General title="{$modalState.modalContent.title}" message="{$modalState.modalContent.desc}" topPadding="7vh">
 			<form>
 				{#each ["username", "password", "repeat_password"] as detailName}
 					<InputField detailName="{detailName}" inputType="signup" userDetails="{details}"/>
@@ -95,11 +100,11 @@
 				<InputField detailName="email" inputType="signup" userDetails="{details}" label="Email - (Optional)"/>
 				<hr>
 			</form>
-			<button title="{missingDetailMsg ? missingDetailMsg : ""}" disabled="{!signupReady}" on:click={() => status = signup()}>Sign Up</button>
-			<p class="bottom">Already a user? <a href="#" on:click|preventDefault="{() => $modalState = {"modalType" : "auth", "modalContent" : {"type" : "login"}}}">Login here</a></p>
+			<button title="{missingDetailMsg ? missingDetailMsg : ""}" disabled="{!signupReady}" on:click={signup}>Sign Up</button>
+			<p class="bottom">Already a user? <a href="#" on:click|preventDefault="{() => $modalState = structuredClone(appConfig.defaultOptions.modalStates.login) }">Login here</a></p>
 		</General>
-	{:else}
-		<General title="Welcome Back!" message="Log in down below to continue with your journey into the wonderful world of CTI" topPadding="10vh">
+	{:else if type == "login"}
+		<General title="{$modalState.modalContent.title}" message="{$modalState.modalContent.desc}" topPadding="10vh">
 			<form>
 				{#each ["username", "password"] as detailName}
 					<InputField detailName="{detailName}" inputType="login" userDetails="{details}"/>
@@ -112,12 +117,14 @@
 				</div>
 				<hr>
 			</form>
-			<button title="{missingDetailMsg ? missingDetailMsg : ""}" disabled="{!loginReady}" on:click={() => status = login()}>Login</button>
-			<p class="bottom">Not a user yet? <a href="#" on:click|preventDefault="{() => $modalState = {"modalType" : "auth", "modalContent" : {"type" : "signup"}}}">Sign up here</a></p>
+			<button title="{missingDetailMsg ? missingDetailMsg : ""}" disabled="{!loginReady}" on:click={login}>Login</button>
+			<p class="bottom">Not a user yet? <a href="#" on:click|preventDefault="{() => $modalState = structuredClone(appConfig.defaultOptions.modalStates.signup) }">Sign up here</a></p>
+		</General>
+	{:else if type == "result"}
+		<General title="{$modalState.modalContent.title}" message="{$modalState.modalContent.desc}" topPadding="7vh">
 		</General>
 	{/if}
 </Modal>
-{/key}
 
 <style type="text/scss">
 form {

@@ -27,6 +27,24 @@ export const appConfig = {
 		"loginState" : {
 				"loggedIn" : false,
 				"userObject" : {}
+		},
+		"modalStates" : {
+			"signup" : {
+				"modalType" : "auth",
+				"modalContent" : {
+					"type" : "signup",
+					"title" : "Hi There!",
+					"desc" : "Sign up below to start your own journey into the wonderful world of CTI"
+				}
+			},
+			"login" : {
+				"modalType" : "auth",
+				"modalContent" : {
+					"type" : "login",
+					"title" : "Welcome back!",
+					"desc" : "Log in down below to continue with your journey into the wonderful world of CTI"
+				}
+			}
 		}
 	},
 	"userOptions" : {
