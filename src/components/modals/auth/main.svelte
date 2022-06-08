@@ -64,7 +64,7 @@
 		if (loginReady)	{
 			loading = true
 
-			let authResponse = await queryLogin($details.username, $details.password)
+			let authResponse = await queryLogin($details.username, $details.password, $details.remember_me)
 
 			await getUserFeeds()
 			await getUserCollections()
@@ -123,7 +123,7 @@
 				{/each}
 
 				<div class="details">
-					<input class="switch" type="checkbox" id="remember" name="remember" value="True" unchecked>
+					<input bind:checked={$details.remember_me} class="switch" type="checkbox" id="remember" name="remember" value="True" unchecked>
 					<label class="switch" for="remember">Remember Me</label>
 					<a href="">Forgot password?</a>
 				</div>

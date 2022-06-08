@@ -23,9 +23,9 @@ export async function signup(username, password) {
 	return queryResult.ok ? true : queryResult
 }
 
-export async function login(username, password) {
+export async function login(username, password, remember_me = false) {
 
-	let queryResult = await fetch(`${appConfig.rootUrl}/auth/login`, getHeaders(username, password))
+	let queryResult = await fetch(`${appConfig.rootUrl}/auth/login?remember_me=${remember_me}`, getHeaders(username, password))
 
 	if (queryResult.ok) {
 		loginState.set({
