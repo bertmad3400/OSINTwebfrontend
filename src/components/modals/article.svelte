@@ -4,8 +4,8 @@
 	import SvelteMarkdown from 'svelte-markdown'
 
 	import Modal from "./modal.svelte"
-	import Icon from "../../shared/icons.svelte"
-	import ReadLaterButton from "../article_lists/listComponents/readLater.svelte"
+	import Icon from "../shared/icons.svelte"
+	import ReadLaterButton from "../shared/readLater.svelte"
 
 	export let articleContent
 	

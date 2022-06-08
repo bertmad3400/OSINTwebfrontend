@@ -2,7 +2,7 @@
 	export let title = ""
 	export let message = ""
 	export let topPadding = "10vh"
-	import Icon from "../../../shared/icons.svelte"
+	import Icon from "../../shared/icons.svelte"
 </script>
 
 <div class="content-container" style="padding-top: {topPadding};">

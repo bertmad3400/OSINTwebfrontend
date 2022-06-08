@@ -1,12 +1,12 @@
 <script>
-	import { modifyCollection } from "../../../lib/collections.js"
-	import { collectionList, loginState } from "../../../shared/stores.js"
+	import { modifyCollection } from "../../lib/collections.js"
+	import { collectionList, loginState } from "../../shared/stores.js"
 
 	export let ID
 
 	$: readLater = $loginState.loggedIn && $collectionList && "Read Later" in $collectionList && Array.isArray($collectionList["Read Later"]) && $collectionList["Read Later"].includes(ID)
 
-	import Icon from "../../../shared/icons.svelte";
+	import Icon from "./icons.svelte";
 
 	async function toggle () {
 		if ($loginState.loggedIn) {

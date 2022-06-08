@@ -1,5 +1,5 @@
 <script>
-	import Icon from "../shared/icons.svelte";
+	import Icon from "./shared/icons.svelte";
 	import Menu from "./sidebar/menu.svelte"
 	import { feeds, state, modalState, loginState, collectionList } from "../shared/stores.js";
 	import { appConfig } from "../shared/config.js"

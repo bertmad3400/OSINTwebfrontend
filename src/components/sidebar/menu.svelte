@@ -8,7 +8,7 @@
 	import { slide } from 'svelte/transition';
 
 	import OptionList from "./menuOptions.svelte"
-	import Icon from "../../shared/icons.svelte";
+	import Icon from "../shared/icons.svelte";
 </script>
 
 {#if title}

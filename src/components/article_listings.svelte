@@ -1,6 +1,6 @@
 <script>
 	import ArticleList from "./article_lists/list.svelte"
-	import Icon from "../shared/icons.svelte"
+	import Icon from "./shared/icons.svelte"
 	import RenderConfig from "./article_lists/configs/rendering.svelte"
 
 	import { fade } from 'svelte/transition';

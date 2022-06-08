@@ -1,7 +1,7 @@
 <script>
 	import { getArticleCategories } from "../../../lib/articles/main.js"
 
-	import Icon from "../../../shared/icons.svelte"
+	import Icon from "../../shared/icons.svelte"
 
 	export let searchSpecs
 	let sourceSearch = ""

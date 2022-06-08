@@ -2,7 +2,7 @@
 	export let menuOptions
 	export let menuType
 
-	import Icon from "../../shared/icons.svelte";
+	import Icon from "../shared/icons.svelte";
 	import { state } from "../../shared/stores.js"
 </script>
 

@@ -1,6 +1,6 @@
 <script>
 
-	import ReadLaterButton from "../listComponents/readLater.svelte"
+	import ReadLaterButton from "../../shared/readLater.svelte"
 
 	export let article
 	export let time
