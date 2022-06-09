@@ -4,10 +4,8 @@
 </script>
 
 <div class="paramContainer">
-	<h2>{ inputTitle }</h2>
-	<p> - { inputDesc }</p>
+	<h2>{inputTitle}</h2>
 	<hr>
-
 	<form on:submit|preventDefault>
 		<slot></slot>
 	</form>
@@ -15,33 +13,23 @@
 
 <style type="text/scss">
 div.paramContainer {
-	padding-left: 2rem;
-
-	h2, p {
-		display: inline;
-	}
+	display: flex;
+	flex-direction: column;
 
 	h2 {
-		@include font(0.8, 700, 1.5rem);
-	}
-
-	p {
-		@include font(0.8, 200, 0.8rem);
+		@include font(0.8, 400, 1rem);
 	}
 
 	hr {
-		margin-bottom: 1rem;
+		margin: 0.3rem 0 0.7rem 0;
 	}
 
 	form {
 		display: flex;
+		flex-direction: column;
 
-
-		:global(div.inputContainer) {
-			display: flex;
-			flex-direction: column;
-		}
-		
+		position: relative;
+		height: 100%;
 	}
 }
 </style>

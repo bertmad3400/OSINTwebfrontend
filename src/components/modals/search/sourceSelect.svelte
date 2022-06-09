@@ -216,7 +216,7 @@ form.source-select {
 	}
 
 	input:checked + label {
-		background-color: $main-color;
+		background-color: hsl(135, 50%, 95%);
 		div.selectIcon {
 			border-color: $main-color;
 			background-color: $main-color;

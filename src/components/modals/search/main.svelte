@@ -57,52 +57,58 @@
 
 <Modal>
 	<div class="contentContainer">
-		<div class="optionSelectContainer">
+		<div class="optionContainer">
 			<SourceSelect searchSpecs={searchSpecs}/>
 		</div>
 
-		<Params inputTitle="Timespan" inputDesc="Enter wanted date interval. Only articles published within this interval will be shown.">
-			{#each inputFields.timespan as inputDesc}
-				<div class="inputContainer">
-					<label for="{inputDesc.name}">{inputDesc.readable}</label>
-					<input bind:value={$searchSpecs[inputDesc.name]} id="{inputDesc.name}" name="{inputDesc.name}" type="date">
+		<div class="optionContainer seperateOptions">
+			<h1>Specify Search</h1>
+
+			<Params inputTitle="Timespan" inputDesc="Enter wanted date interval. Only articles published within this interval will be shown.">
+				{#each inputFields.timespan as inputDesc}
+					<div class="input">
+						<input bind:value={$searchSpecs[inputDesc.name]} id="{inputDesc.name}" name="{inputDesc.name}" type="text" placeholder=" " onfocus="(this.type='date')" onblur="(this.type='text')">
+						<label class="desc" for="{inputDesc.name}">{inputDesc.readable}</label>
+					</div>
+				{/each}
+			</Params>
+
+			<Params inputTitle="Sorting" inputDesc="Choose how to sort articles and whether they should be sorted ascending or descending.">
+				{#each inputFields.sorting as inputDesc}
+					<div class="input">
+						<select bind:value={$searchSpecs[inputDesc.name]} id="{inputDesc.name}" name="{inputDesc.name}" placeholder=" ">
+							<option value="" disabled selected>{inputDesc.readable}</option>
+							{#each inputDesc.options as [ value, name ] }
+								<option value="{value}">{name}</option>
+							{/each}
+						</select>
+						<label class="desc" for="{inputDesc.name}">{inputDesc.readable}</label>
+					</div>
+				{/each}
+			</Params>
+
+			<Params inputTitle="Limit" inputDesc="Limit number of articles queried from server. Higher number will lead to increased server-load.">
+				<div class="input">
+					<input bind:value={$searchSpecs["limit"]} id="limit-input" name="limit-input" type="number" min="1" max="1000" placeholder=" ">
+					<label for="limit-input" class="desc">Limit</label>
 				</div>
-			{/each}
-		</Params>
+			</Params>
 
-		<Params inputTitle="Sorting" inputDesc="Choose how to sort articles and whether they should be sorted ascending or descending.">
-			{#each inputFields.sorting as inputDesc}
-				<div class="inputContainer">
-					<label for="{inputDesc.name}">{inputDesc.readable}</label>
-					<select bind:value={$searchSpecs[inputDesc.name]} id="{inputDesc.name}" name="{inputDesc.name}">
-						{#each inputDesc.options as [ value, name ] }
-							<option value="{value}">{name}</option>
-						{/each}
-					</select>
+			<Params inputTitle="Search Term" inputDesc="Uses nearly same syntax as Google Dorks. Enable highlighting search matches.">
+				<div class="input">
+					<input bind:value={$searchSpecs["searchTerm"]} id="searchTerm" name="searchTerm" type="text" placeholder=" ">
+					<label for="searchTerm" class="desc">Search Term</label>
 				</div>
-			{/each}
-		</Params>
+			</Params>
 
-		<Params inputTitle="Limit" inputDesc="Limit number of articles queried from server. Higher number will lead to increased server-load.">
-			<label for="limit-input">Limit</label>
-			<input bind:value={$searchSpecs["limit"]} id="limit-input" name="limit-input" type="number" min="1" max="1000">
-		</Params>
-
-		<Params inputTitle="Search Term" inputDesc="Uses nearly same syntax as Google Dorks. Enable highlighting search matches.">
-			<input bind:value={$searchSpecs["searchTerm"]} id="searchTerm" name="searchTerm" type="text" placeholder="Search Term">
-		</Params>
-
-		<button on:click={() => search($searchSpecs)}>Search content</button>
-
+			<button on:click={() => search($searchSpecs)}>Search content</button>
+		</div>
 	</div>
 </Modal>
 
 <style type="text/scss">
 div.contentContainer {
-	display: grid;
-
-	grid-template-columns: repeat(2, 1fr);
-	grid-template-rows: repeat(4, 3fr) 2fr;
+	display: flex;
 
 	padding: 2rem;
 	box-sizing: border-box;
@@ -112,18 +118,29 @@ div.contentContainer {
 
 }
 
-div.optionSelectContainer {
-	grid-row-start: 1;
-	grid-row-end: 5;
+div.optionContainer {
 
 	display: flex;
 	flex-direction: column;
 
-	border-right: 1px solid $button-grey;
+	width: 50%;
 
-	border-bottom: 1px solid $button-grey;
+	&:first-of-type {
+		border-right: 1px solid $button-grey;
+		padding-right: 2rem;
+	}
 
-	padding-right: 2rem;
+	&:last-of-type {
+		padding-left: 2rem;
+	}
+
+	&.seperateOptions {
+		justify-content: space-between;
+	}
+}
+
+h1 {
+	@include font(0.8, 600, 1.3rem);
 }
 
 button {
@@ -134,18 +151,73 @@ button {
 	justify-self: center;
 
 	width: 60%;
-	height: 5rem;
+	height: 4rem;
 
-	padding: 1rem;
+	padding: 1.5rem;
 
 	border-radius: 2px;
 	border: 1px solid rgb(90, 90, 90, 0.2);
 
-
 	@include font(0.5, 700);
 	text-transform: uppercase;
-
-	grid-column-start: 1;
-	grid-column-end: 3;
 }
+
+div.input {
+	position: relative;
+	height: 4rem;
+
+	display: flex;
+	justify-content: center;
+}
+
+input , select{
+	width: 100%;
+	height: 80%;
+
+	margin: auto;
+	box-sizing: border-box;
+
+	border-radius: 0.4rem;
+
+	border: 2px solid $button-grey;
+	background-color: hsl(0, 0%, 98.5%);
+
+	padding-left: 1rem;
+	@include font(0.8, 400);
+
+	appearance: none;
+	outline: 1px solid $white;
+
+	transition: border 200ms ease-in-out, outline 200ms ease-in-out;
+
+	&:hover, &:focus {
+		border: 2px solid $white;
+		outline: 1px solid $main-color;
+	}
+
+	&:hover ~ label.desc, &:focus ~ label.desc {
+		color: $main-color;
+	}
+
+	&:focus ~ label.desc, &:not(:placeholder-shown) ~ label.desc {
+		transform: translateY(-230%) scale(0.75);
+		background-color: $white;
+	}
+}
+
+label.desc {
+	text-transform: capitalize;
+	@include font(1, 200, 0.9rem);
+
+	pointer-events: none;
+
+	position: absolute;
+	transform-origin: 0 50%;
+	transition: transform 200ms, color 200ms;
+
+	left: 1rem;
+	top: 40%;
+	line-height: 1rem;
+}
+
 </style>
