@@ -8,12 +8,12 @@
 	import { slide } from 'svelte/transition';
 
 	import OptionList from "./menuOptions.svelte"
-	import Icon from "../shared/icons.svelte";
+	import Collapse from "../shared/collapseArrow.svelte"
 </script>
 
 {#if title}
 <div class="seperator">
-	<h3> {title} </h3><button on:click={() => open = !open} ><Icon name="arrow" className={open ? "open" : ""}/></button>
+	<h3> {title} </h3> <Collapse bind:open />
 </div>
 {/if}
 
@@ -42,22 +42,5 @@
 		text-transform: uppercase;
 	}
 
-	button {
-		@include button();
-
-		:global(svg) {
-			opacity: 0.45;
-			transition: transform 0.4s;
-
-			height: 1.2rem;
-			width: 1.2rem;
-		}
-
-		:global(svg.open) {
-			transform: rotate(90deg);
-			transition: transform 0.4s;
-		}
-		
-	}
 }
 </style>
