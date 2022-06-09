@@ -128,6 +128,9 @@ div.half {
 		@media (min-width: $singlLaneMaxWidth) {
 			&.seperateOptions {
 				justify-content: space-between;
+				overflow: auto;
+
+				padding: 0.5rem;
 			}
 		}
 
@@ -144,18 +147,23 @@ hr.separator {
 
 button {
 
-	@include button;
-
 	align-self: center;
-	justify-self: center;
 
 	width: 60%;
-	height: 4rem;
 
 	padding: 1.5rem;
+	margin-top: 0.5rem;
 
 	border-radius: 2px;
 	border: 1px solid rgb(90, 90, 90, 0.2);
+	background-color: transparent;
+
+	cursor: pointer;
+	transition: background-color 0.2s ease-in-out;
+
+	&:hover {
+		background-color: $button-grey;
+	}
 
 	@include font(0.5, 700);
 	text-transform: uppercase;
