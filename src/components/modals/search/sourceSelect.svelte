@@ -1,54 +1,46 @@
 <script>
-	import { getArticleCategories } from "../../../lib/articles/main.js"
-
 	import Icon from "../../shared/icons.svelte"
 
 	export let searchSpecs
+	export let sourceList
 	let sourceSearch = ""
-
-	let sources = getArticleCategories()
 </script>
 
-{#await sources}
-	<p> waiting... </p>
-{:then sourceList}
-	<h1> Select Sources </h1>
+<h1> Select Sources </h1>
 
-	<header class="options">
-		<form on:submit|preventDefault role="search" id="source-search">
-			<label for="source-search"><Icon name="magnifying-glass"/></label>
-			<input bind:value={sourceSearch} id="source-search" type="text" placeholder="Search sources...">
-			{#if sourceSearch}<button on:click|preventDefault={() => sourceSearch = ""}><Icon name="x"/></button>{/if}
-		</form>
-		<p class:clickable={$searchSpecs.sourceCategory.length > 0} on:click="{() => $searchSpecs.sourceCategory = []}">Remove selections ({$searchSpecs.sourceCategory.length})</p>
-		<p class:clickable={Object.keys(sourceList).length != $searchSpecs.sourceCategory.length} on:click="{() => $searchSpecs.sourceCategory = Object.keys(sourceList)}">Select all</p>
-	</header>
-
-	<form on:submit|preventDefault class="source-select">
-	{#each Object.entries(sourceList) as [profileName, sourceDetails]}
-		<input bind:group={$searchSpecs.sourceCategory} type="checkbox" id="{profileName}-checkbox" name="{profileName}" value="{profileName}">
-
-		{#if sourceSearch.length == 0 || sourceDetails.name.toLowerCase().includes(sourceSearch)}
-		<label for="{profileName}-checkbox">
-			<img src="{ sourceDetails.image}"/>
-			<div class="sourceDetails">
-				<h3>{ sourceDetails.name }</h3>
-				<a href="{ sourceDetails.url }" target="_blank" rel="noopener noreferrer">{ sourceDetails.url.replace("https://", "") }</a>
-			</div>
-
-			<div class="selectIcon">
-				{#if $searchSpecs.sourceCategory.indexOf(profileName) > -1}
-					<Icon name="tick"/>
-				{:else}
-					<Icon name="plus"/>
-				{/if}
-			</div>
-		</label>
-		{/if}
-	{/each}
+<header class="options">
+	<form on:submit|preventDefault role="search" id="source-search">
+		<label for="source-search"><Icon name="magnifying-glass"/></label>
+		<input bind:value={sourceSearch} id="source-search" type="text" placeholder="Search sources...">
+		{#if sourceSearch}<button on:click|preventDefault={() => sourceSearch = ""}><Icon name="x"/></button>{/if}
 	</form>
+	<p class:clickable={$searchSpecs.sourceCategory.length > 0} on:click="{() => $searchSpecs.sourceCategory = []}">Remove selections ({$searchSpecs.sourceCategory.length})</p>
+	<p class:clickable={Object.keys(sourceList).length != $searchSpecs.sourceCategory.length} on:click="{() => $searchSpecs.sourceCategory = Object.keys(sourceList)}">Select all</p>
+</header>
 
-{/await}
+<form on:submit|preventDefault class="source-select">
+{#each Object.entries(sourceList) as [profileName, sourceDetails]}
+	<input bind:group={$searchSpecs.sourceCategory} type="checkbox" id="{profileName}-checkbox" name="{profileName}" value="{profileName}">
+
+	{#if sourceSearch.length == 0 || sourceDetails.name.toLowerCase().includes(sourceSearch)}
+	<label for="{profileName}-checkbox">
+		<img src="{ sourceDetails.image}"/>
+		<div class="sourceDetails">
+			<h3>{ sourceDetails.name }</h3>
+			<a href="{ sourceDetails.url }" target="_blank" rel="noopener noreferrer">{ sourceDetails.url.replace("https://", "") }</a>
+		</div>
+
+		<div class="selectIcon">
+			{#if $searchSpecs.sourceCategory.indexOf(profileName) > -1}
+				<Icon name="tick"/>
+			{:else}
+				<Icon name="plus"/>
+			{/if}
+		</div>
+	</label>
+	{/if}
+{/each}
+</form>
 
 <style type="text/scss">
 h1 {

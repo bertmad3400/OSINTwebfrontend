@@ -2,10 +2,12 @@
 	import SourceSelect from "./sourceSelect.svelte"
 	import Modal from "../modal.svelte"
 	import Params from "./general.svelte"
+	import Loader from "../../shared/loader.svelte"
 
 	import { appConfig } from "../../../shared/config.js"
 	import { search } from "../../../lib/search.js"
 	import { state, feeds, currentSearch as searchSpecs } from "../../../shared/stores.js"
+	import { getArticleCategories } from "../../../lib/articles/main.js"
 
 	import { onMount } from "svelte"
 
@@ -52,61 +54,72 @@
 		searchSpecs.set(appConfig.defaultOptions.search)
 	})
 
+	let sources = getArticleCategories()
+
 </script>
 
 
 <Modal>
-	<div class="contentContainer">
-		<div class="optionContainer">
-			<SourceSelect searchSpecs={searchSpecs}/>
-		</div>
+	{#await sources}
+		<Loader height="20%" container={true}/>
+	{:then sourceList}
 
-		<div class="optionContainer seperateOptions">
-			<h1>Specify Search</h1>
+		<div class="contentContainer">
+			<div class="optionContainer">
+				<SourceSelect searchSpecs={searchSpecs} sourceList={sourceList}/>
+			</div>
 
-			<Params inputTitle="Timespan" inputDesc="Enter wanted date interval. Only articles published within this interval will be shown.">
-				{#each inputFields.timespan as inputDesc}
+			<hr class="separator">
+
+			<div class="optionContainer seperateOptions">
+				<h1>Specify Search</h1>
+
+				<Params inputTitle="Timespan" inputDesc="Enter wanted date interval. Only articles published within this interval will be shown.">
+					{#each inputFields.timespan as inputDesc}
+						<div class="input">
+							<input bind:value={$searchSpecs[inputDesc.name]} id="{inputDesc.name}" name="{inputDesc.name}" type="text" placeholder=" " onfocus="(this.type='date')" onblur="(this.type='text')">
+							<label class="desc" for="{inputDesc.name}">{inputDesc.readable}</label>
+						</div>
+					{/each}
+				</Params>
+
+				<Params inputTitle="Sorting" inputDesc="Choose how to sort articles and whether they should be sorted ascending or descending.">
+					{#each inputFields.sorting as inputDesc}
+						<div class="input">
+							<select bind:value={$searchSpecs[inputDesc.name]} id="{inputDesc.name}" name="{inputDesc.name}" placeholder=" ">
+								<option value="" disabled selected>{inputDesc.readable}</option>
+								{#each inputDesc.options as [ value, name ] }
+									<option value="{value}">{name}</option>
+								{/each}
+							</select>
+							<label class="desc" for="{inputDesc.name}">{inputDesc.readable}</label>
+						</div>
+					{/each}
+				</Params>
+
+				<Params inputTitle="Limit" inputDesc="Limit number of articles queried from server. Higher number will lead to increased server-load.">
 					<div class="input">
-						<input bind:value={$searchSpecs[inputDesc.name]} id="{inputDesc.name}" name="{inputDesc.name}" type="text" placeholder=" " onfocus="(this.type='date')" onblur="(this.type='text')">
-						<label class="desc" for="{inputDesc.name}">{inputDesc.readable}</label>
+						<input bind:value={$searchSpecs["limit"]} id="limit-input" name="limit-input" type="number" min="1" max="1000" placeholder=" ">
+						<label for="limit-input" class="desc">Limit</label>
 					</div>
-				{/each}
-			</Params>
+				</Params>
 
-			<Params inputTitle="Sorting" inputDesc="Choose how to sort articles and whether they should be sorted ascending or descending.">
-				{#each inputFields.sorting as inputDesc}
+				<Params inputTitle="Search Term" inputDesc="Uses nearly same syntax as Google Dorks. Enable highlighting search matches.">
 					<div class="input">
-						<select bind:value={$searchSpecs[inputDesc.name]} id="{inputDesc.name}" name="{inputDesc.name}" placeholder=" ">
-							<option value="" disabled selected>{inputDesc.readable}</option>
-							{#each inputDesc.options as [ value, name ] }
-								<option value="{value}">{name}</option>
-							{/each}
-						</select>
-						<label class="desc" for="{inputDesc.name}">{inputDesc.readable}</label>
+						<input bind:value={$searchSpecs["searchTerm"]} id="searchTerm" name="searchTerm" type="text" placeholder=" ">
+						<label for="searchTerm" class="desc">Search Term</label>
 					</div>
-				{/each}
-			</Params>
+				</Params>
 
-			<Params inputTitle="Limit" inputDesc="Limit number of articles queried from server. Higher number will lead to increased server-load.">
-				<div class="input">
-					<input bind:value={$searchSpecs["limit"]} id="limit-input" name="limit-input" type="number" min="1" max="1000" placeholder=" ">
-					<label for="limit-input" class="desc">Limit</label>
-				</div>
-			</Params>
-
-			<Params inputTitle="Search Term" inputDesc="Uses nearly same syntax as Google Dorks. Enable highlighting search matches.">
-				<div class="input">
-					<input bind:value={$searchSpecs["searchTerm"]} id="searchTerm" name="searchTerm" type="text" placeholder=" ">
-					<label for="searchTerm" class="desc">Search Term</label>
-				</div>
-			</Params>
-
-			<button on:click={() => search($searchSpecs)}>Search content</button>
+				<button on:click={() => search($searchSpecs)}>Search content</button>
+			</div>
 		</div>
-	</div>
+	{/await}
 </Modal>
 
 <style type="text/scss">
+$singlLaneMaxWidth: 70rem;
+
 div.contentContainer {
 	display: flex;
 
@@ -116,6 +129,10 @@ div.contentContainer {
 
 	height: 100%;
 
+	@media (max-width: $singlLaneMaxWidth) {
+		flex-direction: column;
+	}
+
 }
 
 div.optionContainer {
@@ -123,20 +140,35 @@ div.optionContainer {
 	display: flex;
 	flex-direction: column;
 
-	width: 50%;
 
-	&:first-of-type {
-		border-right: 1px solid $button-grey;
-		padding-right: 2rem;
+	@media (min-width: $singlLaneMaxWidth) {
+		width: 50%;
+		&:first-of-type {
+			border-right: 1px solid $button-grey;
+			padding-right: 2rem;
+		}
+
+		&:last-of-type {
+			padding-left: 2rem;
+		}
+
+		&.seperateOptions {
+			justify-content: space-between;
+		}
 	}
 
-	&:last-of-type {
-		padding-left: 2rem;
+	@media (max-width: $singlLaneMaxWidth) {
+		width: 100%;
+	}
+}
+
+hr.separator {
+	width: 100%;
+	margin: 1rem 0 1.5rem 0;
+	@media (min-width: $singlLaneMaxWidth) {
+		display: none
 	}
 
-	&.seperateOptions {
-		justify-content: space-between;
-	}
 }
 
 h1 {
@@ -200,7 +232,7 @@ input , select{
 	}
 
 	&:focus ~ label.desc, &:not(:placeholder-shown) ~ label.desc {
-		transform: translateY(-230%) scale(0.75);
+		transform: translateY(-1.7rem) scale(0.75);
 		background-color: $white;
 	}
 }

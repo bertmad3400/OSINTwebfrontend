@@ -16,6 +16,16 @@ div.paramContainer {
 	display: flex;
 	flex-direction: column;
 
+	margin-bottom: 0.5rem;
+
+	&:first-of-type {
+		margin-top: 1rem;
+	}
+
+	&:last-of-type {
+		margin-bottom: 2rem;
+	}
+
 	h2 {
 		@include font(0.8, 400, 1rem);
 	}
