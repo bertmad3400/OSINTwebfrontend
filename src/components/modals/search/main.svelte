@@ -3,6 +3,7 @@
 	import SearchQuery from "./searchQuery.svelte"
 	import Modal from "../modal.svelte"
 	import Loader from "../../shared/loader.svelte"
+	import MenuTypeTitle from "./title.svelte"
 
 	import { appConfig } from "../../../shared/config.js"
 	import { search } from "../../../lib/search.js"
@@ -10,6 +11,7 @@
 	import { getArticleCategories } from "../../../lib/articles/main.js"
 
 	import { onMount } from "svelte"
+	import { slide } from 'svelte/transition';
 
 	onMount(async () => {
 		if (["feed", "search"].includes($state.selectedMenu.type)) {
@@ -27,6 +29,15 @@
 
 	let sources = getArticleCategories()
 
+	// Variables used to control whether different segments are collapsed when screens width is small
+	let openSourceSelect = true
+	let openSearchQuery = true
+
+	window.matchMedia('(min-width: 70rem)').addListener(() => {
+		openSourceSelect = true
+		openSearchQuery = true
+	})
+
 </script>
 
 
@@ -34,18 +45,31 @@
 	{#await sources}
 		<Loader height="20%" container={true}/>
 	{:then sourceList}
-
 		<div class="contentContainer">
-			<div class="optionContainer">
-				<SourceSelect searchSpecs={searchSpecs} sourceList={sourceList}/>
+			<div class="half">
+				<MenuTypeTitle title="Select Sources" bind:open={openSourceSelect}/>
+				{#if openSourceSelect}
+					<div class="optionContainer" transition:slide>
+							<SourceSelect searchSpecs={searchSpecs} sourceList={sourceList}/>
+					</div>
+				{/if}
 			</div>
 
 			<hr class="separator">
 
-			<div class="optionContainer seperateOptions">
-				<SearchQuery searchSpecs={searchSpecs}/>
+			<div class="half">
+				<MenuTypeTitle title="Search Query" bind:open={openSearchQuery}/>
+				{#if openSearchQuery}
+					<div class="optionContainer seperateOptions" transition:slide>
+						<SearchQuery searchSpecs={searchSpecs}/>
+					</div>
+				{/if}
+
+				<hr class="separator">
+
 				<button on:click={() => search($searchSpecs)}>Search content</button>
 			</div>
+
 		</div>
 	{/await}
 </Modal>
@@ -68,14 +92,13 @@ div.contentContainer {
 
 }
 
-div.optionContainer {
-
+div.half {
 	display: flex;
 	flex-direction: column;
 
-
 	@media (min-width: $singlLaneMaxWidth) {
 		width: 50%;
+
 		&:first-of-type {
 			border-right: 1px solid $button-grey;
 			padding-right: 2rem;
@@ -85,13 +108,29 @@ div.optionContainer {
 			padding-left: 2rem;
 		}
 
-		&.seperateOptions {
-			justify-content: space-between;
+		:global(button.collapse) {
+			display: none;
 		}
 	}
 
 	@media (max-width: $singlLaneMaxWidth) {
 		width: 100%;
+	}
+
+	div.optionContainer {
+		display: flex;
+		flex-direction: column;
+		min-height: 0;
+
+		height: 100%;
+
+
+		@media (min-width: $singlLaneMaxWidth) {
+			&.seperateOptions {
+				justify-content: space-between;
+			}
+		}
+
 	}
 }
 

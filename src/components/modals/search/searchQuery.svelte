@@ -33,8 +33,6 @@
 	export let searchSpecs
 </script>
 
-<h1>Specify Search</h1>
-
 <Params inputTitle="Timespan" inputDesc="Enter wanted date interval. Only articles published within this interval will be shown.">
 	{#each inputFields.timespan as inputDesc}
 		<div class="input">
@@ -72,13 +70,7 @@
 	</div>
 </Params>
 
-
 <style type="text/scss">
-
-h1 {
-	@include font(0.8, 600, 1.3rem);
-}
-
 div.input {
 	position: relative;
 	height: 4rem;

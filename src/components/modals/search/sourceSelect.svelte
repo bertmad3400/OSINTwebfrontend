@@ -6,8 +6,6 @@
 	let sourceSearch = ""
 </script>
 
-<h1> Select Sources </h1>
-
 <header class="options">
 	<form on:submit|preventDefault role="search" id="source-search">
 		<label for="source-search"><Icon name="magnifying-glass"/></label>
@@ -43,12 +41,6 @@
 </form>
 
 <style type="text/scss">
-h1 {
-	@include font(0.8, 600, 1.3rem);
-	margin-bottom: 1rem;
-}
-
-
 header.options{
 	display: flex;
 	margin-bottom: 2rem;
