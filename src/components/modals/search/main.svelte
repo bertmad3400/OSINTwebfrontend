@@ -49,7 +49,7 @@
 			<div class="half">
 				<MenuTypeTitle title="Select Sources" bind:open={openSourceSelect}/>
 				{#if openSourceSelect}
-					<div class="optionContainer" transition:slide>
+					<div class="optionContainer" transition:slide|local>
 							<SourceSelect searchSpecs={searchSpecs} sourceList={sourceList}/>
 					</div>
 				{/if}
@@ -60,7 +60,7 @@
 			<div class="half">
 				<MenuTypeTitle title="Search Query" bind:open={openSearchQuery}/>
 				{#if openSearchQuery}
-					<div class="optionContainer seperateOptions" transition:slide>
+					<div class="optionContainer seperateOptions" transition:slide|local>
 						<SearchQuery searchSpecs={searchSpecs}/>
 					</div>
 				{/if}
