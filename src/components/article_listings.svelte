@@ -70,7 +70,7 @@
 		{#await $currentArticle}
 			<p> Loading articles...</p>
 		{:then articleList}
-			<section transition:fade>
+			<section>
 				<ArticleList articleList={articleList} />
 			</section>
 		{/await}

@@ -42,7 +42,7 @@
 			</Menu>
 		{:else}
 			<Menu title="User">
-				<li on:click={() => $modalState = {"modalType" : "auth", "modalContent" : {"type" : "login"}}} class="click-able"><Icon name="logout"/><span>Login</span></li>
+				<li on:click={() => $modalState = structuredClone(appConfig.defaultOptions.modalStates.login) } class="click-able"><Icon name="logout"/><span>Login</span></li>
 			</Menu>
 		{/if}
 
@@ -72,7 +72,7 @@ li {
 	display: flex;
 	align-items: center;
 
-	border-bottom: 1px solid $base-grey;
+	border-bottom: 1px solid hsl(0deg, 0%, 92%);
 
 	img {
 		height: 50%;

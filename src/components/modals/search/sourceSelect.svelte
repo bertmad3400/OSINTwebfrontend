@@ -29,7 +29,7 @@
 		</div>
 
 		<div class="selectIcon">
-			{#if $searchSpecs.sourceCategory.indexOf(profileName) > -1}
+			{#if "sourceCategory" in $searchSpecs && $searchSpecs.sourceCategory.indexOf(profileName) > -1}
 				<Icon name="tick"/>
 			{:else}
 				<Icon name="plus"/>
