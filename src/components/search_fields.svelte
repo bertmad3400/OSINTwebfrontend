@@ -13,7 +13,7 @@
 <form on:submit|preventDefault={localSearch} role="search" id="search-box">
 	<label for="search-field"><Icon name="magnifying-glass"/></label>
 	<input bind:value={$state.localSearch} id="search-field" type="text" placeholder="Search...">
-	{#if $state.localSearch}<button on:click|preventDefault={() => $state.localSearch = ""}><Icon name="x"/></button>{/if}
+	{#if $state.localSearch}<button type="button" on:click|preventDefault={() => $state.localSearch = ""}><Icon name="x"/></button>{/if}
 </form>
 
 <style type="text/scss">
