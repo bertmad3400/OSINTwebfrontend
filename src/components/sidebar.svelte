@@ -23,7 +23,7 @@
 <aside id="navbar">
 	<div id="logo-space"><img alt="OSINTer logo" src="https://logos-download.com/wp-content/uploads/2019/07/Feedly_Logo-700x231.png"/></div>
 
-	<button class="long-button" on:click={showSearchModal}> <Icon name="magnifying-glass"/> <span> Explore Content </span> </button>
+	<button class="long-button" class:selected={$state.selectedMenu.type === "search"} on:click={showSearchModal}> <Icon name="magnifying-glass"/> <span> {$state.selectedMenu.type === "search" ? "Exploring Content" : "Explore Content"} </span> </button>
 
 	<nav>
 		<Menu menuOptions={ $feeds.mainFeeds } />
@@ -136,15 +136,30 @@ li {
 	}
 
 	&:hover {
-		border-color: rgb(90, 90, 90, 0.4);
+		border-color: rgba(90, 90, 90, 0.4);
 		span {
-			@include font(0.6);
+			color: rgba(0, 0, 0, 0.6)
 		}
 		:global(svg) {
 			opacity: 0.85;
-			border-color: rgb(90, 90, 90, 0.5)
+			border-color: rgba(90, 90, 90, 0.5)
 		}
 	}
+
+	&.selected {
+		border-color: hsla(135, 60%, 45%, 0.6);
+
+		span {
+			color: hsla(135, 60%, 45%, 0.6);
+		}
+		:global(svg) {
+			opacity: 0.85;
+			border-color: rgb(135, 60%, 45%, 0.7);
+		}
+
+		color: $main-color;
+	}
+
 
 
 }
