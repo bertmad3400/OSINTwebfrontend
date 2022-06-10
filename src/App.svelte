@@ -6,12 +6,9 @@
 	import SearchModal from "./components/modals/search/main.svelte"
 	import AuthModal from "./components/modals/auth/main.svelte"
 
-
 	import { appConfig } from "./shared/config.js"
 	import { feeds, articles, modalState, currentSearch } from "./shared/stores.js"
 	import { search } from "./lib/search.js"
-
-	$feeds = appConfig.feeds
 
 	function handleKeypress(keyName) {
 		switch (keyName) {
