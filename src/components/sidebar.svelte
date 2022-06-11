@@ -1,13 +1,38 @@
 <script>
 	import Icon from "./shared/icons.svelte";
 	import Menu from "./sidebar/menu.svelte"
-	import { feeds, state, modalState, loginState, collectionList } from "../shared/stores.js";
+	import { feeds, state, modalState, loginState, collectionList, currentSearch } from "../shared/stores.js";
 	import { appConfig } from "../shared/config.js"
 
 	import { showSearchModal } from "../lib/state.js"
 	import { logout } from "../lib/auth.js"
 
+	import { createFeed, getUserFeeds, getFeedNames } from "../lib/user/feeds.js"
+
 	import { onDestroy } from "svelte"
+
+	async function createFeedFromSearch(feedName) {
+		let feedSpecs = $currentSearch
+		feedSpecs.feed_name = feedName
+
+		await createFeed(feedSpecs)
+		$modalState = {"modalType" : null, "modalContent" : null}
+		$state = {...$state, "selectedMenu" : {"name" : feedName, "type" : "feed"}, "localSearch" : ""}
+	}
+
+	async function addFeed() {
+		await getUserFeeds()
+
+		if ($loginState.loggedIn) {
+			if($state.selectedMenu.type == "search") {
+				$modalState = {"modalType" : "getName", "modalContent" : {"userAction" : "New feed name", "action" : createFeedFromSearch, "existingNames" : await getFeedNames($feeds)}}
+			} else {
+				showSearchModal()
+			}
+		} else {
+			$modalState = {"modalType" : "auth", "modalContent" : {"type" : "login", "title" : "Login here", "desc" : "Login here or signup with the link down below to create custom feeds."}}
+		}
+	}
 
 	let userCollections = {}
 
@@ -28,7 +53,7 @@
 	<nav>
 		<Menu menuOptions={ $feeds.mainFeeds } />
 		<Menu title="feeds" menuOptions={$feeds.userFeeds} >
-			<li> <Icon name="plus"/> <span style="opacity: 0.8">Add feed</span></li>
+			<li	on:click={addFeed} class:click-able="{$state.selectedMenu.type == "search"}"><Icon name="plus"/><span>New Feed</span></li>
 		</Menu>
 
 		{#if $loginState.loggedIn }
