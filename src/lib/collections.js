@@ -12,10 +12,14 @@ async function updateCollectionStores(data) {
 export async function getUserCollections(collectionName = null) {
 	let currentCollections = await queryProtected("/users/collections/list")
 
-	await updateCollectionStores(currentCollections)
+	if (currentCollections.status === "success") {
+		await updateCollectionStores(currentCollections.content)
 
-	if (collectionName) {
-		await updateArticleListing(collectionArticles, collectionName, currentCollections[collectionName])
+		if (collectionName && collectionName in currentCollections.content) {
+			await updateArticleListing(collectionArticles, collectionName, currentCollections.content[collectionName])
+		}
+	} else {
+		console.log("Failed to get user collections, with following error: ", currentCollections.content)
 	}
 }
 
@@ -30,7 +34,21 @@ export async function modifyCollection(collectionName, mod_action, IDs) {
 		return
 	}
 
-	let newCollectionState = await queryProtected(`/users/collections/modify/${collectionName}/${mod_action}${queryUrl}`, false, false)	
+	let newCollectionState = await queryProtected(`/users/collections/modify/${collectionName}/${mod_action}${queryUrl}`, false)	
 
-	await updateCollectionStores(newCollectionState)
+	if (newCollectionState.status === "success") {
+		await updateCollectionStores(newCollectionState.content)
+	} else {
+		console.log(`Failed to modify "${collectionName}" collection with following error: `, newCollectionState.content)
+	}
+}
+
+export async function addCollection(collectionName) {
+	let newCollectionState = await queryProtected(`/users/collections/modify/${collectionName}/${mod_action}${queryUrl}`, false)	
+
+	if (newCollectionState.status === "success") {
+		await updateCollectionStores(newCollectionState.content)
+	} else {
+		console.log(`Failed to add "${collectionName}" collection with following error: `, newCollectionState.content)
+	}
 }

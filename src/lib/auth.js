@@ -41,6 +41,6 @@ export async function login(username, password, remember_me = false) {
 
 
 export async function logout() {
-	await queryProtected("/auth/logout", false, false)
+	await queryProtected("/auth/logout", false)
 	resetState()
 }

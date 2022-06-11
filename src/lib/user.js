@@ -6,7 +6,7 @@ import { get } from "svelte/store"
 
 import { updateArticleListing } from "./articles/main.js"
 
-export async function queryProtected(queryURL, defaultResponse = false, body = null) {
+export async function queryProtected(queryURL, body = null) {
 	let headers
 
 	if (body != null) {
@@ -24,17 +24,25 @@ export async function queryProtected(queryURL, defaultResponse = false, body = n
 
 	let queryResult = await fetch(`${appConfig.rootUrl}${queryURL}`, headers)
 
-	if (queryResult.ok) {
+	if (queryResult.status == 401) {
+		resetState()
+		return {"status" : "not-auth", "content" : "User needs to be logged in to access this feature"}
+	} else {
 		loginState.update(currentState => {
 			currentState.loggedIn = true
 			return currentState
 		})
 
-		return await queryResult.json()
-
-	} else if (queryResult.status == 401) {
-		resetState()
-		return defaultResponse
+		try {
+			if (queryResult.ok) {
+				return {"status" : "success", "content" : await queryResult.json()}
+			} else {
+				console.log("Error in query: ", queryResult)
+				return {"status" : "failure", "content" : (await queryResult.json())["detail"] }
+			}
+		} catch {
+			return {"status" : "failure", "content" : "An unexpected error occured, please try again"}
+		}
 	}
 }
 
@@ -51,7 +59,9 @@ async function insertFeeds(feedSpecs) {
 export async function getUserFeeds() {
 	let currentFeeds = await queryProtected("/users/feeds/list")
 
-	if (currentFeeds) {
-		await insertFeeds(currentFeeds)
+	if (currentFeeds.status === "success") {
+		await insertFeeds(currentFeeds.content)
+	} else {
+		console.log("Failed to get user feeds, with following error: ", currentFeeds.content)
 	}
 }
