@@ -1,6 +1,6 @@
 <script>
 	import { modifyCollection } from "../../lib/user/collections.js"
-	import { collectionList, loginState } from "../../shared/stores.js"
+	import { collectionList, loginState, modalState } from "../../shared/stores.js"
 
 	export let ID
 
@@ -11,6 +11,8 @@
 	async function toggle () {
 		if ($loginState.loggedIn) {
 			await modifyCollection("Read Later", readLater ? "subtract" : "extend", ID)
+		} else {
+			$modalState = {"modalType" : "auth", "modalContent" : {"type" : "login", "title" : "Login here", "desc" : "Login here or signup with the link down below to save articles for later reading."}}
 		}
 	}
 </script>
