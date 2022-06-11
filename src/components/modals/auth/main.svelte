@@ -8,8 +8,8 @@
 	import { appConfig } from "../../../shared/config.js"
 
 	import { login as queryLogin, signup as querySignup } from "../../../lib/auth.js"
-	import { getUserFeeds } from "../../../lib/user.js"
-	import { getUserCollections } from "../../../lib/collections.js"
+	import { getUserFeeds } from "../../../lib/user/feeds.js"
+	import { getUserCollections } from "../../../lib/user/collections.js"
 
 	import { onDestroy } from 'svelte';
 	import { writable } from "svelte/store"

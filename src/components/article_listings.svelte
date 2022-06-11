@@ -9,7 +9,7 @@
 	import { feeds, articles, state, collectionArticles } from "../shared/stores.js"
 	import { appConfig } from "../shared/config.js"
 	import { refreshArticles } from "../lib/articles/main.js"
-	import { getUserCollections } from "../lib/collections.js"
+	import { getUserCollections } from "../lib/user/collections.js"
 	import { onDestroy } from "svelte";
 
 	$: showFeed = Boolean($articles) && $state.selectedMenu.type == "feed" && $state.selectedMenu.name in $articles

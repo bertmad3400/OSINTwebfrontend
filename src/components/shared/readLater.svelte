@@ -1,5 +1,5 @@
 <script>
-	import { modifyCollection } from "../../lib/collections.js"
+	import { modifyCollection } from "../../lib/user/collections.js"
 	import { collectionList, loginState } from "../../shared/stores.js"
 
 	export let ID

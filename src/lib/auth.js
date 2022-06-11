@@ -1,6 +1,6 @@
 import { loginState } from "../shared/stores.js"
 import { appConfig } from "../shared/config.js"
-import { queryProtected } from "./user.js"
+import { queryProtected } from "./user/main.js"
 import { resetState } from "./state.js"
 
 function getHeaders(username, password, params = {}) {

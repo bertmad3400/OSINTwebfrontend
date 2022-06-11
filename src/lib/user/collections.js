@@ -1,7 +1,7 @@
-import { collectionList, collectionArticles } from "../shared/stores.js"
-import { updateArticleListing } from "./articles/main.js"
+import { collectionList, collectionArticles } from "../../shared/stores.js"
+import { updateArticleListing } from "../articles/main.js"
 
-import { queryProtected } from "./user.js"
+import { queryProtected } from "./main.js"
 
 async function updateCollectionStores(data) {
 	if (data) {

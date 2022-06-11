@@ -1,10 +1,6 @@
-import { loginState, feeds, collectionList, collectionArticles } from "../shared/stores.js"
-import { appConfig } from "../shared/config.js";
-import { resetState } from "./state.js"
-
-import { get } from "svelte/store"
-
-import { updateArticleListing } from "./articles/main.js"
+import { loginState } from "../../shared/stores.js"
+import { appConfig } from "../../shared/config.js";
+import { resetState } from "../state.js"
 
 export async function queryProtected(queryURL, body = null) {
 	let headers
@@ -43,25 +39,5 @@ export async function queryProtected(queryURL, body = null) {
 		} catch {
 			return {"status" : "failure", "content" : "An unexpected error occured, please try again"}
 		}
-	}
-}
-
-async function insertFeeds(feedSpecs) {
-
-	let newFeeds = Object.fromEntries(feedSpecs.map(feed => { return [feed.feed_name, {"searchQuery" : feed, "type" : "feed"}] }) )
-
-	feeds.update(userFeeds => {
-		userFeeds.userFeeds = newFeeds
-		return userFeeds
-	})
-}
-
-export async function getUserFeeds() {
-	let currentFeeds = await queryProtected("/users/feeds/list")
-
-	if (currentFeeds.status === "success") {
-		await insertFeeds(currentFeeds.content)
-	} else {
-		console.log("Failed to get user feeds, with following error: ", currentFeeds.content)
 	}
 }
