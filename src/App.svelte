@@ -5,6 +5,7 @@
 	import ArticleModal from "./components/modals/article.svelte"
 	import SearchModal from "./components/modals/search/main.svelte"
 	import AuthModal from "./components/modals/auth/main.svelte"
+	import GetNameModal from "./components/modals/getName.svelte"
 
 	import { appConfig } from "./shared/config.js"
 	import { feeds, articles, modalState, currentSearch } from "./shared/stores.js"
@@ -36,6 +37,8 @@
 		<SearchModal />
 	{:else if $modalState.modalType == "auth"}
 		<AuthModal />
+	{:else if $modalState.modalType == "getName"}
+		<GetNameModal />
 	{/if}
 	<SideBar />
 	<MainWindow />
