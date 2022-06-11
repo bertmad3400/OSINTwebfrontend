@@ -6,9 +6,9 @@
 	import { state } from "../../shared/stores.js"
 </script>
 
-<ul class:selected="{$state.selectedMenu.name in menuOptions}">
+<ul class:selected="{$state.selectedMenu.name in menuOptions && $state.selectedMenu.type === (menuType ? menuType : menuOptions[$state.selectedMenu.name].type)}">
 	{#each Object.keys(menuOptions) as optionName }
-		<li class:selected="{$state.selectedMenu.name == optionName}" on:click="{() => { $state = {...$state, "selectedMenu" : {"name" : optionName, "type" : menuType ? menuType : menuOptions[optionName].type}, "localSearch" : ""}}}">
+		<li class:selected="{$state.selectedMenu.name == optionName && $state.selectedMenu.type === ( menuType ? menuType : menuOptions[optionName].type ) }" on:click="{() => { $state = {...$state, "selectedMenu" : {"name" : optionName, "type" : menuType ? menuType : menuOptions[optionName].type}, "localSearch" : ""}}}">
 			<Icon name="{ 'icon' in menuOptions[optionName] ? menuOptions[optionName]['icon'] : 'feed' }"/>
 			<span> {optionName} </span>
 		</li>
