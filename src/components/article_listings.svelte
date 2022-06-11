@@ -2,6 +2,7 @@
 	import ArticleList from "./article_lists/list.svelte"
 	import Icon from "./shared/icons.svelte"
 	import RenderConfig from "./article_lists/configs/rendering.svelte"
+	import Loader from "./shared/loader.svelte"
 
 	import { fade } from 'svelte/transition';
 	import { derived } from 'svelte/store';
@@ -68,7 +69,7 @@
 	<hr>
 
 		{#await $currentArticle}
-			<p> Loading articles...</p>
+			<Loader height="20%" container={true} />
 		{:then articleList}
 			<section>
 				<ArticleList articleList={articleList} />
