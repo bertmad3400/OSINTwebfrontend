@@ -8,6 +8,7 @@
 	import { logout } from "../lib/auth.js"
 
 	import { createFeed, getUserFeeds, getFeedNames } from "../lib/user/feeds.js"
+	import { getUserCollections, createCollection } from "../lib/user/collections.js"
 
 	import { onDestroy } from "svelte"
 
@@ -34,6 +35,16 @@
 		}
 	}
 
+	async function addCollection() {
+		getUserCollections()
+
+		if ($loginState.loggedIn) {
+				$modalState = {"modalType" : "getName", "modalContent" : {"userAction" : "New collection name", "action" : async (feedName) => { await createCollection(feedName); $modalState = {"modalType" : null, "modalContent" : null}; }, "existingNames" : Object.keys($collectionList)}}
+		} else {
+			$modalState = {"modalType" : "auth", "modalContent" : {"type" : "login", "title" : "Login here", "desc" : "Login here or signup with the link down below to create collections."}}
+		}
+	}
+
 	let userCollections = {}
 
 	const collectionListUnsubscribed = collectionList.subscribe(collectionList => {
@@ -57,11 +68,9 @@
 		</Menu>
 
 		{#if $loginState.loggedIn }
-			{#if $collectionList }
-				<Menu title="Collections" menuOptions={$collectionList} menuType="collection">
-					<li> <Icon name="plus"/> <span style="opacity: 0.8">Add collection</span></li>
-				</Menu>
-			{/if}
+			<Menu title="Collections" menuOptions={userCollections} menuType="collection">
+				<li on:click={addCollection} class="click-able"><Icon name="plus"/><span>New Collection</span></li>
+			</Menu>
 			<Menu title="User" menuOptions={appConfig.userOptions.loggedIn}>
 				<li	on:click={logout} class="click-able"><Icon name="logout"/><span>Logout</span></li>
 			</Menu>

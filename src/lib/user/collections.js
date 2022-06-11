@@ -43,8 +43,8 @@ export async function modifyCollection(collectionName, mod_action, IDs) {
 	}
 }
 
-export async function addCollection(collectionName) {
-	let newCollectionState = await queryProtected(`/users/collections/modify/${collectionName}/${mod_action}${queryUrl}`, false)	
+export async function createCollection(collectionName) {
+	let newCollectionState = await queryProtected(`/users/collections/create/${collectionName}/`, false)
 
 	if (newCollectionState.status === "success") {
 		await updateCollectionStores(newCollectionState.content)
