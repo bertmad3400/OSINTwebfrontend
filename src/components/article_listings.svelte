@@ -128,6 +128,10 @@ section#article-list {
 
 				position: relative;
 
+				:global(div) {
+					right: 0;
+				}
+
 				&:focus-within :global(div) {
 					display: block;
 				}

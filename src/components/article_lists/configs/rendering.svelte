@@ -1,5 +1,5 @@
 <script>
-	import Dropdown from "./dropdown.svelte"
+	import Dropdown from "../../shared/dropdown.svelte"
 	import { state } from "../../../shared/stores.js"
 </script>
 

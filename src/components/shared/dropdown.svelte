@@ -17,6 +17,5 @@
 	background-color: $white;
 
 	padding: 1.3rem;
-	right: 0px;
 }
 </style>
