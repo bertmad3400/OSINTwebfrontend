@@ -101,7 +101,7 @@
 
 <Modal height="clamp(60vh, 80ex, 80vh)" width="min(60ch, 80vw)">
 	{#if loading}
-		<Loader width="20%" container={true}/>
+		<Loader width="20%" text={true}/>
 	{:else if type == "signup"}
 		<General title="{$modalState.modalContent.title}" message="{$modalState.modalContent.desc}" topPadding="7vh">
 			<form>

@@ -69,7 +69,7 @@
 	<hr>
 
 		{#await $currentArticle}
-			<Loader height="20%" container={true} />
+			<Loader height="20%" text={true} />
 		{:then articleList}
 			<section>
 				<ArticleList articleList={articleList} />

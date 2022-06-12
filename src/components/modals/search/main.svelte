@@ -42,7 +42,7 @@
 
 <Modal>
 	{#await sources}
-		<Loader height="20%" container={true}/>
+		<Loader height="20%" text={true}/>
 	{:then sourceList}
 		<div class="contentContainer">
 			<div class="half">

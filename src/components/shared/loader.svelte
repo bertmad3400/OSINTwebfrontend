@@ -1,7 +1,7 @@
 <script>
 	export let width = null
 	export let height = null
-	export let container = false
+	export let text = false
 
 	import { onMount } from "svelte";
 
@@ -16,7 +16,9 @@
 
 <div class="loading-container">
 	<div style="{width ? "width: " + width + ";" : ""} {height ? "height:" + height + ";" : ""}" class="loading-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-	<p>Loading{".".repeat(dotCounter)}</p>
+	{#if text}
+		<p>Loading{".".repeat(dotCounter)}</p>
+	{/if}
 </div>
 
 <style type="text/scss">
