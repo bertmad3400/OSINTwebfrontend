@@ -7,9 +7,18 @@
 	import AuthModal from "./components/modals/auth/main.svelte"
 	import GetNameModal from "./components/modals/getName.svelte"
 
+	import { onMount } from "svelte"
+
 	import { appConfig } from "./shared/config.js"
 	import { feeds, articles, modalState, currentSearch } from "./shared/stores.js"
 	import { search } from "./lib/search.js"
+	import { getUserFeeds } from "./lib/user/feeds.js"
+	import { getUserCollections } from "./lib/user/collections.js"
+
+	onMount(async () => {
+		await getUserFeeds()
+		await getUserCollections()
+	})
 
 	function handleKeypress(keyName) {
 		switch (keyName) {
