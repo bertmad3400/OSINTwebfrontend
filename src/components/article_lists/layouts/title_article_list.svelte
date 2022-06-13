@@ -1,6 +1,6 @@
 <script>
 
-	import ReadLaterButton from "../../shared/readLater.svelte"
+	import MarkArticleButton from "../../shared/markArticle.svelte"
 
 	export let article
 	export let time
@@ -10,7 +10,7 @@
 </script>
 
 <article on:click={() =>  dispatch("modal", {"articleID" : article.id})}>
-	<ReadLaterButton ID={article.id}/>
+	<MarkArticleButton ID={article.id}/>
 	<p class="source">{ article.source }</p>
 	<div class="article-content">
 		<h3>{ article.title }</h3>
