@@ -49,8 +49,8 @@ export const appConfig = {
 	},
 	"userOptions" : {
 		"loggedIn" : {
-			"Read Later" : { "icon" : "read-later", "type" : "collection" },
-			"Configure Profile" : { "icon" : "gear", "type" : "userOptions" }
+			"Read Later" : { "icon" : "read-later", "type" : "collection" }//,
+			//"Configure Profile" : { "icon" : "gear", "type" : "userOptions" }
 		}
 	},
 	"feeds" : {
