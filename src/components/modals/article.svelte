@@ -34,7 +34,7 @@
 					<li><a href="{shareLinks[SoMe]}" target="_blank" rel="noopener noreferrer"><Icon name="{SoMe}"/></a></li>
 				{/each}
 				<li> <button> <Icon name="copy"/> </button> </li>
-				<li><a href={`${appConfig.rootUrl}/articles/MD/single?ID=${articleContent.id}`}><Icon name="download"/></a></li>
+				<li><a href={`${appConfig.rootUrl}/articles/MD/single?ID=${articleContent.id}`}><Icon name="download-file"/></a></li>
 			</ul>
 		</nav>
 	</header>
