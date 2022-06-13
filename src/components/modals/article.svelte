@@ -6,6 +6,7 @@
 	import Modal from "./modal.svelte"
 	import Icon from "../shared/icons.svelte"
 	import ReadLaterButton from "../shared/readLater.svelte"
+	import AddToCollectionButton from "../shared/addToCollection.svelte"
 
 	export let articleContent
 	
@@ -26,7 +27,7 @@
 		<nav>
 			<ul>
 				<li> <ReadLaterButton ID={articleContent.id} /> </li>
-				<li> <button> <Icon name="favorite"/> </button> </li>
+				<li> <AddToCollectionButton ID={articleContent.id}/> </li>
 			</ul>
 			<ul>
 				{#each ["linkedin", "twitter", "reddit"] as SoMe}
@@ -136,6 +137,11 @@ header {
 						opacity: 0.5;
 						height: 100%;
 						width: 100%;
+					}
+
+					:global(div) {
+						left: 0;
+						top: calc($header-height)
 					}
 				}
 
