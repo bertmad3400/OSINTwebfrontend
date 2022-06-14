@@ -7,8 +7,8 @@
 	import { showSearchModal } from "../lib/state.js"
 	import { logout } from "../lib/auth.js"
 
-	import { createFeed, getUserFeeds, getFeedNames } from "../lib/user/feeds.js"
-	import { getUserCollections, createCollection } from "../lib/user/collections.js"
+	import { createFeed, getUserFeeds, getFeedNames, removeFeed } from "../lib/user/feeds.js"
+	import { getUserCollections, createCollection, removeCollection } from "../lib/user/collections.js"
 
 	import { onDestroy } from "svelte"
 
@@ -50,6 +50,8 @@
 	const collectionListUnsubscribed = collectionList.subscribe(collectionList => {
 		if (collectionList && Object.keys(collectionList).length > 1) {
 			userCollections = Object.fromEntries(Object.entries(collectionList).filter(([key, value]) => key !== "Read Later"))
+		} else {
+			userCollections = {}
 		}
 	})
 
@@ -63,20 +65,20 @@
 
 	<nav>
 		<Menu menuOptions={ $feeds.mainFeeds } />
-		<Menu title="feeds" menuOptions={$feeds.userFeeds} >
-			<li	on:click={addFeed} class:click-able="{$state.selectedMenu.type == "search"}"><Icon name="plus"/><span>New Feed</span></li>
+		<Menu title="feeds" menuOptions={$feeds.userFeeds} removeFunction="{removeFeed}">
+			<li	on:click={addFeed} class:click-able="{$state.selectedMenu.type == "search"}"><Icon className="category-icon" name="plus"/><span>New Feed</span></li>
 		</Menu>
 
 		{#if $loginState.loggedIn }
-			<Menu title="Collections" menuOptions={userCollections} menuType="collection">
-				<li on:click={addCollection} class="click-able"><Icon name="plus"/><span>New Collection</span></li>
+			<Menu title="Collections" menuOptions={userCollections} menuType="collection" removeFunction="{removeCollection}">
+				<li on:click={addCollection} class="click-able"><Icon className="category-icon" name="plus"/><span>New Collection</span></li>
 			</Menu>
 			<Menu title="User" menuOptions={appConfig.userOptions.loggedIn}>
-				<li	on:click={logout} class="click-able"><Icon name="logout"/><span>Logout</span></li>
+				<li	on:click={logout} class="click-able"><Icon className="category-icon" name="logout"/><span>Logout</span></li>
 			</Menu>
 		{:else}
 			<Menu title="User">
-				<li on:click={() => $modalState = structuredClone(appConfig.defaultOptions.modalStates.login) } class="click-able"><Icon name="logout"/><span>Login</span></li>
+				<li on:click={() => $modalState = structuredClone(appConfig.defaultOptions.modalStates.login) } class="click-able"><Icon className="category-icon" name="logout"/><span>Login</span></li>
 			</Menu>
 		{/if}
 

@@ -2,6 +2,7 @@
 	export let title = ""
 	export let menuOptions = {}
 	export let menuType = ""
+	export let removeFunction
 
 	let open = true
 
@@ -19,7 +20,7 @@
 
 {#if open}
 <div transition:slide>
-<OptionList  menuOptions={menuOptions} menuType={menuType}>
+<OptionList  {menuOptions} {menuType} {removeFunction}>
 <slot></slot>
 </OptionList>
 </div>

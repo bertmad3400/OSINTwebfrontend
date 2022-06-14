@@ -1,16 +1,22 @@
 <script>
 	export let menuOptions
 	export let menuType
+	export let removeFunction = false
 
 	import Icon from "../shared/icons.svelte";
-	import { state } from "../../shared/stores.js"
+	import { state, loginState } from "../../shared/stores.js"
 </script>
 
 <ul class:selected="{$state.selectedMenu.name in menuOptions && $state.selectedMenu.type === (menuType ? menuType : menuOptions[$state.selectedMenu.name].type)}">
 	{#each Object.keys(menuOptions) as optionName }
 		<li class:selected="{$state.selectedMenu.name == optionName && $state.selectedMenu.type === ( menuType ? menuType : menuOptions[optionName].type ) }" on:click="{() => { $state = {...$state, "selectedMenu" : {"name" : optionName, "type" : menuType ? menuType : menuOptions[optionName].type}, "localSearch" : ""}}}">
-			<Icon name="{ 'icon' in menuOptions[optionName] ? menuOptions[optionName]['icon'] : 'feed' }"/>
+			<Icon className="category-icon" name="{ 'icon' in menuOptions[optionName] ? menuOptions[optionName]['icon'] : 'feed' }"/>
 			<span> {optionName} </span>
+			{#if removeFunction && $loginState.loggedIn}
+				<button on:click|stopPropagation={removeFunction(optionName)}>
+					<Icon className="remove" name="x" />
+				</button>
+			{/if}
 		</li>
 	{/each}
 	<slot></slot>
@@ -42,10 +48,32 @@ ul {
 			@include font(0.4);
 		}
 
-		:global(svg) {
+		:global(svg.category-icon) {
 			opacity: 0.4;
 			width: 1.3rem;
 			height: 1.3rem;
+		}
+
+		:global(button) {
+			@include button(0);
+
+			padding: 0;
+			margin-left: auto;
+			margin-right: 1rem;
+
+			aspect-ratio: 1/1;
+
+			:global(svg.remove) {
+				opacity: 0.1;
+				transition: opacity 0.4s;
+
+				height: 1.3rem;
+				width: 1.3rem;
+
+				&:hover {
+					opacity: 0.5;
+				}
+			}
 		}
 	}
 
@@ -58,7 +86,7 @@ ul {
 				@include font(0.8)
 			}
 
-			:global(svg) {
+			:global(svg.category-icon) {
 				opacity: 0.8;
 			}
 
@@ -66,7 +94,7 @@ ul {
 				span {
 					color: $main-color !important;
 				}
-				:global(svg) {
+				:global(svg.category-icon) {
 					color: $main-color !important;
 				}
 				border-color: $main-color !important;
