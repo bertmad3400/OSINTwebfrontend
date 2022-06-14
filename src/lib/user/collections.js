@@ -1,7 +1,7 @@
 import { collectionList, collectionArticles } from "../../shared/stores.js"
 import { updateArticleListing } from "../articles/main.js"
 
-import { queryProtected } from "./main.js"
+import { queryProtected, changeOnlineState } from "./main.js"
 
 async function updateCollectionStores(data) {
 	if (data) {
@@ -34,21 +34,13 @@ export async function modifyCollection(collectionName, mod_action, IDs) {
 		return
 	}
 
-	let newCollectionState = await queryProtected(`/users/collections/modify/${collectionName}/${mod_action}${queryUrl}`, false)	
-
-	if (newCollectionState.status === "success") {
-		await updateCollectionStores(newCollectionState.content)
-	} else {
-		console.log(`Failed to modify "${collectionName}" collection with following error: `, newCollectionState.content)
-	}
+	await changeOnlineState(`/users/collections/modify/${collectionName}/${mod_action}${queryUrl}`, "POST", null, `modify "${collectionName}" collection`, updateCollectionStores)
 }
 
 export async function createCollection(collectionName) {
-	let newCollectionState = await queryProtected(`/users/collections/create/${collectionName}/`, false)
+	await changeOnlineState(`/users/collections/create/${collectionName}/`, "POST", null, `create "${collectionName}" collection`, updateCollectionStores)
+}
 
-	if (newCollectionState.status === "success") {
-		await updateCollectionStores(newCollectionState.content)
-	} else {
-		console.log(`Failed to add "${collectionName}" collection with following error: `, newCollectionState.content)
-	}
+export async function removeCollection(collectionName) {
+	await changeOnlineState(`/users/collections/remove/${collectionName}/`, "DELETE", null, `remove "${collectionName}" collection`, updateCollectionStores)
 }

@@ -1,6 +1,6 @@
 import { feeds } from "../../shared/stores.js"
 
-import { queryProtected } from "./main.js"
+import { queryProtected, changeOnlineState } from "./main.js"
 
 async function insertFeeds(feedSpecs) {
 
@@ -23,15 +23,7 @@ export async function getUserFeeds() {
 }
 
 export async function createFeed(feedSpecs) {
-	console.log(feedSpecs)
-
-	let currentFeeds = await queryProtected("/users/feeds/create", feedSpecs)
-
-	if (currentFeeds.status === "success") {
-		await insertFeeds(currentFeeds.content)
-	} else {
-		console.log(`Failed to create "${feedSpecs.feed_name}" feed, with following error: `, currentFeeds.content)
-	}
+	changeOnlineState("/users/feeds/create", "POST", feedSpecs, `create "${feedSpecs.feed_name}" feed`, insertFeeds)
 }
 
 export async function getFeedNames(feeds) {

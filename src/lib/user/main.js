@@ -2,20 +2,14 @@ import { loginState } from "../../shared/stores.js"
 import { appConfig } from "../../shared/config.js";
 import { resetState } from "../state.js"
 
-export async function queryProtected(queryURL, body = null) {
+export async function queryProtected(queryURL, method = "GET", body = null) {
 	let headers
 
-	if (body != null) {
-		headers = {
-			credentials : "include",
-			method : "POST",
-			headers: {'Content-Type': 'application/json'},
-			body : body ? JSON.stringify(body) : null
-		}
-	} else {
-		headers = {
-			credentials : "include"
-		}
+	headers = {
+		credentials : "include",
+		method : method,
+		headers: {'Content-Type': 'application/json'},
+		body : body ? JSON.stringify(body) : null
 	}
 
 	let queryResult = await fetch(`${appConfig.rootUrl}${queryURL}`, headers)
@@ -40,4 +34,15 @@ export async function queryProtected(queryURL, body = null) {
 			return {"status" : "failure", "content" : "An unexpected error occured, please try again"}
 		}
 	}
+}
+
+export async function changeOnlineState(URL, method, content, action, handleSuccessMethod) {
+	let newState = await queryProtected(URL, method, content)
+
+	if (newState.status === "success") {
+		await handleSuccessMethod(newState.content)
+	} else {
+		console.log(`Failed to ${action}, with following error: `, newState.content)
+	}
+
 }
