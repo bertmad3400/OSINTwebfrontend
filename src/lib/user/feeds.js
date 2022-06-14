@@ -26,6 +26,10 @@ export async function createFeed(feedSpecs) {
 	changeOnlineState("/users/feeds/create", "POST", feedSpecs, `create "${feedSpecs.feed_name}" feed`, insertFeeds)
 }
 
+export async function removeFeed(feedName) {
+	changeOnlineState(`/users/feeds/remove?feed_name=${feedName}`, "DELETE", null, `remove "${feedName}" feed`, insertFeeds)
+}
+
 export async function getFeedNames(feeds) {
 	return Array.from(Object.values(feeds), (category) => Object.keys(category)).flat()
 }
