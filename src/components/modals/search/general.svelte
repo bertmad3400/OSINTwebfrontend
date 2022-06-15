@@ -11,7 +11,7 @@
 	</form>
 </div>
 
-<style type="text/scss">
+<style lang="scss">
 div.paramContainer {
 	display: flex;
 	flex-direction: column;

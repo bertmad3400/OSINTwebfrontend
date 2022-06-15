@@ -1,6 +1,5 @@
 <script>
 	export let ID
-	export let open = false
 	let collectionPromise = []
 
 	import Icon from "./icons.svelte"
@@ -41,7 +40,7 @@
 	</Dropdown>
 </button>
 
-<style type="text/scss">
+<style lang="scss">
 button {
 	border: none;
 	background-color: transparent;

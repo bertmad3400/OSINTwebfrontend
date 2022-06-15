@@ -12,7 +12,7 @@
 	{/each}
 </Dropdown>
 
-<style type="text/scss">
+<style lang="scss">
 label {
 	@include radio();
 }

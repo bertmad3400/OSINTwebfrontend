@@ -16,7 +16,7 @@
 	{#if $state.localSearch}<button type="button" on:click|preventDefault={() => $state.localSearch = ""}><Icon name="x"/></button>{/if}
 </form>
 
-<style type="text/scss">
+<style lang="scss">
 #search-box {
 	height: 4rem;
 	border-bottom: 1px solid hsl(0deg, 0%, 92%);

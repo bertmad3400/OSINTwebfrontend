@@ -73,7 +73,7 @@
 	{/await}
 </Modal>
 
-<style type="text/scss">
+<style lang="scss">
 $singlLaneMaxWidth: 70rem;
 
 div.contentContainer {

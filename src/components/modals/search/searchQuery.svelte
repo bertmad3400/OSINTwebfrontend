@@ -70,7 +70,7 @@
 	</div>
 </Params>
 
-<style type="text/scss">
+<style lang="scss">
 div.input {
 	position: relative;
 	height: 4rem;

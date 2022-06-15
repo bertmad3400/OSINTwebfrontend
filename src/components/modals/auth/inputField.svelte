@@ -16,7 +16,7 @@
 	<label for="{detailName}-{inputType}" class="desc">{ label ? label : detailName.replace("_", " ")}</label>
 </div>
 
-<style type="text/scss">
+<style lang="scss">
 div.input-container {
 	position: relative;
 

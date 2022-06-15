@@ -7,7 +7,7 @@
 </script>
 
 <article on:click={() =>  dispatch("modal", {"articleID" : article.id})}>
-	<img src='{ article.image_url }'>
+	<img alt="Article overview" src='{ article.image_url }'>
 	<div class="article-content">
 		<div class="article-details">
 			<p class="source">{ article.source }</p>
@@ -18,7 +18,7 @@
 	</div>
 </article>
 
-<style type="text/scss">
+<style lang="scss">
 article {
 	display: flex;
 	align-items: center;

@@ -16,5 +16,5 @@
 
 <svelte:component this={feedRepresentations[$state.representation]} article={article} time={ getTimespan(article.publish_date) } on:modal/>
 
-<style type="text/scss">
+<style lang="scss">
 </style>

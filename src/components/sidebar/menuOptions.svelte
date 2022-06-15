@@ -22,7 +22,7 @@
 	<slot></slot>
 </ul>
 
-<style type="text/scss">
+<style lang="scss">
 ul {
 	margin: 0;
 	padding: 0 0 2rem 0;

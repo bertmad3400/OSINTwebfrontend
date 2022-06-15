@@ -113,7 +113,7 @@
 				<hr>
 			</form>
 			<button title="{missingDetailMsg ? missingDetailMsg : ""}" disabled="{!signupReady}" on:click={signup}>Sign Up</button>
-			<p class="bottom">Already a user? <a href="#" on:click|preventDefault="{() => $modalState = structuredClone(appConfig.defaultOptions.modalStates.login) }">Login here</a></p>
+			<p class="bottom">Already a user? <a href="{'#'}" on:click|preventDefault="{() => $modalState = structuredClone(appConfig.defaultOptions.modalStates.login) }">Login here</a></p>
 		</General>
 	{:else if type == "login"}
 		<General title="{$modalState.modalContent.title}" message="{$modalState.modalContent.desc}" topPadding="10vh">
@@ -125,12 +125,12 @@
 				<div class="details">
 					<input bind:checked={$details.remember_me} class="switch" type="checkbox" id="remember" name="remember" value="True" unchecked>
 					<label class="switch" for="remember">Remember Me</label>
-					<a href="">Forgot password?</a>
+					<a href="{'#'}">Forgot password?</a>
 				</div>
 				<hr>
 			</form>
 			<button title="{missingDetailMsg ? missingDetailMsg : ""}" disabled="{!loginReady}" on:click={login}>Login</button>
-			<p class="bottom">Not a user yet? <a href="#" on:click|preventDefault="{() => $modalState = structuredClone(appConfig.defaultOptions.modalStates.signup) }">Sign up here</a></p>
+			<p class="bottom">Not a user yet? <a href="{'#'}" on:click|preventDefault="{() => $modalState = structuredClone(appConfig.defaultOptions.modalStates.signup) }">Sign up here</a></p>
 		</General>
 	{:else if type == "result"}
 		<General title="{$modalState.modalContent.title}" message="{$modalState.modalContent.desc}" topPadding="7vh">
@@ -138,7 +138,7 @@
 	{/if}
 </Modal>
 
-<style type="text/scss">
+<style lang="scss">
 form {
 	width: 100%;
 

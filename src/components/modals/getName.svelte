@@ -27,7 +27,7 @@
 	{/if}
 </Modal>
 
-<style type="text/scss">
+<style lang="scss">
 div.content-container {
 	margin: 2rem;
 	width: min(100ch, 80vw);

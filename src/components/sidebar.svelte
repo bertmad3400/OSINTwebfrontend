@@ -86,7 +86,7 @@
 
 </aside>
 
-<style type="text/scss">
+<style lang="scss">
 li {
 	opacity: 0.7;
 

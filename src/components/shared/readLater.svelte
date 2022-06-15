@@ -28,7 +28,7 @@
 	{/if}
 </button>
 
-<style type="text/scss">
+<style lang="scss">
 button {
 	border: none;
 	background-color: transparent;

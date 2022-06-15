@@ -27,7 +27,7 @@
 {/if}
 
 
-<style type="text/scss">
+<style lang="scss">
 .seperator {
 	display: flex;
 	align-items: center;

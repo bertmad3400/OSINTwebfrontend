@@ -14,7 +14,7 @@
 	<slot></slot>
 </div>
 
-<style type="text/scss">
+<style lang="scss">
 div.content-container {
 	padding-left: 6rem;
 	padding-right: 6rem;

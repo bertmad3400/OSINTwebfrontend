@@ -7,7 +7,7 @@
 
 <h1>{title}<Collapse bind:open/></h1>
 
-<style type="text/scss">
+<style lang="scss">
 h1 {
 	@include font(0.8, 600, 1.3rem);
 	margin-bottom: 1rem;

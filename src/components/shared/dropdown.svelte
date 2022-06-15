@@ -5,7 +5,7 @@
 	<slot></slot>
 </div>
 
-<style type="text/scss">
+<style lang="scss">
 
 
 .dropdown {

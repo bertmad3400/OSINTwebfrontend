@@ -22,7 +22,7 @@
 
 	{#if sourceSearch.length == 0 || sourceDetails.name.toLowerCase().includes(sourceSearch)}
 	<label for="{profileName}-checkbox">
-		<img src="{ sourceDetails.image}"/>
+		<img alt="{sourceDetails.name} icon" src="{ sourceDetails.image}"/>
 		<div class="sourceDetails">
 			<h3>{ sourceDetails.name }</h3>
 			<a href="{ sourceDetails.url }" target="_blank" rel="noopener noreferrer">{ sourceDetails.url.replace("https://", "") }</a>
@@ -40,7 +40,7 @@
 {/each}
 </form>
 
-<style type="text/scss">
+<style lang="scss">
 header.options{
 	display: flex;
 	margin-bottom: 2rem;

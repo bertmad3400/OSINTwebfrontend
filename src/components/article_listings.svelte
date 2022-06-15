@@ -77,7 +77,7 @@
 		{/await}
 </section>
 
-<style type="text/scss">
+<style lang="scss">
 section#article-list {
 	padding: 4rem 6rem 4rem 6rem;
 

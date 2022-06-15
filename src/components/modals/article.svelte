@@ -42,7 +42,7 @@
 	<div class="article-content">
 		<h1>{ articleContent.title }</h1>
 		<h4>From { articleContent.source } - Written by { articleContent.author} - { articleContent.publish_date }</h4>
-		<img alt="Article Image" src="{ articleContent.image_url }">
+		<img alt="Main Article" src="{ articleContent.image_url }">
 		<h2>{ articleContent.description }</h2>
 		<SvelteMarkdown {source} />	
 		<button on:click={() => window.open(articleContent.url, "_blank")}> Read article on website </button>
@@ -50,7 +50,7 @@
 </Modal>
 
 
-<style type="text/scss">
+<style lang="scss">
 $header-height: 3rem;
 $article-margins: max(calc((80vw - 90ch)/2), 5vw);
 

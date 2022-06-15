@@ -21,7 +21,7 @@
 	{/if}
 </div>
 
-<style type="text/scss">
+<style lang="scss">
 div.loading-container {
 	width: 100%;
 	height: 100%;
@@ -54,7 +54,7 @@ div.loading-container {
 
 	@for $i from 1 through 9 {
 		.loading-grid div:nth-child(#{$i}) {
-			animation-delay: random(150) / 100 + s;
+			animation-delay: calc(random(150) / 100) + s;
 		}
 	}
 	@keyframes loading-grid {

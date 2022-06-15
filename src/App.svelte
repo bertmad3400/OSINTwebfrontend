@@ -53,7 +53,7 @@
 	<MainWindow />
 </main>
 
-<style type="text/scss">
+<style lang="scss">
 main {
 	display: flex;
 	align-content: center;

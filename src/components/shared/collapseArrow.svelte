@@ -5,7 +5,7 @@
 
 <button class="collapse" on:click={() => open = !open} ><Icon name="arrow" className={open ? "open" : ""}/></button>
 
-<style type="text/scss">
+<style lang="scss">
 button.collapse {
 	@include button();
 

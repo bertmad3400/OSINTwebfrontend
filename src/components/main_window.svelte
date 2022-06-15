@@ -14,7 +14,7 @@
 
 </section>
 
-<style type="text/scss">
+<style lang="scss">
 #main-content {
 	height: 100vh;
 	width: calc(100vw - 18rem);

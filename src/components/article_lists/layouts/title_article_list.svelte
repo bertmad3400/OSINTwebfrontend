@@ -19,7 +19,7 @@
 	<time>{ time }</time>
 </article>
 
-<style type="text/scss">
+<style lang="scss">
 article {
 	:global(button) {
 		@include button;

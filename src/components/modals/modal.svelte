@@ -12,7 +12,7 @@
 	</div>
 </div>
 
-<style type="text/scss">
+<style lang="scss">
 div.pop-up {
 	z-index: 1;
 
