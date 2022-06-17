@@ -1,5 +1,5 @@
 <script>
-	import SideBar from "./components/sidebar.svelte"
+	import SideBar from "./components/sidebar/main.svelte"
 	import MainWindow from "./components/main_window.svelte"
 
 	import ArticleModal from "./components/modals/article.svelte"

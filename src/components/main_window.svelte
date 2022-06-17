@@ -1,6 +1,6 @@
 <script>
 	import SearchField from "./search_fields.svelte"
-	import ArticleListing from "./article_listings.svelte"
+	import ArticleListing from "./article_lists/main.svelte"
 
 	import { state } from "../shared/stores.js"
 </script>

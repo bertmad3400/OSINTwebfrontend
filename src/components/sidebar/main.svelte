@@ -1,14 +1,14 @@
 <script>
-	import Icon from "./shared/icons.svelte";
-	import Menu from "./sidebar/menu.svelte"
-	import { feeds, state, modalState, loginState, collectionList, currentSearch } from "../shared/stores.js";
-	import { appConfig } from "../shared/config.js"
+	import Icon from "../shared/icons.svelte";
+	import Menu from "./menu.svelte"
+	import { feeds, state, modalState, loginState, collectionList, currentSearch } from "../../shared/stores.js";
+	import { appConfig } from "../../shared/config.js"
 
-	import { showSearchModal } from "../lib/state.js"
-	import { logout } from "../lib/auth.js"
+	import { showSearchModal } from "../../lib/state.js"
+	import { logout } from "../../lib/auth.js"
 
-	import { createFeed, getUserFeeds, getFeedNames, removeFeed } from "../lib/user/feeds.js"
-	import { getUserCollections, createCollection, removeCollection } from "../lib/user/collections.js"
+	import { createFeed, getUserFeeds, getFeedNames, removeFeed } from "../../lib/user/feeds.js"
+	import { getUserCollections, createCollection, removeCollection } from "../../lib/user/collections.js"
 
 	import { onDestroy } from "svelte"
 

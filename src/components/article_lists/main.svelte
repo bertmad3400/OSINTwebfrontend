@@ -1,16 +1,16 @@
 <script>
-	import ArticleList from "./article_lists/list.svelte"
-	import Icon from "./shared/icons.svelte"
-	import RenderConfig from "./article_lists/configs/rendering.svelte"
-	import Loader from "./shared/loader.svelte"
+	import ArticleList from "../article_lists/list.svelte"
+	import Icon from "../shared/icons.svelte"
+	import RenderConfig from "../article_lists/configs/rendering.svelte"
+	import Loader from "../shared/loader.svelte"
 
 	import { fade } from 'svelte/transition';
 	import { derived } from 'svelte/store';
 
-	import { feeds, articles, state, collectionArticles } from "../shared/stores.js"
-	import { appConfig } from "../shared/config.js"
-	import { refreshArticles } from "../lib/articles/main.js"
-	import { getUserCollections } from "../lib/user/collections.js"
+	import { feeds, articles, state, collectionArticles } from "../../shared/stores.js"
+	import { appConfig } from "../../shared/config.js"
+	import { refreshArticles } from "../../lib/articles/main.js"
+	import { getUserCollections } from "../../lib/user/collections.js"
 	import { onDestroy } from "svelte";
 
 	$: showFeed = Boolean($articles) && $state.selectedMenu.type == "feed" && $state.selectedMenu.name in $articles
@@ -20,8 +20,6 @@
 	});
 
 	const currentArticle = derived([state, articles], async ([$state, $articles]) => {
-		console.log("Re-calculating articleList")
-
 		let articleSource
 
 		if ($state.selectedMenu.type == "collection") {
