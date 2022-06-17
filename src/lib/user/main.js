@@ -1,6 +1,5 @@
 import { loginState } from "../../shared/stores.js"
 import { appConfig } from "../../shared/config.js";
-import { resetState } from "../state.js"
 
 export async function queryProtected(queryURL, method = "GET", body = null) {
 	let headers
@@ -15,7 +14,6 @@ export async function queryProtected(queryURL, method = "GET", body = null) {
 	let queryResult = await fetch(`${appConfig.rootUrl}${queryURL}`, headers)
 
 	if (queryResult.status == 401) {
-		resetState()
 		return {"status" : "not-auth", "content" : "User needs to be logged in to access this feature"}
 	} else {
 		loginState.update(currentState => {
