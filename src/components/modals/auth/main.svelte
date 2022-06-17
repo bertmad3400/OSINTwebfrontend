@@ -51,12 +51,18 @@
 	async function handleResponse(response, successMsg) {
 		if (response === true) {
 			$modalState.modalContent = { "title" : "Success!", "desc" : successMsg, "type" : $modalState.modalContent.type == "signup" ? "login" : "result"}
+
+			return true
 		} else {
 			try {
 				let error = await response.json()
 				$modalState.modalContent = {"title" : "Failure!", "desc" : error["detail"], "type" : $modalState.modalContent.type, "status" : "failure"}
+
+				return false
 			} catch {
 				$modalState.modalContent = {"title" : "Whoops!", "desc" : "An unexpected error occured, please try again", "type" : $modalState.modalContent.type, "status" : "failure"}
+
+				return false
 			}
 		}
 	}
@@ -67,12 +73,14 @@
 
 			let authResponse = await queryLogin($details.username, $details.password, $details.remember_me)
 
-			await getUserFeeds()
-			await getUserCollections()
-
-			await handleResponse(authResponse, "You're now logged in!")
+			let success = await handleResponse(authResponse, "You're now logged in!")
 
 			loading = false
+
+			if (success) {
+				await getUserFeeds()
+				await getUserCollections()
+			}
 		}
 	}
 
