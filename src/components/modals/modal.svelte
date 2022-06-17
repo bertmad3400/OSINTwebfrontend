@@ -14,7 +14,7 @@
 
 <style lang="scss">
 div.pop-up {
-	z-index: 1;
+	z-index: 2;
 
 	position: absolute;
 	height: 100vh;

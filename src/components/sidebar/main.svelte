@@ -11,6 +11,9 @@
 	import { getUserCollections, createCollection, removeCollection } from "../../lib/user/collections.js"
 
 	import { onDestroy } from "svelte"
+	import { fly, slide } from "svelte/transition"
+
+	let open = true
 
 	async function createFeedFromSearch(feedName) {
 		let feedSpecs = $currentSearch
@@ -56,9 +59,19 @@
 	})
 
 	onDestroy(collectionListUnsubscribed)
+
+	window.matchMedia('(min-width: 70rem)').addListener(() => {
+			open = true
+	})
+
+	window.matchMedia('(max-width: 60rem)').addListener(() => {
+			open = false
+	})
+
 </script>
 
-<aside id="navbar">
+{#if open}
+<aside id="navbar" transition:fly|local={{ x: -50, duration: 150}}>
 	<div id="logo-space"><img alt="OSINTer logo" src="https://logos-download.com/wp-content/uploads/2019/07/Feedly_Logo-700x231.png"/></div>
 
 	<button class="long-button" class:selected={$state.selectedMenu.type === "search"} on:click={showSearchModal}> <Icon name="magnifying-glass"/> <span> {$state.selectedMenu.type === "search" ? "Exploring Content" : "Explore Content"} </span> </button>
@@ -85,8 +98,72 @@
 	</nav>
 
 </aside>
+{/if}
+
+<button class="control-open {open ? 'open' : ''}" on:click={() => {document.activeElement.blur(); open = !open;}}><Icon name="arrow-down-right-square"/></button>
 
 <style lang="scss">
+button.control-open {
+	$radius: 4rem;
+	$margin: 1rem;
+
+	border-radius: $radius $radius $radius 0;
+
+	width: $radius;
+	height: $radius;
+
+	position: absolute;
+	z-index: 1;
+
+	bottom: $margin;
+	left: $margin;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+
+	background-color: $base-grey;
+	border: none;
+
+	cursor: pointer;
+
+	transition: border-radius 0.5s;
+
+	:global(svg) {
+		width: 40%;
+		height: 40%;
+
+		opacity: 0.4;
+
+		transition: opacity 0.4s, color 0.4s, transform 0.35s;
+	}
+
+	&:hover {
+		:global(svg) {
+			opacity: 1;
+			color: $main-color;
+		}
+	}
+
+	&:focus {
+		border-radius: calc($radius * 0.2) !important;
+	}
+
+	&.open {
+		border-radius: 0 $radius $radius $radius ;
+
+		left: 13rem;
+
+		:global(svg) {
+			transform: rotate(90deg);
+		}
+
+		background-color: $button-grey;
+	}
+}
+
 li {
 	opacity: 0.7;
 

@@ -17,8 +17,9 @@
 <style lang="scss">
 #main-content {
 	height: 100vh;
-	width: calc(100vw - 18rem);
 	display: flex;
 	flex-direction: column;
+	min-width: 0;
+	flex-grow: 1;
 }
 </style>
