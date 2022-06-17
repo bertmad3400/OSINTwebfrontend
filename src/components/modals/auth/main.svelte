@@ -10,6 +10,7 @@
 	import { login as queryLogin, signup as querySignup } from "../../../lib/auth.js"
 	import { getUserFeeds } from "../../../lib/user/feeds.js"
 	import { getUserCollections } from "../../../lib/user/collections.js"
+	import { queryAPI } from "../../../lib/articles/main.js"
 
 	import { onDestroy } from 'svelte';
 	import { writable } from "svelte/store"
@@ -78,9 +79,29 @@
 	async function signup() {
 		if (signupReady) {
 			loading = true
+
 			let authResponse = await querySignup($details.username, $details.password)
 			await handleResponse(authResponse, "You're now signed up! Login below to continue.")
+
 			loading = false
+		}
+	}
+
+	async function handleForgottenPassword() {
+		loading = true
+
+		let recoveryAvailable = await queryAPI("/auth/forgotten-password")
+
+		loading = false
+
+		// The actual check that should be used once password recovery by email is implemented
+		//if (Boolean(recoveryAvailable) && recoveryAvailable.available) {
+		if (false) {
+			$modalState.modalContent = { "title" : "Recover password", "desc" : "Recover your password here, by supplying the username and email you used at signup", "type" : "recover"}
+
+		} else {
+			$modalState.modalContent = { "title" : "Recover password", "desc" : "As this instance of OSINTer doesn't support password recovery by email, you will have to contact you system administrator to get it reset", "type" : "result"}
+
 		}
 	}
 
@@ -125,7 +146,7 @@
 				<div class="details">
 					<input bind:checked={$details.remember_me} class="switch" type="checkbox" id="remember" name="remember" value="True" unchecked>
 					<label class="switch" for="remember">Remember Me</label>
-					<a href="{'#'}">Forgot password?</a>
+					<a href="{'#'}" on:click|preventDefault="{handleForgottenPassword}">Forgot password?</a>
 				</div>
 				<hr>
 			</form>

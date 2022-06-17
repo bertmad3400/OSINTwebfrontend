@@ -3,7 +3,7 @@ import { appConfig } from "../../shared/config.js";
 import { articles, collectionList, collectionArticles } from "../../shared/stores.js";
 import { get } from "svelte/store";
 
-async function queryAPI(queryURL, defaultResponse = null) {
+export async function queryAPI(queryURL, defaultResponse = null) {
 	let queryResult = await fetch(`${appConfig.rootUrl}${queryURL}`)
 
 	if (queryResult.ok) {
