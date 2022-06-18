@@ -43,7 +43,13 @@
 	})
 
 	const downloadArticlesLink = derived(currentArticle, ($currentArticle) => {
-		return $currentArticle.then((articleList) => { return `${appConfig.rootUrl}/articles/MD/multiple?${articleList.map(article => "IDs=" + article.id).join("&")}`})
+		return $currentArticle.then((articleList) => {
+			if (Boolean(articleList)) {
+				return `${appConfig.rootUrl}/articles/MD/multiple?${articleList.map(article => "IDs=" + article.id).join("&")}`
+			} else {
+				return ""
+			}
+		})
 	})
 
 	const allArticlesRead = derived([currentArticle, collectionList], async ([$currentArticle, $collectionList]) => {
@@ -52,12 +58,16 @@
 		}
 
 		return $currentArticle.then((articleList) => {
-			for (const article of articleList) {
-				if (!$collectionList["Already Read"].includes(article.id)) {
-					return false
+			if (Boolean(articleList)) {
+				for (const article of articleList) {
+					if (!$collectionList["Already Read"].includes(article.id)) {
+						return false
+					}
 				}
+				return true
+			} else {
+				return false
 			}
-			return true
 		})
 	})
 
@@ -88,9 +98,7 @@
 		{#await $currentArticle}
 			<Loader height="20%" text={true} />
 		{:then articleList}
-			<section>
-				<ArticleList articleList={articleList} />
-			</section>
+			<ArticleList articleList={articleList} />
 		{/await}
 </section>
 
