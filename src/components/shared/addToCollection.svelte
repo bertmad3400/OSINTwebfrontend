@@ -8,6 +8,7 @@
 
 	import { modifyCollection, getUserCollections } from "../../lib/user/collections.js"
 	import { collectionList, loginState, modalState } from "../../shared/stores.js"
+	import { appConfig } from "../../shared/config.js"
 
 	async function showDropdown() {
 		if (!$loginState.loggedIn) {
@@ -31,10 +32,12 @@
 			<Loader height="2rem" />
 		{:then currentCollectionList}
 			{#each Object.entries(currentCollectionList) as [collectionName, IDs]}
-				<label class="radio" on:click|stopPropagation>
-					<input name="radio" type="checkbox" on:change={handleCheckbox} value="{collectionName}" checked="{IDs.includes(ID)}">
-					<span>{collectionName}</span>
-				</label>
+				{#if !appConfig.permCollections.includes(collectionName)}
+					<label class="radio" on:click|stopPropagation>
+						<input name="radio" type="checkbox" on:change={handleCheckbox} value="{collectionName}" checked="{IDs.includes(ID)}">
+						<span>{collectionName}</span>
+					</label>
+				{/if}
 			{/each}
 		{/await}
 	</Dropdown>
