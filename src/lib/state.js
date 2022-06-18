@@ -1,4 +1,4 @@
-import { modalState, feeds, state, loginState, currentSearch } from "../shared/stores.js"
+import { modalState, feeds, state, loginState, currentSearch, collectionList, collectionArticles } from "../shared/stores.js"
 import { appConfig } from "../shared/config.js"
 
 export function showSearchModal() {
@@ -12,4 +12,6 @@ export async function resetState() {
 	modalState.set(structuredClone(appConfig.defaultOptions.modalState))
 	loginState.set(structuredClone(appConfig.defaultOptions.loginState))
 	currentSearch.set(structuredClone(appConfig.defaultOptions.search))
+	collectionList.set(null)
+	collectionArticles.set({})
 }
