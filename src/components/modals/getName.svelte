@@ -71,7 +71,7 @@ div.content-container {
 			&:not(:placeholder-shown) ~ :global(svg) {
 				color: $main-color;
 				opacity: 0.8;
-				border-color: hsla(135, 60%, 45%, 0.6);
+				border-color: $main-color-light;
 
 				&:hover {
 					cursor: pointer;
@@ -126,7 +126,7 @@ div.content-container {
 				:global(svg) {
 					color: $main-color;
 					opacity: 0.8;
-					border-color: hsla(135, 60%, 45%, 0.6);
+					border-color: $main-color-light;
 				}
 			}
 		}

@@ -229,11 +229,11 @@ button {
 	&:not(:disabled) {
 		cursor: pointer;
 		color: $white;
-		background-color: hsl(135, 40%, 45%);
+		background-color: $main-color;
 
 		transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
 		&:hover {
-			background-color: hsl(135, 50%, 55%);
+			background-color: $main-color-light;
 		}
 	}
 

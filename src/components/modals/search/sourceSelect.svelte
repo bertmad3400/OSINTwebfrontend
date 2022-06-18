@@ -102,7 +102,7 @@ header.options{
 		cursor: not-allowed;
 
 		&.clickable {
-			color: $main-color;
+			color: $main-color-light;
 			cursor: pointer;
 		}
 	}
@@ -200,7 +200,7 @@ form.source-select {
 	}
 
 	input:checked + label {
-		background-color: hsl(135, 50%, 95%);
+		background-color: hsl(0, 93%, 97.5%);
 		div.selectIcon {
 			border-color: $main-color;
 			background-color: $main-color;

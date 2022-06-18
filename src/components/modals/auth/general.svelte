@@ -2,11 +2,11 @@
 	export let title = ""
 	export let message = ""
 	export let topPadding = "10vh"
-	import Icon from "../../shared/icons.svelte"
+	import Logo from "../../shared/logo.svelte"
 </script>
 
 <div class="content-container" style="padding-top: {topPadding};">
-	<div class="logo-container"><Icon name="logo"/></div>
+	<div class="logo-container"><Logo /></div>
 
 	<h1>{title}</h1>
 	<p>{message}</p>

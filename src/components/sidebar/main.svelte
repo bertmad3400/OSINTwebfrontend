@@ -1,6 +1,8 @@
 <script>
 	import Icon from "../shared/icons.svelte";
+	import Logo from "../shared/logo.svelte";
 	import Menu from "./menu.svelte"
+
 	import { feeds, state, modalState, loginState, collectionList, currentSearch } from "../../shared/stores.js";
 	import { appConfig } from "../../shared/config.js"
 
@@ -72,7 +74,7 @@
 
 {#if open}
 <aside id="navbar" transition:fly|local={{ x: -50, duration: 150}}>
-	<div id="logo-space"><img alt="OSINTer logo" src="https://logos-download.com/wp-content/uploads/2019/07/Feedly_Logo-700x231.png"/></div>
+	<div id="logo-space"><Logo/><h2>OSINTer</h2></div>
 
 	<button class="long-button" class:selected={$state.selectedMenu.type === "search"} on:click={showSearchModal}> <Icon name="magnifying-glass"/> <span> {$state.selectedMenu.type === "search" ? "Exploring Content" : "Explore Content"} </span> </button>
 
@@ -180,15 +182,34 @@ li {
 
 #logo-space {
 	height: 4rem;
-	padding-left: 1rem;
+	padding: 0 1.5rem 0 1.5rem;
 	overflow: hide;
 	display: flex;
 	align-items: center;
 
 	border-bottom: 1px solid hsl(0deg, 0%, 92%);
 
-	img {
-		height: 50%;
+	cursor: pointer;
+
+	opacity: 0.6;
+	transition: opacity 0.5s;
+
+	:global(svg) {
+		height: 2rem;
+		width: 2rem;
+
+	}
+
+	h2 {
+		margin-left: 1rem;
+		font-weight: 1000;
+		font-family: sans-serif;
+		font-size: 1.5rem;
+		color: $main-color-light;
+	}
+
+	&:hover {
+		opacity: 1;
 	}
 }
 
@@ -260,14 +281,14 @@ li {
 	}
 
 	&.selected {
-		border-color: hsla(135, 60%, 45%, 0.6);
+		border-color: $main-color-light;
 
 		span {
-			color: hsla(135, 60%, 45%, 0.6);
+			color: $main-color-light;
 		}
 		:global(svg) {
 			opacity: 0.85;
-			border-color: rgb(135, 60%, 45%, 0.7);
+			border-color: $main-color-light;
 		}
 
 		color: $main-color;
