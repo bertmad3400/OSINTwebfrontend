@@ -38,9 +38,9 @@ export async function modifyCollection(collectionName, mod_action, IDs) {
 }
 
 export async function createCollection(collectionName) {
-	await changeOnlineState(`/users/collections/create/${collectionName}/`, "POST", null, `create "${collectionName}" collection`, updateCollectionStores)
+	await changeOnlineState(`/users/collections/create/${collectionName}`, "POST", null, `create "${collectionName}" collection`, updateCollectionStores)
 }
 
 export async function removeCollection(collectionName) {
-	await changeOnlineState(`/users/collections/remove/${collectionName}/`, "DELETE", null, `remove "${collectionName}" collection`, updateCollectionStores)
+	await changeOnlineState(`/users/collections/remove/${collectionName}`, "DELETE", null, `remove "${collectionName}" collection`, updateCollectionStores)
 }
