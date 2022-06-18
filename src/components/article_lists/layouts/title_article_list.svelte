@@ -4,12 +4,13 @@
 
 	export let article
 	export let time
+	export let read = false
 
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
 </script>
 
-<article on:click={() =>  dispatch("modal", {"articleID" : article.id})}>
+<article class:read on:click={() =>  dispatch("modal", {"articleID" : article.id})}>
 	<MarkArticleButton ID={article.id}/>
 	<p class="source">{ article.source }</p>
 	<div class="article-content">
@@ -75,6 +76,7 @@ article {
 
 		h3 {
 			@include font(1, 600, 1rem);
+			transition: font-weight 0.2s;
 		}
 	}
 
@@ -82,6 +84,17 @@ article {
 
 	&:last-child {
 		margin-bottom: 8rem;
+	}
+
+	&.read {
+		h3 {
+			font-weight: 200;
+		}
+
+		p {
+			font-size: 0.8rem !important;
+			opacity: 0.6;
+		}
 	}
 }
 </style>

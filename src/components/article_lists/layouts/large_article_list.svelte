@@ -1,12 +1,13 @@
 <script>
 	export let article
 	export let time
+	export let read = false
 
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
 </script>
 
-<article on:click={() =>  dispatch("modal", {"articleID" : article.id})}>
+<article class:read on:click={() =>  dispatch("modal", {"articleID" : article.id})}>
 	<img alt="Article overview" src='{ article.image_url }'>
 	<div class="article-content">
 		<div class="article-details">
@@ -72,6 +73,7 @@ article {
 		h3 {
 			@include font(1, 600, 1.3rem);
 			@include truncate(1);
+			transition: font-weight 0.2s;
 		}
 	}
 
@@ -79,6 +81,16 @@ article {
 
 	&:last-child {
 		margin-bottom: 8rem;
+	}
+
+	&.read {
+		h3 {
+			font-weight: 100 !important;
+		}
+
+		p {
+			opacity: 0.7;
+		}
 	}
 
 }
