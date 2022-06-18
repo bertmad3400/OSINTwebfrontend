@@ -1,6 +1,7 @@
 export const appConfig = {
 	"rootUrl" : "http://localhost:8000",
 	"refreshRate" : 5, // Minimum time in minutes between refreshing of article lists
+	"permCollections" : ["Read Later", "Already Read"],
 	"defaultOptions" : {
 		"search" : {
 			"sourceCategory" : [],
@@ -49,7 +50,8 @@ export const appConfig = {
 	},
 	"userOptions" : {
 		"loggedIn" : {
-			"Read Later" : { "icon" : "read-later", "type" : "collection" }//,
+			"Read Later" : { "icon" : "read-later", "type" : "collection" },
+			"Already Read" : { "icon" : "read-later", "type" : "collection"}//,
 			//"Configure Profile" : { "icon" : "gear", "type" : "userOptions" }
 		}
 	},

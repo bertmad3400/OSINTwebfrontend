@@ -52,7 +52,7 @@
 
 	const collectionListUnsubscribed = collectionList.subscribe(collectionList => {
 		if (collectionList && Object.keys(collectionList).length > 1) {
-			userCollections = Object.fromEntries(Object.entries(collectionList).filter(([key, value]) => key !== "Read Later"))
+			userCollections = Object.fromEntries(Object.entries(collectionList).filter(([key, value]) => !appConfig.permCollections.includes(key)))
 		} else {
 			userCollections = {}
 		}
