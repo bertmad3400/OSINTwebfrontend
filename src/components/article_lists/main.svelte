@@ -7,13 +7,13 @@
 	import { fade } from 'svelte/transition';
 	import { derived } from 'svelte/store';
 
-	import { feeds, articles, state, collectionArticles } from "../../shared/stores.js"
+	import { feeds, articles, state, collectionArticles, collectionList } from "../../shared/stores.js"
 	import { appConfig } from "../../shared/config.js"
 	import { refreshArticles } from "../../lib/articles/main.js"
 	import { getUserCollections } from "../../lib/user/collections.js"
 	import { onDestroy } from "svelte";
 
-	$: showFeed = Boolean($articles) && $state.selectedMenu.type == "feed" && $state.selectedMenu.name in $articles
+	$: pageTitle = `${$state.selectedMenu.name} - ${$state.selectedMenu.type.charAt(0).toUpperCase() + $state.selectedMenu.type.slice(1)}`
 
 	const refreshArticleUnsubscribe = feeds.subscribe(currentFeeds => {
 		refreshArticles(currentFeeds)
@@ -46,14 +46,33 @@
 		return $currentArticle.then((articleList) => { return `${appConfig.rootUrl}/articles/MD/multiple?${articleList.map(article => "IDs=" + article.id).join("&")}`})
 	})
 
-	onDestroy(refreshArticleUnsubscribe)
+	const allArticlesRead = derived([currentArticle, collectionList], async ([$currentArticle, $collectionList]) => {
+		if (!Boolean($collectionList) || ! "Already Read" in $collectionList) {
+			return false
+		}
 
+		return $currentArticle.then((articleList) => {
+			for (const article of articleList) {
+				if (!$collectionList["Already Read"].includes(article.id)) {
+					return false
+				}
+			}
+			return true
+		})
+	})
+
+	onDestroy(refreshArticleUnsubscribe)
 
 </script>
 
 <section id="article-list" transition:fade>
 	<header>
-		<h2>{$state.selectedMenu.name} - {$state.selectedMenu.type.charAt(0).toUpperCase() + $state.selectedMenu.type.slice(1)}</h2>
+		{#await $allArticlesRead}
+			<h2>{ pageTitle }</h2>
+		{:then read}
+			<h2 class:read>{ pageTitle }</h2>
+		{/await}
+
 		<section class="icons">
 			{#await $downloadArticlesLink then link}
 				<a href="{ link }"><Icon name="download"/></a>
@@ -97,6 +116,10 @@ section#article-list {
 			@include font(0.7, 700, 2.5rem);
 			margin-bottom: 0.2rem;
 			line-height: 1.7rem;
+
+			&.read {
+				font-weight: 100 !important;
+			}
 		}
 
 		section.icons {
