@@ -1,5 +1,5 @@
 export const appConfig = {
-	"rootUrl" : "http://localhost:8000",
+	"rootUrl" : "",
 	"refreshRate" : 5, // Minimum time in minutes between refreshing of article lists
 	"permCollections" : ["Read Later", "Already Read"],
 	"defaultOptions" : {
@@ -57,8 +57,8 @@ export const appConfig = {
 	},
 	"feeds" : {
 		"mainFeeds" : {
-			"News" : { "searchQuery" : { "limit" : 3}, "type" : "feed", "icon" : "logo" },
-			"Today" : { "searchQuery" : null, "type" : "feed", "icon" : "calendar" }
+			"News" : { "searchQuery" : null, "type" : "feed"},
+			"Today" : { "searchQuery" : {"lastDate" : (new Date()).toISOString(), "firstDate" : (new Date(new Date().getTime() - (24 * 60 * 60 * 1000))).toISOString()}, "type" : "feed", "icon" : "calendar" }
 		},
 		"userFeeds" : {
 			"Log4J" : {
@@ -85,7 +85,7 @@ export const appConfig = {
 					"sortBy" : "publish_date",
 					"sortOrder" : "desc",
 					"searchTerm" : "ransomware",
-					"highlight" : true
+					"highlight" : false
 				},
 				"type" : "feed"
 			}

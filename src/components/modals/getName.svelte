@@ -7,8 +7,6 @@
 	let content = ""
 
 	$: readyToCreate = content.length > 0 && Boolean($modalState.modalContent) && "existingNames" in $modalState.modalContent && Array.isArray($modalState.modalContent.existingNames) && !($modalState.modalContent.existingNames.includes(content))
-
-	$: console.log(content, $modalState.modalContent)
 </script>
 
 <svelte:window on:keydown={(e) => {if (e.key === "Enter" && readyToCreate) { $modalState.modalContent.action(content) } }}/>

@@ -8,7 +8,6 @@ export function search(searchQuery) {
 		Object.keys(searchQuery).forEach((k) => {
 			if (!searchQuery[k] || searchQuery[k].length === 0) delete searchQuery[k];
 			if (k.toLowerCase().includes("date") && searchQuery[k]) {
-				console.log(searchQuery[k], new Date(searchQuery[k]))
 				searchQuery[k] = (new Date(searchQuery[k])).toISOString();
 			}
 		});
