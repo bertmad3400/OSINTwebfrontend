@@ -27,7 +27,7 @@ export async function createFeed(feedSpecs) {
 }
 
 export async function removeFeed(feedName) {
-	changeOnlineState(`/users/feeds/remove?feed_name=${feedName}`, "DELETE", null, `remove "${feedName}" feed`, insertFeeds)
+	changeOnlineState(`/users/feeds/remove?feed_name=${encodeURIComponent(feedName)}`, "DELETE", null, `remove "${feedName}" feed`, insertFeeds)
 }
 
 export async function getFeedNames(feeds) {

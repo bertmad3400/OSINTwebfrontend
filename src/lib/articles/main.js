@@ -45,19 +45,19 @@ async function fetchArticles(articleContainer, sourceName, sourceSpecs = null){
 	let fetchedArticles;
 
 	if (typeof sourceSpecs === "object" && !Array.isArray(sourceSpecs) && sourceSpecs !== null) {
-		let queryString = Object.keys(sourceSpecs)
+		const queryString = Object.keys(sourceSpecs)
 			.filter(key => sourceSpecs[key])
 			.map(key => `${key}=` + (	Array.isArray(sourceSpecs[key])
-										? sourceSpecs[key].join(`&${key}=`)
-										: sourceSpecs[key]
+										? sourceSpecs[key].map(value => encodeURIComponent(value)).join(`&${key}=`)
+										: encodeURIComponent(sourceSpecs[key])
 									)
 			).join('&');
 
 		fetchedArticles = await queryAPI(`/articles/overview/search?${queryString}`)
 	} else if (Array.isArray(sourceSpecs)) {
 		if (sourceSpecs.length > 0) {
-			let queryString = sourceSpecs.join("&IDs=")
-			fetchedArticles = await queryAPI(`/articles/overview/search?IDs=${queryString}`)
+			const IDQuery = `IDs=${sourceSpecs.map(ID => encodeURIComponent(ID)).join("&IDs=")}`
+			fetchedArticles = await queryAPI(`/articles/overview/search?${IDQuery}`)
 		} else {
 			fetchedArticles = []
 		}

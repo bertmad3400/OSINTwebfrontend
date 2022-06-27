@@ -27,20 +27,20 @@ export async function modifyCollection(collectionName, mod_action, IDs) {
 	let queryUrl
 
 	if (Array.isArray(IDs)) {
-		queryUrl = "?IDs=" + IDs.join("&IDs=")
+		queryUrl = "?IDs=" + IDs.map(ID => encodeURIComponent(ID)).join("&IDs=")
 	} else if (IDs) {
-		queryUrl = `?IDs=${IDs}`
+		queryUrl = `?IDs=${encodeURIComponent(IDs)}`
 	} else {
 		return
 	}
 
-	await changeOnlineState(`/users/collections/modify/${collectionName}/${mod_action}${queryUrl}`, "POST", null, `modify "${collectionName}" collection`, updateCollectionStores)
+	await changeOnlineState(`/users/collections/modify/${encodeURIComponent(collectionName)}/${encodeURIComponent(mod_action)}${queryUrl}`, "POST", null, `modify "${collectionName}" collection`, updateCollectionStores)
 }
 
 export async function createCollection(collectionName) {
-	await changeOnlineState(`/users/collections/create/${collectionName}`, "POST", null, `create "${collectionName}" collection`, updateCollectionStores)
+	await changeOnlineState(`/users/collections/create/${encodeURIComponent(collectionName)}`, "POST", null, `create "${collectionName}" collection`, updateCollectionStores)
 }
 
 export async function removeCollection(collectionName) {
-	await changeOnlineState(`/users/collections/remove/${collectionName}`, "DELETE", null, `remove "${collectionName}" collection`, updateCollectionStores)
+	await changeOnlineState(`/users/collections/remove/${encodeURIComponent(collectionName)}`, "DELETE", null, `remove "${collectionName}" collection`, updateCollectionStores)
 }
