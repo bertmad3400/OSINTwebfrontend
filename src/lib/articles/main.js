@@ -33,7 +33,7 @@ export async function updateArticleListing(articleList, sourceName, sourceSpecs)
 	let currentArticleList = get(articleList)
 
 	if (sourceName in currentArticleList) {
-		if ((Date.now() - currentArticleList[sourceName].time) / 60000 > appConfig.refreshRate || sourceSpecs != currentArticleList[sourceName]["sourceSpec"]) {
+		if ((Date.now() - currentArticleList[sourceName].time) / 60000 > appConfig.refreshRate || sourceSpecs != currentArticleList[sourceName]["sourceSpecs"]) {
 			await fetchArticles(articleList, sourceName, sourceSpecs)
 		}
 	} else {
