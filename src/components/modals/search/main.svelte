@@ -17,7 +17,11 @@
 		if (["feed", "search"].includes($state.selectedMenu.type)) {
 			for (const feedCategory in $feeds) {
 				if($state.selectedMenu.name in $feeds[feedCategory]) {
-					searchSpecs.set({"sourceCategory" : [], ...appConfig.defaultOptions.search, ...$feeds[feedCategory][$state.selectedMenu.name].searchQuery})
+					let currentSearch = {...appConfig.defaultOptions.search, ...$feeds[feedCategory][$state.selectedMenu.name].searchQuery}
+
+					if (!Boolean(currentSearch.sourceCategory)) { currentSearch.sourceCategory = [] }
+
+					searchSpecs.set(currentSearch)
 					return
 				}
 			}
