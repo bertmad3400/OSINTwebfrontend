@@ -7,18 +7,30 @@
 	import AuthModal from "./components/modals/auth/main.svelte"
 	import GetNameModal from "./components/modals/getName.svelte"
 
-	import { onMount } from "svelte"
+	import { onMount, onDestroy } from "svelte"
 
 	import { appConfig } from "./shared/config.js"
 	import { feeds, articles, modalState, currentSearch } from "./shared/stores.js"
 	import { search } from "./lib/search.js"
 	import { getUserFeeds } from "./lib/user/feeds.js"
 	import { getUserCollections } from "./lib/user/collections.js"
+	import { syncLocalStorageToState, syncStateToLocalStorage } from "./lib/state.js"
+
+	// List of name of stores that is saved in local storage for preserving state across reloads
+	let savedStateStores = ["state", "modalState", "currentSearch"]
+
+	let localStorageSyncUnsubscribe
 
 	onMount(async () => {
-		await getUserFeeds()
-		await getUserCollections()
+
+		await syncLocalStorageToState()
+		localStorageSyncUnsubscribe = await syncStateToLocalStorage()
+
+		getUserFeeds()
+		getUserCollections()
 	})
+
+	onDestroy(localStorageSyncUnsubscribe)
 
 	function handleKeypress(keyName) {
 		switch (keyName) {
