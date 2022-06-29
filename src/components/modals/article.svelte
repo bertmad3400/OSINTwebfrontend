@@ -7,16 +7,17 @@
 	import Icon from "../shared/icons.svelte"
 	import ReadLaterButton from "../shared/readLater.svelte"
 	import AddToCollectionButton from "../shared/addToCollection.svelte"
+	import CopyButton from "../shared/copy.svelte"
 
-	export let articleContent
-	
-	const source = articleContent.formatted_content
+	export let articleObject
+
+	const source = articleObject.formatted_content
 
 	// https://github.com/bradvin/social-share-urls
 	const shareLinks = {
-			"linkedin" : `https://www.linkedin.com/sharing/share-offsite/?url=${articleContent.url}`,
-			"twitter" : `https://twitter.com/intent/tweet?url=${articleContent.url}&text=${articleContent.title}`,
-			"reddit" : `https://reddit.com/submit?url=${articleContent.url}&title=${articleContent.title}`
+			"linkedin" : `https://www.linkedin.com/sharing/share-offsite/?url=${articleObject.url}`,
+			"twitter" : `https://twitter.com/intent/tweet?url=${articleObject.url}&text=${articleObject.title}`,
+			"reddit" : `https://reddit.com/submit?url=${articleObject.url}&title=${articleObject.title}`
 	}
 
 </script>
@@ -26,26 +27,26 @@
 	<header>
 		<nav>
 			<ul>
-				<li> <ReadLaterButton ID={articleContent.id} /> </li>
-				<li> <AddToCollectionButton ID={articleContent.id}/> </li>
+				<li> <ReadLaterButton ID={articleObject.id} /> </li>
+				<li> <AddToCollectionButton ID={articleObject.id}/> </li>
 			</ul>
 			<ul>
 				{#each ["linkedin", "twitter", "reddit"] as SoMe}
 					<li><a href="{shareLinks[SoMe]}" target="_blank" rel="noopener noreferrer"><Icon name="{SoMe}"/></a></li>
 				{/each}
-				<li> <button> <Icon name="copy"/> </button> </li>
-				<li><a href={`${appConfig.rootUrl}/articles/MD/single?ID=${articleContent.id}`}><Icon name="download-file"/></a></li>
+				<li> <CopyButton {articleObject} /></li>
+				<li><a href={`${appConfig.rootUrl}/articles/MD/single?ID=${articleObject.id}`}><Icon name="download-file"/></a></li>
 			</ul>
 		</nav>
 	</header>
 
 	<div class="article-content">
-		<h1>{ articleContent.title }</h1>
-		<h4>From { articleContent.source } - Written by { articleContent.author} - { articleContent.publish_date }</h4>
-		<img alt="Main Article" src="{ articleContent.image_url }">
-		<h2>{ articleContent.description }</h2>
-		<SvelteMarkdown {source} />	
-		<button on:click={() => window.open(articleContent.url, "_blank")}> Read article on website </button>
+		<h1>{ articleObject.title }</h1>
+		<h4>From { articleObject.source } - Written by { articleObject.author} - { articleObject.publish_date }</h4>
+		<img alt="Main Article" src="{ articleObject.image_url }">
+		<h2>{ articleObject.description }</h2>
+		<SvelteMarkdown {source} />
+		<button on:click={() => window.open(articleObject.url, "_blank")}> Read article on website </button>
 	</div>
 </Modal>
 
