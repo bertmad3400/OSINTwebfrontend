@@ -1,56 +1,31 @@
 <script>
-	export let articleObject
+	export let processClick
+	export let listOptions
+	export let successMessage
+	export let iconName = "copy"
+
 	let loading = false
 
 	import Icon from "./icons.svelte"
 	import Loader from "./loader.svelte"
 	import Dropdown from "./dropdown.svelte"
-
-	let potentialCopyTargets = {
-		"Url" : async () => articleObject.url,
-		"Raw Content" : async () => articleObject.content,
-		"MD Content" : async () => articleObject.formatted_content,
-		"Whole Article" : async () => {
-			let wholeArticle = await fetch(`/articles/MD/single?ID=${encodeURIComponent(articleObject.id)}`)
-
-			if (wholeArticle.ok) {
-				return await wholeArticle.text()
-			} else {
-				return false
-			}
-		}
-	}
-
-	async function copyAttr(copyTarget) {
-		if (copyTarget in potentialCopyTargets) {
-			console.log(potentialCopyTargets[copyTarget])
-			let copyContent = await potentialCopyTargets[copyTarget]()
-
-			if (Boolean(copyContent)) {
-				navigator.clipboard.writeText(copyContent)
-				return true
-			}
-		}
-
-		return false
-	}
 </script>
 
 <button on:click|stopPropagation={() => loading = false}>
-	<Icon name="copy"/>
+	<Icon name={iconName}/>
 
 	<Dropdown padding="0;">
 		{#if !loading}
 			<ul>
-			{#each Object.keys(potentialCopyTargets) as copyTarget}
-				<li on:click|stopPropagation={() => loading = copyAttr(copyTarget)}>{ copyTarget }</li>
+			{#each Object.keys(listOptions) as option}
+				<li on:click|stopPropagation={() => loading = processClick(option)}>{ option }</li>
 			{/each}
 			</ul>
 		{:else}
 			{#await loading}
 				<Loader height="3rem"/>
 			{:then loadingResult}
-				<p>{ loadingResult ? "Copied to clipboard" : "Failed, try again" }</p>
+				<p>{ loadingResult ? successMessage : "Failed, try again" }</p>
 			{/await}
 		{/if}
 	</Dropdown>
