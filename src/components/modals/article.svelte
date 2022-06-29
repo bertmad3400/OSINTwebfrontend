@@ -15,9 +15,9 @@
 
 	// https://github.com/bradvin/social-share-urls
 	const shareLinks = {
-			"linkedin" : `https://www.linkedin.com/sharing/share-offsite/?url=${articleObject.url}`,
-			"twitter" : `https://twitter.com/intent/tweet?url=${articleObject.url}&text=${articleObject.title}`,
-			"reddit" : `https://reddit.com/submit?url=${articleObject.url}&title=${articleObject.title}`
+			"LinkedIn" : `https://www.linkedin.com/sharing/share-offsite/?url=${articleObject.url}`,
+			"Twitter" : `https://twitter.com/intent/tweet?url=${articleObject.url}&text=${articleObject.title}`,
+			"Reddit" : `https://reddit.com/submit?url=${articleObject.url}&title=${articleObject.title}`
 	}
 
 	let potentialCopyTargets = {
@@ -58,10 +58,7 @@
 				<li> <AddToCollectionButton ID={articleObject.id}/> </li>
 			</ul>
 			<ul>
-				{#each ["linkedin", "twitter", "reddit"] as SoMe}
-					<li><a href="{shareLinks[SoMe]}" target="_blank" rel="noopener noreferrer"><Icon name="{SoMe}"/></a></li>
-				{/each}
-				<li> <CopyButton {articleObject} /></li>
+				<li> <GeneralInteractiveList processClick={(target) => window.open(shareLinks[target], "_blank")} listOptions={shareLinks} successMessage={"Shared to SoMe."} iconName={"share"}/></li>
 				<li> <GeneralInteractiveList processClick={copyAttr} listOptions={potentialCopyTargets} successMessage={"Copied to clipboard."}/></li>
 				<li><a href={`${appConfig.rootUrl}/articles/MD/single?ID=${articleObject.id}`}><Icon name="download-file"/></a></li>
 			</ul>
