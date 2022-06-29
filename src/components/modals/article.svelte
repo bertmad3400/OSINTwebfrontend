@@ -67,7 +67,7 @@
 
 	<div class="article-content">
 		<h1>{ articleObject.title }</h1>
-		<h4>From { articleObject.source } - Written by { articleObject.author} - { articleObject.publish_date }</h4>
+		<h4>From { articleObject.source } - Written by { articleObject.author} - { articleObject.publish_date } - Read {articleObject.read_times} times.</h4>
 		<img alt="Main Article" src="{ articleObject.image_url }">
 		<h2>{ articleObject.description }</h2>
 		<SvelteMarkdown {source} />
