@@ -72,6 +72,8 @@
 
 </script>
 
+<svelte:window on:keydown={(e) => {if (e.key === "ArrowLeft") {open = false} else if (e.key === "ArrowRight") {open = true} }}/>
+
 {#if open}
 <aside id="navbar" transition:fly|local={{ x: -50, duration: 150}}>
 	<div id="logo-space"><Logo/><h2>OSINTer</h2></div>
