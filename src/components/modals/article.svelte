@@ -7,7 +7,7 @@
 	import Icon from "../shared/icons.svelte"
 	import ReadLaterButton from "../shared/readLater.svelte"
 	import AddToCollectionButton from "../shared/addToCollection.svelte"
-	import CopyButton from "../shared/copy.svelte"
+	import GeneralInteractiveList from "../shared/interactiveListDropdown.svelte"
 
 	export let articleObject
 
@@ -18,6 +18,33 @@
 			"linkedin" : `https://www.linkedin.com/sharing/share-offsite/?url=${articleObject.url}`,
 			"twitter" : `https://twitter.com/intent/tweet?url=${articleObject.url}&text=${articleObject.title}`,
 			"reddit" : `https://reddit.com/submit?url=${articleObject.url}&title=${articleObject.title}`
+	}
+
+	let potentialCopyTargets = {
+		"Url" : async () => articleObject.url,
+		"Raw Content" : async () => articleObject.content,
+		"MD Content" : async () => articleObject.formatted_content,
+		"Whole Article" : async () => {
+			let wholeArticle = await fetch(`/articles/MD/single?ID=${encodeURIComponent(articleObject.id)}`)
+
+			if (wholeArticle.ok) {
+				return await wholeArticle.text()
+			} else {
+				return false
+			}
+		}
+	}
+
+	async function copyAttr(copyTarget) {
+		if (copyTarget in potentialCopyTargets) {
+			let copyContent = await potentialCopyTargets[copyTarget]()
+
+			if (Boolean(copyContent)) {
+				navigator.clipboard.writeText(copyContent)
+				return true
+			}
+		}
+		return false
 	}
 
 </script>
@@ -35,6 +62,7 @@
 					<li><a href="{shareLinks[SoMe]}" target="_blank" rel="noopener noreferrer"><Icon name="{SoMe}"/></a></li>
 				{/each}
 				<li> <CopyButton {articleObject} /></li>
+				<li> <GeneralInteractiveList processClick={copyAttr} listOptions={potentialCopyTargets} successMessage={"Copied to clipboard."}/></li>
 				<li><a href={`${appConfig.rootUrl}/articles/MD/single?ID=${articleObject.id}`}><Icon name="download-file"/></a></li>
 			</ul>
 		</nav>
