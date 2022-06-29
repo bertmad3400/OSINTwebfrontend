@@ -86,11 +86,61 @@ div.article-content {
 	}
 
 	:global(p) {
+		:global(img) {
+			margin-bottom: 0.3rem;
 
+			& ~ :global(p), & ~ :global(strong), & ~ :global(em) {
+				display: block;
+				margin: 0 auto 0.2rem auto;
+
+				width: max-content;
+
+				font-style: italic;
+				@include font(0.6, 200);
+			}
+
+			& ~ :global(br) {
+				display: none;
+			}
+
+			& ~ :global(*):last-child {
+				margin-bottom: 2rem;
+			}
+		}
 	}
 
 	:global(img) {
 		border-radius: 1%;
+		width: 100%;
+	}
+
+	:global(table) {
+		width: 100%;
+		background-color: $white;
+		border-collapse: collapse;
+		border: 2px solid $button-grey;
+
+		color: #000000;
+
+		:global(th), :global(td) {
+			border: 2px solid $base-grey;
+			padding: 0.1rem;
+
+			@include font(1, 100, 0.7rem);
+
+			:global(*) {
+				@include font(1, 100, 0.7rem);
+			}
+		}
+
+		:global(thead) {
+			:global(th), :global(td) {
+				border: 2px solid $button-grey;
+			}
+
+			background-color: $main-color-light;
+		}
+
 	}
 
 	button {
