@@ -23,8 +23,8 @@
 
 	onMount(async () => {
 
-		await syncLocalStorageToState()
-		localStorageSyncUnsubscribe = await syncStateToLocalStorage()
+		await syncLocalStorageToState(savedStateStores)
+		localStorageSyncUnsubscribe = await syncStateToLocalStorage(savedStateStores)
 
 		getUserFeeds()
 		getUserCollections()
