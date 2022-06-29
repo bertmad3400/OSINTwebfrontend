@@ -1,7 +1,8 @@
 <script>
+	export let padding = "1.3rem"
 </script>
 
-<div class="dropdown">
+<div class="dropdown" style="padding: { padding };">
 	<slot></slot>
 </div>
 
@@ -15,7 +16,5 @@
 	border-radius: .25rem;
 	box-shadow: 0 2px 8px rgba(0,0,0,.2),0 0 2px rgba(0,0,0,.38);
 	background-color: $white;
-
-	padding: 1.3rem;
 }
 </style>

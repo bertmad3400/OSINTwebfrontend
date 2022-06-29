@@ -53,7 +53,7 @@
 
 <main>
 	{#if $modalState.modalType == "article" && $modalState.modalContent}
-		<ArticleModal articleContent={$modalState.modalContent} />
+		<ArticleModal articleObject={$modalState.modalContent} />
 	{:else if $modalState.modalType == "search"}
 		<SearchModal />
 	{:else if $modalState.modalType == "auth"}
