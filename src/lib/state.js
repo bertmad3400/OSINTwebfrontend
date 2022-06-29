@@ -42,7 +42,12 @@ export async function syncLocalStorageToState(includeStores = false) {
 			const currentValue = localStorage.getItem(storeName)
 
 			if (Boolean(currentValue)) {
-				storeOverview[storeName].store.set(JSON.parse(currentValue))
+				try {
+					storeOverview[storeName].store.set(JSON.parse(currentValue))
+				} catch (e) {
+					console.log(`Failed to read state details regarding "${storeName}", with the following value and error. Clearing it for now.`, currentValue, e)
+					localStorage.removeItem(storeName)
+				}
 			}
 		}
 	}
