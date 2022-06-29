@@ -26,7 +26,7 @@ export async function syncStateToLocalStorage(includeStores = false) {
 	let unsubscribeFunctions = []
 
 	for (const storeName of Object.keys(storeOverview)) {
-		if (!includeStores || includeStores.include(storeName)) {
+		if (Array.isArray(includeStores) && includeStores.includes(storeName)) {
 			unsubscribeFunctions.push(
 				storeOverview[storeName].store.subscribe((value) => localStorage.setItem(storeName, JSON.stringify(value)))
 			)
@@ -38,7 +38,7 @@ export async function syncStateToLocalStorage(includeStores = false) {
 
 export async function syncLocalStorageToState(includeStores = false) {
 	for (const storeName of Object.keys(storeOverview)) {
-		if (!includeStores || includeStores.include(storeName)) {
+		if (Array.isArray(includeStores) && includeStores.includes(storeName)) {
 			const currentValue = localStorage.getItem(storeName)
 
 			if (Boolean(currentValue)) {
