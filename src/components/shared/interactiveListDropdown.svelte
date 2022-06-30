@@ -14,7 +14,7 @@
 <button on:click|stopPropagation={() => loading = false}>
 	<Icon name={iconName}/>
 
-	<Dropdown padding="0;">
+	<Dropdown>
 		{#if !loading}
 			<ul>
 			{#each Object.keys(listOptions) as option}

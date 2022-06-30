@@ -1,8 +1,7 @@
 <script>
-	export let padding = "1.3rem"
 </script>
 
-<div class="dropdown" style="padding: { padding };">
+<div class="dropdown">
 	<slot></slot>
 </div>
 
