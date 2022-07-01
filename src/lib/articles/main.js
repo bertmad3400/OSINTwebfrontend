@@ -56,7 +56,8 @@ async function fetchArticles(articleContainer, sourceName, sourceSpecs = null){
 		fetchedArticles = await queryAPI(`/articles/overview/search?${queryString}`)
 	} else if (Array.isArray(sourceSpecs)) {
 		if (sourceSpecs.length > 0) {
-			const IDQuery = `IDs=${sourceSpecs.map(ID => encodeURIComponent(ID)).join("&IDs=")}`
+			// Using slice to limit the amount of articles requested, since there's an upper limit to the length of an URL
+			const IDQuery = `IDs=${sourceSpecs.slice(0, 100).map(ID => encodeURIComponent(ID)).join("&IDs=")}`
 			fetchedArticles = await queryAPI(`/articles/overview/search?${IDQuery}`)
 		} else {
 			fetchedArticles = []
