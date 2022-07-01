@@ -3,7 +3,7 @@ import { updateArticleListing } from "../articles/main.js"
 
 import { queryProtected, changeOnlineState } from "./main.js"
 
-async function updateCollectionStores(data) {
+export async function updateCollectionStores(data) {
 	if (data) {
 		await collectionList.set(data)
 	}
