@@ -10,7 +10,8 @@
 	import { feeds, articles, state, collectionArticles, collectionList } from "../../shared/stores.js"
 	import { appConfig } from "../../shared/config.js"
 	import { refreshArticles } from "../../lib/articles/main.js"
-	import { getUserCollections } from "../../lib/user/collections.js"
+	import { getUserCollections, updateCollectionStores } from "../../lib/user/collections.js"
+	import { changeOnlineState } from "../../lib/user/main.js"
 	import { onDestroy } from "svelte";
 
 	$: pageTitle = `${$state.selectedMenu.name} - ${$state.selectedMenu.type.charAt(0).toUpperCase() + $state.selectedMenu.type.slice(1)}`
@@ -87,7 +88,12 @@
 			{#await $downloadArticlesLink then link}
 				<a href="{ link }"><Icon name="download"/></a>
 			{/await}
-			<button class="dropdown-options">
+			{#if $state.selectedMenu.type === "collection"}
+				<button class="config-options" on:click={() => changeOnlineState(`/users/collections/clear/${encodeURIComponent($state.selectedMenu.name)}`, "POST", null, `clear ${$state.selectedMenu.name} collection`, (collectionData) => { updateCollectionStores(collectionData); $state.selectedMenu.name = $state.selectedMenu.name} )}>
+					<Icon name="trashcan"/>
+				</button>
+			{/if}
+			<button class="config-options">
 				<Icon name="three-dots"/>
 				<RenderConfig />
 			</button>
@@ -152,7 +158,7 @@ section#article-list {
 				}
 			}
 
-			button.dropdown-options {
+			button.config-options {
 				border: none;
 
 				position: relative;
