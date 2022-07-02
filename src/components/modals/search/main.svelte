@@ -27,7 +27,7 @@
 			}
 		}
 
-		searchSpecs.set(appConfig.defaultOptions.search)
+		searchSpecs.set(structuredClone(appConfig.defaultOptions.search))
 	})
 
 	let sources = getArticleCategories()
