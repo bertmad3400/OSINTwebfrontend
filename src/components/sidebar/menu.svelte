@@ -4,7 +4,7 @@
 	export let menuType = ""
 	export let removeFunction
 
-	let open = true
+	export let open = true
 
 	import { slide } from 'svelte/transition';
 

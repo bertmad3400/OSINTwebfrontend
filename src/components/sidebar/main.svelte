@@ -99,6 +99,10 @@
 			</Menu>
 		{/if}
 
+		<Menu title="about" open={false}>
+			<a href="blog/"><li class="click-able"><Icon className="category-icon" name="journal-text"/><span>Blog</span></li></a>
+		</Menu>
+
 	</nav>
 
 </aside>
