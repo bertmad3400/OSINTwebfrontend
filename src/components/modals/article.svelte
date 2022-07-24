@@ -21,7 +21,7 @@
 	}
 
 	let potentialCopyTargets = {
-		"Url" : async () => articleObject.url,
+		"Url" : async () => "https://osinter.dk/#" + articleObject.id,
 		"Raw Content" : async () => articleObject.content,
 		"MD Content" : async () => articleObject.formatted_content,
 		"Whole Article" : async () => {

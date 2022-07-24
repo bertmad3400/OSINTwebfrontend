@@ -1,6 +1,10 @@
 import { modalState, feeds, state, loginState, currentSearch, collectionList, collectionArticles } from "../shared/stores.js"
 import { appConfig } from "../shared/config.js"
 
+// Used for creating article modal
+import { getArticleContent } from "./articles/main.js"
+import { modifyCollection } from "./user/collections.js"
+
 const storeOverview = {
 	"feeds" : {"store" : feeds, "defaultValue" : structuredClone(appConfig.feeds)},
 	"state" : {"store" : state, "defaultValue" : structuredClone(appConfig.defaultOptions.state)},
@@ -15,6 +19,13 @@ export function showSearchModal() {
 	modalState.set({"modalType" : "search", "modalContent" : null})
 	document.activeElement.blur()
 }
+
+export async function createArticleModal(articleID) {
+	let articleContent = (await getArticleContent(articleID))[0]
+	modalState.set({"modalType" : "article", "modalContent" : articleContent})
+	modifyCollection("Already Read", "extend", articleID)
+}
+
 
 export async function resetState() {
 	for (const storeDetails of Object.values(storeOverview)) {

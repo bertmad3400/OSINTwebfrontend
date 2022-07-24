@@ -1,23 +1,15 @@
 <script>
 	export let articleList
 
-	import { modalState } from "../../shared/stores.js"
-	import { getArticleContent } from "../../lib/articles/main.js"
-	import { modifyCollection } from "../../lib/user/collections.js"
+	import { createArticleModal } from "../../lib/state.js"
 
 	import ArticleObject from "./articleObject.svelte"
 
-	async function createArticleModal(event) {
-		let articleContent = (await getArticleContent(event.detail.articleID))[0]
-		$modalState = {"modalType" : "article", "modalContent" : articleContent}
-		modifyCollection("Already Read", "extend", event.detail.articleID)
-
-	}
 </script>
 
 {#if Array.isArray(articleList)}
 	{#each articleList as article (article.id)}
-		<ArticleObject on:modal={createArticleModal} article={article} />
+		<ArticleObject on:modal={(e) => createArticleModal(e.detail.articleID)} article={article} />
 		<hr>
 	{:else}
 		<div class="msg">
