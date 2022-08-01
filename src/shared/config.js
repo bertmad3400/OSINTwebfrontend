@@ -1,5 +1,5 @@
 export const appConfig = {
-	"rootUrl" : "",
+	"rootUrl" : "/api",
 	"refreshRate" : 5, // Minimum time in minutes between refreshing of article lists
 	"permCollections" : ["Read Later", "Already Read"],
 	"defaultOptions" : {
