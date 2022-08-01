@@ -4,7 +4,6 @@
 	import SvelteMarkdown from 'svelte-markdown'
 
 	import Modal from "./modal.svelte"
-	import Icon from "../shared/icons.svelte"
 	import ReadLaterButton from "../shared/readLater.svelte"
 	import AddToCollectionButton from "../shared/addToCollection.svelte"
 	import GeneralInteractiveList from "../shared/interactiveListDropdown.svelte"
@@ -58,9 +57,9 @@
 				<li> <AddToCollectionButton ID={articleObject.id}/> </li>
 			</ul>
 			<ul>
-				<li> <GeneralInteractiveList processClick={(target) => window.open(shareLinks[target], "_blank")} listOptions={shareLinks} successMessage={"Shared to SoMe."} iconName={"share"}/></li>
-				<li> <GeneralInteractiveList processClick={copyAttr} listOptions={potentialCopyTargets} successMessage={"Copied to clipboard."}/></li>
-				<li><a href={`${appConfig.rootUrl}/articles/MD/single?ID=${articleObject.id}`}><Icon name="download-file"/></a></li>
+				<li> <GeneralInteractiveList processClick={(target) => window.open(shareLinks[target], "_blank")} listOptions={shareLinks} successMessage="Shared to SoMe." iconName="share"/></li>
+				<li> <GeneralInteractiveList processClick={copyAttr} listOptions={potentialCopyTargets} successMessage="Copied to clipboard." iconName="clipboard"></GeneralInteractiveList></li>
+				<li><a href={`${appConfig.rootUrl}/articles/MD/single?ID=${articleObject.id}`}><img src="/icons/file-earmark-arrow-down.svg" class="icon" aria-hidden="true"/></a></li>
 			</ul>
 		</nav>
 	</header>
@@ -209,11 +208,7 @@ header {
 					@include button($header-height);
 					box-sizing: border-box;
 
-					:global(svg) {
-						opacity: 0.5;
-						height: 100%;
-						width: 100%;
-					}
+					padding: 0.7rem;
 
 					:global(div) {
 						left: 0;

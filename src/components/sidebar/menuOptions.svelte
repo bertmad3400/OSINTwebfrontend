@@ -3,18 +3,17 @@
 	export let menuType
 	export let removeFunction = false
 
-	import Icon from "../shared/icons.svelte";
 	import { state, loginState } from "../../shared/stores.js"
 </script>
 
 <ul class:selected="{$state.selectedMenu.name in menuOptions && $state.selectedMenu.type === (menuType ? menuType : menuOptions[$state.selectedMenu.name].type)}">
 	{#each Object.keys(menuOptions) as optionName }
 		<li class:selected="{$state.selectedMenu.name == optionName && $state.selectedMenu.type === ( menuType ? menuType : menuOptions[optionName].type ) }" on:click="{() => { $state = {...$state, "selectedMenu" : {"name" : optionName, "type" : menuType ? menuType : menuOptions[optionName].type}, "localSearch" : ""}}}">
-			<Icon className="category-icon" name="{ 'icon' in menuOptions[optionName] ? menuOptions[optionName]['icon'] : 'feed' }"/>
+			<img src="/icons/{ menuOptions[optionName]?.icon ?? 'text-paragraph' }.svg" class="category-icon icon " aria-hidden="true"/>
 			<span> {optionName} </span>
 			{#if removeFunction && $loginState.loggedIn}
 				<button on:click|stopPropagation={removeFunction(optionName)}>
-					<Icon className="remove" name="x" />
+					<img src="/icons/x.svg" class="remove icon" aria-hidden="true"/>
 				</button>
 			{/if}
 		</li>
@@ -48,10 +47,18 @@ ul {
 			@include font(0.4);
 		}
 
-		:global(svg.category-icon) {
+		:global(img.category-icon) {
 			opacity: 0.4;
-			width: 1.3rem;
-			height: 1.3rem;
+
+			&:not(.small) {
+				width: 1.3rem;
+				height: 1.3rem;
+			}
+
+			&:global(.small) {
+				width: 1rem;
+				height: 1rem;
+			}
 		}
 
 		:global(button) {
@@ -63,7 +70,7 @@ ul {
 
 			aspect-ratio: 1/1;
 
-			:global(svg.remove) {
+			:global(img.remove) {
 				opacity: 0.1;
 				transition: opacity 0.4s;
 
@@ -86,7 +93,7 @@ ul {
 				@include font(0.8)
 			}
 
-			:global(svg.category-icon) {
+			img.category-icon {
 				opacity: 0.8;
 			}
 
@@ -94,8 +101,8 @@ ul {
 				span {
 					color: $main-color !important;
 				}
-				:global(svg.category-icon) {
-					color: $main-color !important;
+				img.category-icon {
+					filter: $main-color-filter;
 				}
 				border-color: $main-color !important;
 			}

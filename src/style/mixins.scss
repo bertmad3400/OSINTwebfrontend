@@ -1,9 +1,15 @@
 $main-color: hsl(0, 93%, 66%);
 $main-color-light: hsl(0, 93%, 76%);
 
+// Generated from main colors using https://codepen.io/sosuke/pen/Pjoqqp
+$main-color-filter: invert(45%) sepia(48%) saturate(3846%) hue-rotate(331deg) brightness(110%) contrast(94%); //hsl(0, 93%, 66%), #f95858
+$main-color-light-filter: invert(89%) sepia(33%) saturate(5025%) hue-rotate(303deg) brightness(96%) contrast(104%); //hsl(0, 93%, 76%), #fb8989
+
 $base-grey: hsl(0, 0%, 97%);
 $button-grey: hsl(0, 0%, 95%);
 $white: hsl(0, 0%, 100%);
+
+$white-filter: invert(100%);
 
 @mixin truncate($lines: 2) {
 	display: -webkit-box;

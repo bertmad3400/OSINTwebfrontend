@@ -1,5 +1,4 @@
 <script>
-	import Icon from "./shared/icons.svelte"
 	import { state } from "../shared/stores.js"
 	import { search } from "../lib/search.js"
 
@@ -11,9 +10,9 @@
 </script>
 
 <form on:submit|preventDefault={localSearch} role="search" id="search-box">
-	<label for="search-field"><Icon name="magnifying-glass"/></label>
+	<label for="search-field"><img src="/icons/search.svg" class="icon" aria-hidden="true"></label>
 	<input bind:value={$state.localSearch} id="search-field" type="text" placeholder="Search...">
-	{#if $state.localSearch}<button type="button" on:click|preventDefault={() => $state.localSearch = ""}><Icon name="x"/></button>{/if}
+	{#if $state.localSearch}<button type="button" on:click|preventDefault={() => $state.localSearch = ""}><img src="/icons/x.svg" class="icon" aria-hidden="true"></button>{/if}
 </form>
 
 <style lang="scss">
@@ -52,8 +51,7 @@
 		justify-content: center;
 		align-items: center;
 
-		:global(svg) {
-			opacity: 0.5;
+		img.icon {
 			width: 35%;
 			height: 35%;
 		}

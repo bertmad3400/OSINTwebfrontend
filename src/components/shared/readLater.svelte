@@ -9,8 +9,6 @@
 
 	$: readLater = $loginState.loggedIn && $collectionList && collectionName in $collectionList && Array.isArray($collectionList[collectionName]) && $collectionList[collectionName].includes(ID)
 
-	import Icon from "./icons.svelte";
-
 	async function toggle () {
 		if ($loginState.loggedIn) {
 			await modifyCollection(collectionName, readLater ? "subtract" : "extend", ID)
@@ -22,9 +20,9 @@
 
 <button class={ readLater ? "filled" : ""} on:click|stopPropagation={toggle}>
 	{#if readLater }
-		<Icon name="{iconName}-filled" />
+		<img src="/icons/bookmark-fill.svg" class="icon" aria-hidden="true" />
 	{:else}
-		<Icon name="{iconName}" />
+		<img src="/icons/bookmark.svg" class="icon" aria-hidden="true">
 	{/if}
 </button>
 
@@ -33,13 +31,14 @@ button {
 	border: none;
 	background-color: transparent;
 
-	padding: 0;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 
 	&.filled {
-		color: $main-color;
+		img.icon {
+			filter: $main-color-filter;
+		}
 	}
 }
 </style>

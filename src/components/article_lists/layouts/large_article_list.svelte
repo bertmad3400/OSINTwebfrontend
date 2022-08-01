@@ -96,14 +96,15 @@ article {
 				width: 50%;
 				padding: 0;
 
-				:global(svg) {
+				:global(img.icon) {
 					height: 50%;
 					width: 50%;
+					opacity: 1;
 				}
 
 				&:not(.filled) {
-					:global(svg) {
-						color: #ffffff;
+					:global(img.icon) {
+						filter: $white-filter;
 					}
 				}
 

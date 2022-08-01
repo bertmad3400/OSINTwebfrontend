@@ -1,5 +1,4 @@
 <script>
-	import Icon from "../shared/icons.svelte";
 	import Logo from "../shared/logo.svelte";
 	import Menu from "./menu.svelte"
 
@@ -78,29 +77,29 @@
 <aside id="navbar" transition:fly|local={{ x: -50, duration: 150}}>
 	<div id="logo-space"><Logo/><h2>OSINTer</h2></div>
 
-	<button class="long-button" class:selected={$state.selectedMenu.type === "search"} on:click={showSearchModal}> <Icon name="magnifying-glass"/> <span> {$state.selectedMenu.type === "search" ? "Exploring Content" : "Explore Content"} </span> </button>
+	<button class="long-button" class:selected={$state.selectedMenu.type === "search"} on:click={showSearchModal}> <img src="/icons/search.svg" class="icon" aria-hidden="true"> <span> {$state.selectedMenu.type === "search" ? "Exploring Content" : "Explore Content"} </span> </button>
 
 	<nav>
 		<Menu menuOptions={ $feeds.mainFeeds } />
 		<Menu title="feeds" menuOptions={$feeds.userFeeds} removeFunction="{removeFeed}">
-			<li	on:click={addFeed} class:click-able="{$state.selectedMenu.type == "search"}"><Icon className="category-icon" name="plus"/><span>New Feed</span></li>
+			<li	on:click={addFeed} class:click-able="{$state.selectedMenu.type == "search"}"><img src="/icons/plus.svg" class="icon category-icon" aria-hidden="true"><span>New Feed</span></li>
 		</Menu>
 
 		{#if $loginState.loggedIn }
 			<Menu title="Collections" menuOptions={userCollections} menuType="collection" removeFunction="{removeCollection}">
-				<li on:click={addCollection} class="click-able"><Icon className="category-icon" name="plus"/><span>New Collection</span></li>
+				<li on:click={addCollection} class="click-able"><img src="/icons/plus.svg" class="category-icon icon" aria-hidden="true"><span>New Collection</span></li>
 			</Menu>
 			<Menu title="User" menuOptions={appConfig.userOptions.loggedIn}>
-				<li	on:click={logout} class="click-able"><Icon className="category-icon" name="logout"/><span>Logout</span></li>
+				<li	on:click={logout} class="click-able"><img src="/icons/box-arrow-left.svg" class="icon category-icon" aria-hidden="true"><span>Logout</span></li>
 			</Menu>
 		{:else}
 			<Menu title="User">
-				<li on:click={() => $modalState = structuredClone(appConfig.defaultOptions.modalStates.login) } class="click-able"><Icon className="category-icon" name="logout"/><span>Login</span></li>
+				<li on:click={() => $modalState = structuredClone(appConfig.defaultOptions.modalStates.login) } class="click-able"><img src="/icons/box-arrow-right.svg" class="icon category-icon" aria-hidden="true"><span>Login</span></li>
 			</Menu>
 		{/if}
 
-		<Menu title="about" open={false}>
-			<a href="blog/"><li class="click-able"><Icon className="category-icon" name="journal-text"/><span>Blog</span></li></a>
+		<Menu title="about" closed={true}>
+			<a href="blog/"><li class="click-able"><img src="/icons/journal-text.svg" class="icon category-icon" aria-hidden="true"><span>Blog</span></li></a>
 		</Menu>
 
 	</nav>
@@ -108,7 +107,7 @@
 </aside>
 {/if}
 
-<button class="control-open {open ? 'open' : ''}" on:click={() => {document.activeElement.blur(); open = !open;}}><Icon name="arrow-down-right-square"/></button>
+<button class="control-open {open ? 'open' : ''}" on:click={() => {document.activeElement.blur(); open = !open;}}><img src="/icons/arrow-down-right-square-fill.svg" class="icon" aria-hidden="true"></button>
 
 <style lang="scss">
 button.control-open {
@@ -139,19 +138,19 @@ button.control-open {
 
 	transition: border-radius 0.5s;
 
-	:global(svg) {
+	img.icon {
 		width: 40%;
 		height: 40%;
 
 		opacity: 0.4;
 
-		transition: opacity 0.4s, color 0.4s, transform 0.35s;
+		transition: opacity 0.4s, filter 0.4s, transform 0.35s;
 	}
 
 	&:hover {
-		:global(svg) {
+		img.icon {
 			opacity: 1;
-			color: $main-color;
+			filter: $main-color-filter;
 		}
 	}
 
@@ -164,7 +163,7 @@ button.control-open {
 
 		left: 13rem;
 
-		:global(svg) {
+		img.icon {
 			transform: rotate(90deg);
 		}
 
@@ -183,6 +182,12 @@ li {
 		:global(*) {
 			color: $main-color !important;
 		}
+
+		img.icon {
+			filter: $main-color-filter;
+		}
+
+
 	}
 }
 
@@ -264,7 +269,7 @@ li {
 		transition: color .2s ease-in-out;
 	}
 
-	:global(svg) {
+	img.icon {
 		border-right: 1px solid rgb(90, 90, 90, 0.3);
 
 		height: 100%;
@@ -280,7 +285,7 @@ li {
 		span {
 			color: rgba(0, 0, 0, 0.6)
 		}
-		:global(svg) {
+		img.icon {
 			opacity: 0.85;
 			border-color: rgba(90, 90, 90, 0.5)
 		}
@@ -292,9 +297,11 @@ li {
 		span {
 			color: $main-color-light;
 		}
-		:global(svg) {
+
+		img.icon {
 			opacity: 0.85;
 			border-color: $main-color-light;
+			filter: $main-color-filter;
 		}
 
 		color: $main-color;
