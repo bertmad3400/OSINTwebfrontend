@@ -1,6 +1,6 @@
 <script>
 	export let collectionName = "Read Later"
-	export let iconName = "read-later"
+	export let iconName = "bookmark"
 
 	import { modifyCollection } from "../../lib/user/collections.js"
 	import { collectionList, loginState, modalState } from "../../shared/stores.js"
@@ -18,11 +18,11 @@
 	}
 </script>
 
-<button class={ readLater ? "filled" : ""} on:click|stopPropagation={toggle}>
+<button title="{ readLater ? "Remove" : "Add"} article {readLater ? "from" : "to"} read later" class={ readLater ? "filled" : ""} on:click|stopPropagation={toggle}>
 	{#if readLater }
-		<img src="/icons/bookmark-fill.svg" class="icon" aria-hidden="true" />
+		<img src="/icons/{iconName}-fill.svg" class="icon" aria-hidden="true" />
 	{:else}
-		<img src="/icons/bookmark.svg" class="icon" aria-hidden="true">
+		<img src="/icons/{iconName}.svg" class="icon" aria-hidden="true">
 	{/if}
 </button>
 

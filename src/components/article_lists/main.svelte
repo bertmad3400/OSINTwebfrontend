@@ -85,14 +85,14 @@
 
 		<section class="icons">
 			{#await $downloadArticlesLink then link}
-				<a href="{ link }"><img src="/icons/file-arrow-down.svg" class="icon" aria-hidden="true"></a>
+				<a href="{ link }" title="Download all articles listed below"><img src="/icons/file-arrow-down.svg" class="icon" aria-hidden="true"></a>
 			{/await}
 			{#if $state.selectedMenu.type === "collection"}
-				<button class="config-options" on:click={() => changeOnlineState(`/users/collections/clear/${encodeURIComponent($state.selectedMenu.name)}`, "POST", null, `clear ${$state.selectedMenu.name} collection`, (collectionData) => { updateCollectionStores(collectionData); $state.selectedMenu.name = $state.selectedMenu.name} )}>
+				<button title="Remove all articles from the current collection" class="config-options" on:click={() => changeOnlineState(`/users/collections/clear/${encodeURIComponent($state.selectedMenu.name)}`, "POST", null, `clear ${$state.selectedMenu.name} collection`, (collectionData) => { updateCollectionStores(collectionData); $state.selectedMenu.name = $state.selectedMenu.name} )}>
 					<img src="/icons/trash3.svg" class="icon" aria-hidden="true">
 				</button>
 			{/if}
-			<button class="config-options">
+			<button title="Change appearance the articles listed below" class="config-options">
 				<img src="/icons/three-dots-vertical.svg" class="icon" aria-hidden="true">
 				<RenderConfig />
 			</button>

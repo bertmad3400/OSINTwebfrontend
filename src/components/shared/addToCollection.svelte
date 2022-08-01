@@ -23,7 +23,7 @@
 
 </script>
 
-<button on:click|stopPropagation={showDropdown}>
+<button title="Add article to collection" on:click|stopPropagation={showDropdown}>
 	<img src="/icons/star.svg" class="icon" aria-hidden="true"/>
 
 	<Dropdown>

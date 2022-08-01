@@ -21,7 +21,7 @@
 	<div class="article-content">
 		<div class="article-details">
 			<p class="source">{ article.source }</p>
-			<time>{ time }</time>
+			<time title="{ article.publish_date }">{ time }</time>
 		</div>
 		<h3>{ article.title }</h3>
 		<p class="description">{ article.description }</p>

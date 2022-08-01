@@ -57,9 +57,9 @@
 				<li> <AddToCollectionButton ID={articleObject.id}/> </li>
 			</ul>
 			<ul>
-				<li> <GeneralInteractiveList processClick={(target) => window.open(shareLinks[target], "_blank")} listOptions={shareLinks} successMessage="Shared to SoMe." iconName="share"/></li>
-				<li> <GeneralInteractiveList processClick={copyAttr} listOptions={potentialCopyTargets} successMessage="Copied to clipboard." iconName="clipboard"></GeneralInteractiveList></li>
-				<li><a href={`${appConfig.rootUrl}/articles/MD/single?ID=${articleObject.id}`}><img src="/icons/file-earmark-arrow-down.svg" class="icon" aria-hidden="true"/></a></li>
+				<li title="Share article to social media"> <GeneralInteractiveList processClick={(target) => window.open(shareLinks[target], "_blank")} listOptions={shareLinks} successMessage="Shared to SoMe." iconName="share"/></li>
+				<li title="Copy parts of, or whole article"> <GeneralInteractiveList processClick={copyAttr} listOptions={potentialCopyTargets} successMessage="Copied to clipboard." iconName="clipboard"></GeneralInteractiveList></li>
+				<li title="Download article"><a href={`${appConfig.rootUrl}/articles/MD/single?ID=${articleObject.id}`}><img src="/icons/file-earmark-arrow-down.svg" class="icon" aria-hidden="true"/></a></li>
 			</ul>
 		</nav>
 	</header>

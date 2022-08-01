@@ -7,7 +7,7 @@
 </script>
 
 {#if $state.selectedMenu.type == "collection"}
-	<ReadLaterButton {ID} collectionName="{$state.selectedMenu.name}" iconName="favorite" />
+	<ReadLaterButton {ID} collectionName="{$state.selectedMenu.name}" iconName="star" />
 {:else}
 	<ReadLaterButton {ID} />
 {/if}

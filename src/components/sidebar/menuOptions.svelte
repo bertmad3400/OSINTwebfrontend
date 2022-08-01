@@ -12,7 +12,7 @@
 			<img src="/icons/{ menuOptions[optionName]?.icon ?? 'text-paragraph' }.svg" class="category-icon icon " aria-hidden="true"/>
 			<span> {optionName} </span>
 			{#if removeFunction && $loginState.loggedIn}
-				<button on:click|stopPropagation={removeFunction(optionName)}>
+				<button title="Remove { menuType ? menuType : menuOptions[optionName]?.type}" on:click|stopPropagation={removeFunction(optionName)}>
 					<img src="/icons/x.svg" class="remove icon" aria-hidden="true"/>
 				</button>
 			{/if}

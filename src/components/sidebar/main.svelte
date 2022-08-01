@@ -30,7 +30,7 @@
 
 		if ($loginState.loggedIn) {
 			if($state.selectedMenu.type == "search") {
-				$modalState = {"modalType" : "getName", "modalContent" : {"userAction" : "New feed name", "action" : createFeedFromSearch, "existingNames" : await getFeedNames($feeds)}}
+				$modalState = {"modalType" : "getName", "modalContent" : {"contentType" : "feed", "action" : createFeedFromSearch, "existingNames" : await getFeedNames($feeds)}}
 			} else {
 				showSearchModal()
 			}
@@ -43,7 +43,7 @@
 		getUserCollections()
 
 		if ($loginState.loggedIn) {
-				$modalState = {"modalType" : "getName", "modalContent" : {"userAction" : "New collection name", "action" : async (feedName) => { await createCollection(feedName); $modalState = {"modalType" : null, "modalContent" : null}; }, "existingNames" : Object.keys($collectionList)}}
+				$modalState = {"modalType" : "getName", "modalContent" : {"contentType" : "collection", "action" : async (feedName) => { await createCollection(feedName); $modalState = {"modalType" : null, "modalContent" : null}; }, "existingNames" : Object.keys($collectionList)}}
 		} else {
 			$modalState = {"modalType" : "auth", "modalContent" : {"type" : "login", "title" : "Login here", "desc" : "Login here or signup with the link down below to create collections."}}
 		}

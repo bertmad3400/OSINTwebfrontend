@@ -15,8 +15,8 @@
 		<div class="content-container">
 			<div class="input-container">
 				<input name="get-name" id="get-name" type="text" placeholder=" " bind:value={content}>
-				<label for="get-name" class="desc">{ $modalState.modalContent.userAction }</label>
-				<button on:click={() => { if (readyToCreate) { $modalState.modalContent.action(content); } }} class:ready={readyToCreate}>
+				<label for="get-name" class="desc">New { $modalState.modalContent.contentType } name</label>
+				<button on:click={() => { if (readyToCreate) { $modalState.modalContent.action(content); } }} class:ready={readyToCreate} title="Create new { $modalState.modalContent.contentType }">
 					<img src="/icons/send-plus.svg" class="icon" aria-hidden="true">
 				</button>
 			</div>
