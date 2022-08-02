@@ -1,0 +1,41 @@
+stages:          # List of stages for jobs, and their order of execution
+  - build
+  - release
+
+workflow:
+  rules:
+      - if: $CI_COMMIT_TAG && $CI_COMMIT_BRANCH == "master"
+
+variables:
+    PACKAGE_REGISTRY_URL: "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/osinter-webfrontend-master/${CI_COMMIT_TAG}/"
+
+build:
+    stage: build
+    image: alpine:latest
+    before_script:
+        - echo "Installing dependencies"
+        - apk add --no-cache curl npm tar
+    script:
+        - echo "Building app"
+        - npm install
+        - npm run build
+    after_script:
+        - echo "Compressing build"
+        - tar -cvzf build.tar.gz public
+        - echo "Uploading build"
+        - |
+            curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file build.tar.gz "$PACKAGE_REGISTRY_URL"
+
+release:
+    stage: release
+    image: registry.gitlab.com/gitlab-org/release-cli:latest
+    script:
+        - echo "Running release job for \"${CI_COMMIT_TAG}\" using \"${PACKAGE_REGISTRY_URL}\""
+    release:
+        name: "Releasee ${CI_COMMIT_TAG}"
+        description: "Create automatically by Gitlab CI"
+        tag_name: "${CI_COMMIT_TAG}"
+        assets:
+            links:
+                - name: "Build"
+                - url: "${PACKAGE_REGISTRY_URL}"
