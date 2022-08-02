@@ -17,18 +17,13 @@
 		<h3>{ article.title }</h3>
 		<p class="description">{ article.description }</p>
 	</div>
-	<time>{ time }</time>
+	<time title="{ article.publish_date }">{ time }</time>
 </article>
 
 <style lang="scss">
 article {
 	:global(button) {
 		@include button;
-
-		:global(svg) {
-			width: 100%;
-			height: 100%;
-		}
 	}
 
 	display: flex;

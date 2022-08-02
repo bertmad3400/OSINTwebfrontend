@@ -1,6 +1,4 @@
 <script>
-	import Icon from "../../shared/icons.svelte"
-
 	export let searchSpecs
 	export let sourceList
 	let sourceSearch = ""
@@ -8,9 +6,10 @@
 
 <header class="options">
 	<form on:submit|preventDefault role="search" id="source-search">
-		<label for="source-search"><Icon name="magnifying-glass"/></label>
+		<label for="source-search"><img src="/icons/search.svg" class="icon" aria-hidden="true"></label>
 		<input bind:value={sourceSearch} id="source-search" type="text" placeholder="Search sources...">
-		{#if sourceSearch}<button on:click|preventDefault={() => sourceSearch = ""}><Icon name="x"/></button>{/if}
+		{#if sourceSearch}<button on:click|preventDefault={() => sourceSearch = ""}>
+			<img src="/icons/x.svg" class="icon" aria-hidden="true"></button>{/if}
 	</form>
 	<p class:clickable={$searchSpecs.sourceCategory.length > 0} on:click="{() => $searchSpecs.sourceCategory = []}">Remove selections ({$searchSpecs.sourceCategory.length})</p>
 	<p class:clickable={Object.keys(sourceList).length != $searchSpecs.sourceCategory.length} on:click="{() => $searchSpecs.sourceCategory = Object.keys(sourceList)}">Select all</p>
@@ -22,7 +21,7 @@
 
 	{#if sourceSearch.length == 0 || sourceDetails.name.toLowerCase().includes(sourceSearch)}
 	<label for="{profileName}-checkbox">
-		<img alt="{sourceDetails.name} icon" src="{ sourceDetails.image}"/>
+		<img class="source-image" alt="{sourceDetails.name} icon" src="{ sourceDetails.image}"/>
 		<div class="sourceDetails">
 			<h3>{ sourceDetails.name }</h3>
 			<a href="{ sourceDetails.url }" target="_blank" rel="noopener noreferrer">{ sourceDetails.url.replace("https://", "") }</a>
@@ -30,9 +29,9 @@
 
 		<div class="selectIcon">
 			{#if "sourceCategory" in $searchSpecs && $searchSpecs.sourceCategory.indexOf(profileName) > -1}
-				<Icon name="tick"/>
+				<img src="/icons/check2.svg" class="icon" aria-hidden="true">
 			{:else}
-				<Icon name="plus"/>
+				<img src="/icons/plus.svg" class="icon" aria-hidden="true">
 			{/if}
 		</div>
 	</label>
@@ -62,7 +61,7 @@ header.options{
 			display: flex;
 			align-items: center;
 
-			:global(svg) {
+			img.icon {
 				width: 0.8rem;
 				height: 0.8rem;
 			}
@@ -82,10 +81,6 @@ header.options{
 
 			height: 100%;
 			aspect-ratio: 1 / 1;
-
-			:global(svg) {
-				opacity: 0.5;
-			}
 
 			display: flex;
 			align-items: center;
@@ -124,7 +119,7 @@ form.source-select {
 		display: flex;
 
 
-		img {
+		img.source-image {
 			grid-row: span 2;
 			border-radius: 5%;
 
@@ -182,12 +177,6 @@ form.source-select {
 			justify-content: center;
 			align-items: center;
 
-			:global(svg) {
-				height: 100%;
-				width: 100%;
-
-				opacity: 40%;
-			}
 		}
 
 		&:hover {
@@ -205,9 +194,9 @@ form.source-select {
 			border-color: $main-color;
 			background-color: $main-color;
 
-			:global(svg) {
+			img.icon {
 				opacity: 100%;
-				color: $white;
+				filter: $white-filter;
 
 				height: 60%;
 				width: 60%;

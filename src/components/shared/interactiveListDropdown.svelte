@@ -2,17 +2,16 @@
 	export let processClick
 	export let listOptions
 	export let successMessage
-	export let iconName = "copy"
+	export let iconName
 
 	let loading = false
 
-	import Icon from "./icons.svelte"
 	import Loader from "./loader.svelte"
 	import Dropdown from "./dropdown.svelte"
 </script>
 
 <button on:click|stopPropagation={() => loading = false}>
-	<Icon name={iconName}/>
+	<img src="/icons/{iconName}.svg" class="icon" aria-hidden="true"/>
 
 	<Dropdown>
 		{#if !loading}

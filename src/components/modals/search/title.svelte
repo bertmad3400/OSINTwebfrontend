@@ -2,10 +2,10 @@
 	import Collapse from "../../shared/collapseArrow.svelte"
 
 	export let title
-	export let open
+	export let closed
 </script>
 
-<h1>{title}<Collapse bind:open/></h1>
+<h1>{title}<Collapse bind:closed/></h1>
 
 <style lang="scss">
 h1 {

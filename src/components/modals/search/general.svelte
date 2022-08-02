@@ -4,7 +4,7 @@
 </script>
 
 <div class="paramContainer">
-	<h2>{inputTitle}</h2>
+	<h2 title="{inputDesc}">{inputTitle}</h2>
 	<hr>
 	<form on:submit|preventDefault>
 		<slot></slot>

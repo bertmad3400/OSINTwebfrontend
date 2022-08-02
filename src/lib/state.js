@@ -26,7 +26,6 @@ export async function createArticleModal(articleID) {
 	modifyCollection("Already Read", "extend", articleID)
 }
 
-
 export async function resetState() {
 	for (const storeDetails of Object.values(storeOverview)) {
 		storeDetails.store.set(storeDetails.defaultValue)

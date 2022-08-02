@@ -33,12 +33,12 @@
 	let sources = getArticleCategories()
 
 	// Variables used to control whether different segments are collapsed when screens width is small
-	let openSourceSelect = true
-	let openSearchQuery = true
+	let closedSourceSelect = false
+	let closedSearchQuery = false
 
 	window.matchMedia('(min-width: 70rem)').addListener(() => {
-		openSourceSelect = true
-		openSearchQuery = true
+		closedSourceSelect = false
+		closedSearchQuery = false
 	})
 
 </script>
@@ -50,8 +50,8 @@
 	{:then sourceList}
 		<div class="contentContainer">
 			<div class="half">
-				<MenuTypeTitle title="Select Sources" bind:open={openSourceSelect}/>
-				{#if openSourceSelect}
+				<MenuTypeTitle title="Select Sources" bind:closed={closedSourceSelect}/>
+				{#if !closedSourceSelect}
 					<div class="optionContainer" transition:slide|local>
 							<SourceSelect searchSpecs={searchSpecs} sourceList={sourceList}/>
 					</div>
@@ -61,8 +61,8 @@
 			<hr class="separator">
 
 			<div class="half">
-				<MenuTypeTitle title="Search Query" bind:open={openSearchQuery}/>
-				{#if openSearchQuery}
+				<MenuTypeTitle title="Search Query" bind:closed={closedSearchQuery}/>
+				{#if !closedSearchQuery}
 					<div class="optionContainer seperateOptions" transition:slide|local>
 						<SearchQuery searchSpecs={searchSpecs}/>
 					</div>

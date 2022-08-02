@@ -1,6 +1,5 @@
 <script>
 	import ArticleList from "../article_lists/list.svelte"
-	import Icon from "../shared/icons.svelte"
 	import RenderConfig from "../article_lists/configs/rendering.svelte"
 	import Loader from "../shared/loader.svelte"
 
@@ -86,7 +85,7 @@
 
 		<section class="icons">
 			{#await $downloadArticlesLink then link}
-				<a href="{ link }"><Icon name="download"/></a>
+				<a href="{ link }" title="Download all articles listed below"><img src="/icons/file-arrow-down.svg" class="icon" aria-hidden="true"></a>
 			{/await}
 			{#if $state.selectedMenu.type === "collection"}
 				<button class="config-options" on:click={() => changeOnlineState(`/users/collections/clear/${encodeURIComponent($state.selectedMenu.name)}`, "POST", null, `clear ${$state.selectedMenu.name} collection`, (collectionData) => { updateCollectionStores(collectionData); $state.selectedMenu.name = $state.selectedMenu.name} )}>
@@ -95,6 +94,12 @@
 			{/if}
 			<button class="config-options">
 				<Icon name="three-dots"/>
+				<button title="Remove all articles from the current collection" class="config-options" on:click={() => changeOnlineState(`/users/collections/clear/${encodeURIComponent($state.selectedMenu.name)}`, "POST", null, `clear ${$state.selectedMenu.name} collection`, (collectionData) => { updateCollectionStores(collectionData); $state.selectedMenu.name = $state.selectedMenu.name} )}>
+					<img src="/icons/trash3.svg" class="icon" aria-hidden="true">
+				</button>
+			{/if}
+			<button title="Change appearance the articles listed below" class="config-options">
+				<img src="/icons/three-dots-vertical.svg" class="icon" aria-hidden="true">
 				<RenderConfig />
 			</button>
 		</section>
@@ -151,7 +156,7 @@ section#article-list {
 					background-color: rgba(0,0,0,.03);
 				}
 
-				:global(svg) {
+				img.icon {
 					width: 1.4rem;
 					height: 1.4rem;
 					color: rgb(70, 70, 70);
@@ -162,10 +167,6 @@ section#article-list {
 				border: none;
 
 				position: relative;
-
-				:global(div) {
-					right: 0;
-				}
 
 				&:focus-within :global(div) {
 					display: block;

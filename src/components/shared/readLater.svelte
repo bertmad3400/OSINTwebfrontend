@@ -1,6 +1,6 @@
 <script>
 	export let collectionName = "Read Later"
-	export let iconName = "read-later"
+	export let iconName = "bookmark"
 
 	import { modifyCollection } from "../../lib/user/collections.js"
 	import { collectionList, loginState, modalState } from "../../shared/stores.js"
@@ -8,8 +8,6 @@
 	export let ID
 
 	$: readLater = $loginState.loggedIn && $collectionList && collectionName in $collectionList && Array.isArray($collectionList[collectionName]) && $collectionList[collectionName].includes(ID)
-
-	import Icon from "./icons.svelte";
 
 	async function toggle () {
 		if ($loginState.loggedIn) {
@@ -20,11 +18,11 @@
 	}
 </script>
 
-<button class={ readLater ? "filled" : ""} on:click|stopPropagation={toggle}>
+<button title="{ readLater ? "Remove" : "Add"} article {readLater ? "from" : "to"} read later" class={ readLater ? "filled" : ""} on:click|stopPropagation={toggle}>
 	{#if readLater }
-		<Icon name="{iconName}-filled" />
+		<img src="/icons/{iconName}-fill.svg" class="icon" aria-hidden="true" />
 	{:else}
-		<Icon name="{iconName}" />
+		<img src="/icons/{iconName}.svg" class="icon" aria-hidden="true">
 	{/if}
 </button>
 
@@ -33,13 +31,14 @@ button {
 	border: none;
 	background-color: transparent;
 
-	padding: 0;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 
 	&.filled {
-		color: $main-color;
+		img.icon {
+			filter: $main-color-filter;
+		}
 	}
 }
 </style>

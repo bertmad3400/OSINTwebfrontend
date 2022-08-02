@@ -4,7 +4,7 @@
 	export let menuType = ""
 	export let removeFunction
 
-	let open = true
+	export let closed = false
 
 	import { slide } from 'svelte/transition';
 
@@ -14,11 +14,11 @@
 
 {#if title}
 <div class="seperator">
-	<h3> {title} </h3> <Collapse bind:open />
+	<h3> {title} </h3> <Collapse bind:closed />
 </div>
 {/if}
 
-{#if open}
+{#if !closed}
 <div transition:slide>
 <OptionList  {menuOptions} {menuType} {removeFunction}>
 <slot></slot>

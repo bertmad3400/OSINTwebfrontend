@@ -1,6 +1,5 @@
 <script>
 	import Modal from "./modal.svelte"
-	import Icon from "../shared/icons.svelte"
 
 	import { modalState } from "../../shared/stores.js"
 
@@ -16,9 +15,9 @@
 		<div class="content-container">
 			<div class="input-container">
 				<input name="get-name" id="get-name" type="text" placeholder=" " bind:value={content}>
-				<label for="get-name" class="desc">{ $modalState.modalContent.userAction }</label>
-				<button on:click={() => { if (readyToCreate) { $modalState.modalContent.action(content); } }} class:ready={readyToCreate}>
-					<Icon name="send-plus"/>
+				<label for="get-name" class="desc">New { $modalState.modalContent.contentType } name</label>
+				<button on:click={() => { if (readyToCreate) { $modalState.modalContent.action(content); } }} class:ready={readyToCreate} title="Create new { $modalState.modalContent.contentType }">
+					<img src="/icons/send-plus.svg" class="icon" aria-hidden="true">
 				</button>
 			</div>
 		</div>
@@ -66,15 +65,6 @@ div.content-container {
 				background-color: $white;
 			}
 
-			&:not(:placeholder-shown) ~ :global(svg) {
-				color: $main-color;
-				opacity: 0.8;
-				border-color: $main-color-light;
-
-				&:hover {
-					cursor: pointer;
-				}
-			}
 		}
 
 		label.desc {
@@ -107,7 +97,7 @@ div.content-container {
 
 			background: none !important;
 
-			:global(svg) {
+			img.icon {
 				height: 1.2rem;
 				width: 1.2rem;
 
@@ -121,10 +111,17 @@ div.content-container {
 			&.ready {
 				cursor: pointer;
 
-				:global(svg) {
-					color: $main-color;
+				img.icon {
+					filter: $main-color-light-filter;
 					opacity: 0.8;
-					border-color: $main-color-light;
+					border-color: black;
+
+					transition: filter 0.3s, opacity 0.3s;
+
+					&:hover {
+						filter: $main-color-filter;
+						opacity: 1;
+					}
 				}
 			}
 		}

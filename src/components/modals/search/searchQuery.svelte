@@ -67,6 +67,9 @@
 	<div class="input">
 		<input bind:value={$searchSpecs["searchTerm"]} id="searchTerm" name="searchTerm" type="text" placeholder=" ">
 		<label for="searchTerm" class="desc">Search Term</label>
+
+		<input bind:checked={$searchSpecs["highlight"]} class="switch" type="checkbox" id="highlight" name="highlight">
+		<label class="switch" for="highlight" title="Highlight search matches"></label>
 	</div>
 </Params>
 
@@ -77,6 +80,14 @@ div.input {
 
 	display: flex;
 	justify-content: center;
+
+	@include switch();
+
+	label.switch {
+		position: absolute;
+		top: 37%;
+		right: 1rem;
+	}
 }
 
 input , select{

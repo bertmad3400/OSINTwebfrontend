@@ -1,5 +1,5 @@
 export const appConfig = {
-	"rootUrl" : "",
+	"rootUrl" : "/api",
 	"refreshRate" : 5, // Minimum time in minutes between refreshing of article lists
 	"permCollections" : ["Read Later", "Already Read"],
 	"defaultOptions" : {
@@ -50,15 +50,15 @@ export const appConfig = {
 	},
 	"userOptions" : {
 		"loggedIn" : {
-			"Read Later" : { "icon" : "read-later", "type" : "collection" },
-			"Already Read" : { "icon" : "read-later", "type" : "collection"}//,
+			"Read Later" : { "icon" : "bookmarks", "type" : "collection"},
+			"Already Read" : { "icon" : "bookmarks", "type" : "collection"}//,
 			//"Configure Profile" : { "icon" : "gear", "type" : "userOptions" }
 		}
 	},
 	"feeds" : {
 		"mainFeeds" : {
 			"News" : { "searchQuery" : null, "type" : "feed"},
-			"Today" : { "searchQuery" : {"lastDate" : (new Date()).toISOString(), "firstDate" : (new Date(new Date().getTime() - (24 * 60 * 60 * 1000))).toISOString()}, "type" : "feed", "icon" : "calendar" }
+			"Today" : { "searchQuery" : {"lastDate" : (new Date()).toISOString(), "firstDate" : (new Date(new Date().getTime() - (24 * 60 * 60 * 1000))).toISOString()}, "type" : "feed", "icon" : "calendar3" }
 		},
 		"userFeeds" : {
 			"Log4J" : {

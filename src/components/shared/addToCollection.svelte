@@ -2,7 +2,6 @@
 	export let ID
 	let collectionPromise = []
 
-	import Icon from "./icons.svelte"
 	import Loader from "./loader.svelte"
 	import Dropdown from "./dropdown.svelte"
 
@@ -24,8 +23,8 @@
 
 </script>
 
-<button on:click|stopPropagation={showDropdown}>
-	<Icon name="favorite"/>
+<button title="Add article to collection" on:click|stopPropagation={showDropdown}>
+	<img src="/icons/star.svg" class="icon" aria-hidden="true"/>
 
 	<Dropdown>
 		{#await collectionPromise}

@@ -29,10 +29,10 @@ div.content-container {
 
 	div.logo-container {
 		border-radius: 50%;
-		width: 4rem;
-		height: 4rem;
+		width: 6rem;
+		height: 6rem;
 
-		margin-bottom: 3rem;
+		margin-bottom: 2rem;
 
 		display: flex;
 		justify-content: center;

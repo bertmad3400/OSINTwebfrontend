@@ -21,7 +21,7 @@
 	<div class="article-content">
 		<div class="article-details">
 			<p class="source">{ article.source }</p>
-			<time>{ time }</time>
+			<time title="{ article.publish_date }">{ time }</time>
 		</div>
 		<h3>{ article.title }</h3>
 		<p class="description">{ article.description }</p>
@@ -96,14 +96,15 @@ article {
 				width: 50%;
 				padding: 0;
 
-				:global(svg) {
+				:global(img.icon) {
 					height: 50%;
 					width: 50%;
+					opacity: 1;
 				}
 
 				&:not(.filled) {
-					:global(svg) {
-						color: #ffffff;
+					:global(img.icon) {
+						filter: $white-filter;
 					}
 				}
 
