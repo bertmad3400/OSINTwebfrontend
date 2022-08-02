@@ -15,7 +15,6 @@
 	import { getUserFeeds } from "./lib/user/feeds.js"
 	import { getUserCollections } from "./lib/user/collections.js"
 	import { syncLocalStorageToState, syncStateToLocalStorage, createArticleModal } from "./lib/state.js"
-	import { syncLocalStorageToState, syncStateToLocalStorage } from "./lib/state.js"
 
 	// List of name of stores that is saved in local storage for preserving state across reloads
 	let savedStateStores = ["state", "modalState", "currentSearch"]
