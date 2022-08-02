@@ -65,15 +65,6 @@ div.content-container {
 				background-color: $white;
 			}
 
-			&:not(:placeholder-shown) ~ img.icon {
-				color: $main-color;
-				opacity: 0.8;
-				border-color: $main-color-light;
-
-				&:hover {
-					cursor: pointer;
-				}
-			}
 		}
 
 		label.desc {
@@ -121,9 +112,16 @@ div.content-container {
 				cursor: pointer;
 
 				img.icon {
-					color: $main-color;
+					filter: $main-color-light-filter;
 					opacity: 0.8;
-					border-color: $main-color-light;
+					border-color: black;
+
+					transition: filter 0.3s, opacity 0.3s;
+
+					&:hover {
+						filter: $main-color-filter;
+						opacity: 1;
+					}
 				}
 			}
 		}
